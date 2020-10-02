@@ -21,7 +21,7 @@ serve: all
 	docker run \
 		--rm \
 		-it \
-		-v ${PWD}:/usr/share/nginx/html:ro \
+		-v ${PWD}/dist:/usr/share/nginx/html:ro \
 		-p 8080:80 \
 		nginx:1.19.2
 
