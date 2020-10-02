@@ -6,10 +6,10 @@ all: \
 dist/wasm_exec.js: $(GOROOT)/misc/wasm/wasm_exec.js dist
 	cp $< $@
 
-dist/main.wasm:
+dist/main.wasm: dist
 	GOOS=js GOARCH=wasm go build -o $@ ./game
 
-dist/index.html: static/index.html
+dist/index.html: static/index.html dist
 	cp $< $@
 
 dist:
