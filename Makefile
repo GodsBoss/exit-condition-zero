@@ -1,4 +1,5 @@
 all: \
+	dist/index.html \
 	dist/main.wasm \
 	dist/wasm_exec.js
 
@@ -7,6 +8,9 @@ dist/wasm_exec.js: $(GOROOT)/misc/wasm/wasm_exec.js dist
 
 dist/main.wasm:
 	GOOS=js GOARCH=wasm go build -o $@ ./game
+
+dist/index.html: static/index.html
+	cp $< $@
 
 dist:
 	mkdir -p dist
