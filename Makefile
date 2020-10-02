@@ -22,6 +22,7 @@ serve: all
 		--rm \
 		-it \
 		-v ${PWD}/dist:/usr/share/nginx/html:ro \
+		-v ${PWD}/misc/docker-nginx/etc/nginx/conf.d/default.conf:/etc/nginx/conf.d/default.conf:ro \
 		-p 8080:80 \
 		nginx:1.19.2
 
