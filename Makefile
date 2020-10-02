@@ -1,4 +1,6 @@
-all: dist/main.wasm dist/wasm_exec.js
+all: \
+	dist/main.wasm \
+	dist/wasm_exec.js
 
 dist/wasm_exec.js: $(GOROOT)/misc/wasm/wasm_exec.js dist
 	cp $< $@
