@@ -12,15 +12,15 @@ type fullMirror struct {
 }
 
 func newFullMirror(spriteMap sprite.Map, orientation fullMirrorOrientation, deletable, movable, configurable bool) field {
-	return &commonField{
-		field: &fullMirror{
+	return newCommonField(
+		&fullMirror{
 			spriteMap:    spriteMap,
 			orientation:  orientation,
 			configurable: configurable,
 		},
-		deletable: deletable,
-		movable:   movable,
-	}
+		setDeletable(deletable),
+		setMovable(movable),
+	)
 }
 
 func (mirror *fullMirror) Reset() {}

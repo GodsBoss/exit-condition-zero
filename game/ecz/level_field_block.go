@@ -13,13 +13,13 @@ type blocker struct {
 }
 
 func newBlocker(spriteMap sprite.Map, deletable, movable bool) field {
-	return &commonField{
-		field: &blocker{
+	return newCommonField(
+		&blocker{
 			spriteMap: spriteMap,
 		},
-		deletable: deletable,
-		movable:   movable,
-	}
+		setDeletable(deletable),
+		setMovable(movable),
+	)
 }
 
 func (b *blocker) Reset() {}
