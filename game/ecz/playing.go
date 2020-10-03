@@ -392,17 +392,11 @@ func (p *playing) Renderables(scale int) []game.Renderable {
 	}
 
 	if p.isDeleteMode {
-		r = append(
-			r,
-			p.spriteMap.Produce("p_cursor", 245, 5, scale, 0),
-		)
+		r = append(r, p.spriteMap.Produce("p_cursor", 245, 5, scale, 0))
 	}
 
 	if p.isMoveMode {
-		r = append(
-			r,
-			p.spriteMap.Produce("p_cursor", 270, 5, scale, 0),
-		)
+		r = append(r, p.spriteMap.Produce("p_cursor", 270, 5, scale, 0))
 	}
 
 	return r
