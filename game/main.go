@@ -36,12 +36,7 @@ func run() error {
 	dominit.Run(
 		game.New(
 			"title",
-			map[string]game.State{
-				"game_over":    ecz.NewGameOver(spriteMap),
-				"level_select": ecz.NewLevelSelect(spriteMap),
-				"playing":      ecz.NewPlaying(spriteMap),
-				"title":        ecz.NewTitle(spriteMap),
-			},
+			ecz.States(spriteMap),
 		),
 	)
 	<-make(chan struct{}, 0)
