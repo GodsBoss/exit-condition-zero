@@ -9,24 +9,30 @@ import (
 
 type Game struct {
 	scale int
-	state State
 
-	output    *dom.Context2D
-	spriteMap SpriteMap
+	currentStateID string
+	states         map[string]State
+
+	output *dom.Context2D
 }
 
 type SpriteMap interface {
 	Produce(id string, x, y int, scale int, frame int) Renderable
 }
 
-func New(spriteMap SpriteMap) *Game {
+func New(
+	initialStateID string,
+	states map[string]State,
+) *Game {
 	return &Game{
-		state: &title{
-			spriteMap: spriteMap,
-		},
-		scale:     1,
-		spriteMap: spriteMap,
+		states:         states,
+		currentStateID: initialStateID,
+		scale:          1,
 	}
+}
+
+func (g *Game) currentState() State {
+	return g.states[g.currentStateID]
 }
 
 func (g *Game) TicksPerSecond() int {
@@ -39,7 +45,7 @@ func (g *Game) SetOutput(ctx2d *dom.Context2D) {
 }
 
 func (g *Game) Render() {
-	renderables := g.state.Renderables()
+	renderables := g.currentState().Renderables()
 	for i := range renderables {
 		renderables[i].Render(g.output)
 	}
@@ -62,15 +68,15 @@ func (g *Game) Scale(availableWidth, availableHeight int) (realWidth, realHeight
 }
 
 func (g *Game) Tick(ms int) {
-	g.state.Tick(ms)
+	g.currentState().Tick(ms)
 }
 
 func (g *Game) ReceiveKeyEvent(event interaction.KeyEvent) {
-	g.state.ReceiveKeyEvent(event)
+	g.currentState().ReceiveKeyEvent(event)
 }
 
 func (g *Game) ReceiveMouseEvent(event interaction.MouseEvent) {
-	g.state.ReceiveMouseEvent(event)
+	g.currentState().ReceiveMouseEvent(event)
 }
 
 const (

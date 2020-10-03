@@ -1,9 +1,11 @@
 package main
 
 import (
+	"github.com/GodsBoss/exit-condition-zero/game/ecz"
 	"github.com/GodsBoss/exit-condition-zero/pkg/game"
 	"github.com/GodsBoss/exit-condition-zero/pkg/imageload"
 	"github.com/GodsBoss/exit-condition-zero/pkg/rendering/sprite"
+
 	"github.com/GodsBoss/ld46/pkg/console"
 
 	"github.com/GodsBoss/gggg/pkg/dom"
@@ -30,7 +32,15 @@ func run() error {
 	if err != nil {
 		return err
 	}
-	dominit.Run(game.New(sprite.NewMap(img, spriteSources)))
+	spriteMap := sprite.NewMap(img, spriteSources)
+	dominit.Run(
+		game.New(
+			"title",
+			map[string]game.State{
+				"title": ecz.NewTitle(spriteMap),
+			},
+		),
+	)
 	<-make(chan struct{}, 0)
 	return nil
 }
