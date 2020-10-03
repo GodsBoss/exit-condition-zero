@@ -144,6 +144,49 @@ func levelsData() *levels {
 				},
 			},
 			{
+				X: 70,
+				Y: 10,
+				Texts: []levelText{
+					{
+						X: 5,
+						Y: 5,
+						Content: levelTextContent(
+							"Some elements can be configured on",
+							"the spot. Use the 'configure' button",
+							"in the top right corner (the right",
+							"one).",
+						),
+					},
+				},
+				getFields: func(spriteMap sprite.Map) map[int2d.Vector]field {
+					return map[int2d.Vector]field{
+						v(5, 6): &pulsor{
+							spriteMap: spriteMap,
+							directions: map[direction]bool{
+								dirRight: true,
+								dirDown:  true,
+								dirLeft:  true,
+							},
+						},
+						v(7, 6): newFullMirror(spriteMap, ascendingFullMirrorOrientation{}, false, false, true),
+						v(7, 4): &exitConditionField{
+							spriteMap: spriteMap,
+						},
+						v(7, 8): newBlocker(spriteMap, true, false),
+						v(3, 6): newHalfMirror(spriteMap, 1, false, false, true),
+						v(3, 4): &exitConditionField{
+							spriteMap: spriteMap,
+						},
+						v(3, 9): newBlocker(spriteMap, true, false),
+						v(5, 7): newRotator(spriteMap, false, false, false, true),
+						v(2, 7): &exitConditionField{
+							spriteMap: spriteMap,
+						},
+						v(10, 7): newBlocker(spriteMap, true, false),
+					}
+				},
+			},
+			{
 				X: 280,
 				Y: 200,
 				Texts: []levelText{
