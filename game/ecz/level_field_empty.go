@@ -39,6 +39,6 @@ func (f *emptyField) IsFree() bool {
 	return f.free
 }
 
-func (f *emptyField) Renderable() game.Renderable {
+func (f *emptyField) Renderable(x, y int, scale int) game.Renderable {
 	return rendering.Null{}
 }

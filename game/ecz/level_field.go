@@ -32,8 +32,9 @@ type field interface {
 	// IsMovable determines wether the player can move this field.
 	IsMovable() bool
 
-	// Renderable returns the graphical representation of a field.
-	Renderable() game.Renderable
+	// Renderable returns the graphical representation of a field. x and y are
+	// in-game unscaled pixel coordinates.
+	Renderable(x, y int, scale int) game.Renderable
 }
 
 type direction string

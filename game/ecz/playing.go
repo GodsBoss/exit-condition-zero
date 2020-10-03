@@ -92,7 +92,19 @@ func (p *playing) Renderables(scale int) []game.Renderable {
 		r = append(r, p.spriteMap.Produce("playing_button_run", 245, 215, scale, 0))
 	}
 	for v := range p.fields {
-		r = append(r, p.fields[v].Renderable())
+		r = append(
+			r,
+			p.fields[v].Renderable(
+				fieldsOffsetX+v.X()*fieldsWidth,
+				fieldsOffsetY+v.Y()*fieldsHeight,
+				scale,
+			),
+		)
 	}
 	return r
 }
+
+const fieldsOffsetX = 10
+const fieldsOffsetY = 10
+const fieldsWidth = 20
+const fieldsHeight = 20

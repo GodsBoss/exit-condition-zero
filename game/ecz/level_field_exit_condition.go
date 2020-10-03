@@ -40,6 +40,6 @@ func (f *exitConditionField) AllowsVictory() bool {
 	return !f.hasBeenHit
 }
 
-func (f *exitConditionField) Renderable() game.Renderable {
+func (f *exitConditionField) Renderable(x, y int, scale int) game.Renderable {
 	return rendering.Null{}
 }

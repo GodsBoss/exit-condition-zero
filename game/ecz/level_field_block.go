@@ -32,6 +32,6 @@ func (b *blocker) IsMovable() bool {
 	return b.movable
 }
 
-func (b *blocker) Renderable() game.Renderable {
+func (b *blocker) Renderable(x, y int, scale int) game.Renderable {
 	return rendering.Null{}
 }

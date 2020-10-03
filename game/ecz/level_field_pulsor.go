@@ -39,6 +39,6 @@ func (p *pulsor) IsMovable() bool {
 	return p.movable
 }
 
-func (p *pulsor) Renderable() game.Renderable {
+func (p *pulsor) Renderable(x, y int, scale int) game.Renderable {
 	return rendering.Null{}
 }
