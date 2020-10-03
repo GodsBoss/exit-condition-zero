@@ -649,4 +649,58 @@ var spriteSources = sprite.SourceMap{
 		W: 5,
 		H: 5,
 	},
+	"text_border_top": {
+		X: 17,
+		Y: 1562,
+		W: 6,
+		H: 3,
+	},
+	"text_border_right_top": {
+		X: 23,
+		Y: 1562,
+		W: 3,
+		H: 3,
+	},
+	"text_border_right": {
+		X: 23,
+		Y: 1565,
+		W: 3,
+		H: 6,
+	},
+	"text_border_right_bottom": {
+		X: 23,
+		Y: 1571,
+		W: 3,
+		H: 3,
+	},
+	"text_border_bottom": {
+		X: 17,
+		Y: 1571,
+		W: 6,
+		H: 3,
+	},
+	"text_border_left_bottom": {
+		X: 14,
+		Y: 1571,
+		W: 3,
+		H: 3,
+	},
+	"text_border_left": {
+		X: 14,
+		Y: 1565,
+		W: 3,
+		H: 6,
+	},
+	"text_border_left_top": {
+		X: 14,
+		Y: 1562,
+		W: 3,
+		H: 3,
+	},
+	"text_border_center": {
+		X: 17,
+		Y: 1565,
+		W: 6,
+		H: 6,
+	},
 }
