@@ -1,5 +1,6 @@
 package int2d
 
+// Vector is a value struct. It can be used as a map key.
 type Vector struct {
 	x int
 	y int
