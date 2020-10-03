@@ -52,6 +52,51 @@ func levelsData() *levels {
 				},
 			},
 			{
+				X: 30,
+				Y: 10,
+				Texts: []levelText{
+					{
+						X: 5,
+						Y: 5,
+						Content: levelTextContent(
+							"There are many different tools you",
+							"can use. It's also possible to swap",
+							"them if both could be moved.",
+							"All exit conditions must be zero,",
+							"else you cannot win!",
+						),
+					},
+				},
+				Tutorial: true,
+				getFields: func(spriteMap sprite.Map) map[int2d.Vector]field {
+					return map[int2d.Vector]field{
+						v(1, 9): &pulsor{
+							spriteMap: spriteMap,
+							directions: map[direction]bool{
+								dirUp:    true,
+								dirRight: true,
+							},
+						},
+						v(1, 7): &polarizer{
+							spriteMap:   spriteMap,
+							orientation: verticalPolarizerOrientation{},
+							movable:     true,
+						},
+						v(1, 5): &exitConditionField{
+							spriteMap: spriteMap,
+						},
+						v(3, 9): &polarizer{
+							spriteMap:   spriteMap,
+							orientation: horizontalPolarizerOrientation{},
+							movable:     true,
+						},
+						v(5, 9): &exitConditionField{
+							spriteMap: spriteMap,
+						},
+					}
+				},
+			},
+			{
 				X: 280,
 				Y: 200,
 				Texts: []levelText{
