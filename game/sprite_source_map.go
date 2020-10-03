@@ -102,7 +102,7 @@ var spriteSources = sprite.SourceMap{
 		H:      20,
 		Frames: 6,
 	},
-	"p_sink": {
+	"p_exit_condition": {
 		X: 20,
 		Y: 0,
 		W: 20,

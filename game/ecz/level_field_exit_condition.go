@@ -55,7 +55,7 @@ func (f *exitConditionField) AllowsVictory() bool {
 }
 
 func (f *exitConditionField) Renderable(x, y int, scale int) game.Renderable {
-	return f.spriteMap.Produce("p_sink", x, y, scale, 0)
+	return f.spriteMap.Produce("p_exit_condition", x, y, scale, 0)
 }
 
 func (f *exitConditionField) Tick(ms int) {}
