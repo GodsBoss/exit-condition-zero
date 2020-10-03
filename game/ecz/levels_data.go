@@ -72,6 +72,19 @@ func levelsData() *levels {
 							false,
 							false,
 						),
+						v(3, 9): &pulsor{
+							spriteMap: spriteMap,
+							directions: map[direction]bool{
+								dirUp:    true,
+								dirRight: true,
+								dirDown:  true,
+								dirLeft:  true,
+							},
+						},
+						v(3, 8):  newFreeField(spriteMap),
+						v(4, 9):  newFreeField(spriteMap),
+						v(3, 10): newFreeField(spriteMap),
+						v(2, 9):  newHalfMirror(spriteMap, 1, false, true, true),
 					}
 				},
 			},
