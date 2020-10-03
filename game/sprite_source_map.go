@@ -71,4 +71,22 @@ var spriteSources = sprite.SourceMap{
 		W: 20,
 		H: 20,
 	},
+	"playing_button_run": {
+		X: 300,
+		Y: 0,
+		W: 20,
+		H: 20,
+	},
+	"playing_button_reset": {
+		X: 320,
+		Y: 0,
+		W: 20,
+		H: 20,
+	},
+	"playing_button_exit": {
+		X: 340,
+		Y: 0,
+		W: 20,
+		H: 20,
+	},
 }
