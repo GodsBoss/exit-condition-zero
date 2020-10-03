@@ -76,10 +76,11 @@ var spriteSources = sprite.SourceMap{
 		Frames: 2,
 	},
 	"playing_button_stop": {
-		X: 280,
-		Y: 0,
-		W: 20,
-		H: 20,
+		X:      0,
+		Y:      100,
+		W:      20,
+		H:      20,
+		Frames: 8,
 	},
 	"playing_button_run": {
 		X:      0,
