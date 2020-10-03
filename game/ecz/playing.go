@@ -4,6 +4,7 @@ import (
 	"github.com/GodsBoss/exit-condition-zero/pkg/game"
 	"github.com/GodsBoss/exit-condition-zero/pkg/rect"
 	"github.com/GodsBoss/exit-condition-zero/pkg/rendering/sprite"
+	"github.com/GodsBoss/exit-condition-zero/pkg/vector/int2d"
 
 	"github.com/GodsBoss/gggg/pkg/interaction"
 )
@@ -13,6 +14,7 @@ type playing struct {
 	levels    *levels
 
 	running bool
+	fields  map[int2d.Vector]field
 }
 
 func newPlaying(spriteMap sprite.Map, levels *levels) game.State {
@@ -24,6 +26,17 @@ func newPlaying(spriteMap sprite.Map, levels *levels) game.State {
 
 func (p *playing) Init() {
 	p.running = false
+	p.fields = make(map[int2d.Vector]field)
+	for x := 0; x < 11; x++ {
+		for y := 0; y < 11; y++ {
+			p.fields[int2d.FromXY(x, y)] = &emptyField{}
+		}
+	}
+
+	lvlFields := p.levels.levels[p.levels.selectedLevel].getFields()
+	for v := range lvlFields {
+		p.fields[v] = lvlFields[v]
+	}
 }
 
 func (p *playing) Tick(ms int) *game.Transition {
