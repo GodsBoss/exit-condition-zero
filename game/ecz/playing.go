@@ -13,8 +13,13 @@ type playing struct {
 	spriteMap sprite.Map
 	levels    *levels
 
-	running bool
-	fields  map[int2d.Vector]field
+	running             bool
+	msUntilNextBeamStep int
+	beams               map[beamIndex]struct{}
+	pulses              []*pulse
+	acceptedPulses      map[int2d.Vector]map[direction]struct{}
+	firstHalf           bool
+	fields              map[int2d.Vector]field
 }
 
 func newPlaying(spriteMap sprite.Map, levels *levels) game.State {
@@ -26,6 +31,7 @@ func newPlaying(spriteMap sprite.Map, levels *levels) game.State {
 
 func (p *playing) Init() {
 	p.running = false
+	p.initRunningValues()
 	p.fields = make(map[int2d.Vector]field)
 	for x := 0; x < 11; x++ {
 		for y := 0; y < 11; y++ {
@@ -42,6 +48,13 @@ func (p *playing) Init() {
 }
 
 func (p *playing) Tick(ms int) *game.Transition {
+	if p.running {
+		p.msUntilNextBeamStep -= ms
+		if p.msUntilNextBeamStep <= 0 {
+			p.msUntilNextBeamStep = msPerBeamStep
+			p.beamStep()
+		}
+	}
 	return nil
 }
 
@@ -74,10 +87,100 @@ func (p *playing) toggleRun() {
 
 func (p *playing) startRunning() {
 	p.running = true
+	p.initRunningValues()
+	p.extractPulses()
 }
+
+func (p *playing) initRunningValues() {
+	p.firstHalf = true
+	p.msUntilNextBeamStep = msPerBeamStep
+	p.beams = make(map[beamIndex]struct{})
+	p.pulses = make([]*pulse, 0)
+	p.acceptedPulses = make(map[int2d.Vector]map[direction]struct{})
+}
+
+func (p *playing) extractPulses() {
+	for v := range p.fields {
+		dirs := p.fields[v].ExtractOutputPulses()
+		for i := range dirs {
+			p.pulses = append(
+				p.pulses,
+				&pulse{
+					pos: v,
+					dir: dirs[i],
+				},
+			)
+		}
+	}
+}
+
+func (p *playing) beamStep() {
+	if len(p.pulses) == 0 {
+		p.pulsesExhausted()
+		return
+	}
+
+	// Remove pulses duplicating already existing beams. A beam is uniquely
+	// identified by position and direction.
+	// This is only needed in the first half of beam creation.
+	if p.firstHalf {
+		leftOverPulses := make([]*pulse, 0)
+		for i := range p.pulses {
+			pulse := p.pulses[i]
+			if _, ok := p.beams[beamIndex{v: pulse.pos, d: pulse.dir, firstHalf: true}]; !ok {
+				leftOverPulses = append(leftOverPulses, pulse)
+			}
+		}
+		p.pulses = leftOverPulses
+	}
+
+	// Create beams.
+	for i := range p.pulses {
+		p.beams[beamIndex{v: p.pulses[i].pos, d: p.pulses[i].dir, firstHalf: p.firstHalf}] = struct{}{}
+	}
+
+	// The second part of beam creation is the interesting one. Fields may be hit
+	// immediately or will be remembered for later accepting beams.
+	if !p.firstHalf {
+		nextPulses := make([]*pulse, 0)
+
+		for i := range p.pulses {
+			puls := p.pulses[i]
+			nextPos := realGridPosition(int2d.Add(puls.pos, directionVectors[puls.dir]))
+
+			hit, nextDirs := p.fields[nextPos].ImmediateHit(puls.dir)
+
+			// Mark this field as having accepted a pulse.
+			if hit {
+				if p.acceptedPulses[nextPos] == nil {
+					p.acceptedPulses[nextPos] = make(map[direction]struct{})
+				}
+				p.acceptedPulses[nextPos][puls.dir] = struct{}{}
+			}
+
+			// Create new pulses, according to new directions from hit.
+			for i := range nextDirs {
+				nextPulses = append(
+					nextPulses,
+					&pulse{
+						pos: nextPos,
+						dir: nextDirs[i],
+					},
+				)
+			}
+		}
+
+		p.pulses = nextPulses
+	}
+
+	p.firstHalf = !p.firstHalf
+}
+
+func (p *playing) pulsesExhausted() {}
 
 func (p *playing) stopRunning() {
 	p.running = false
+	p.initRunningValues()
 }
 
 func (p *playing) Renderables(scale int) []game.Renderable {
@@ -86,11 +189,13 @@ func (p *playing) Renderables(scale int) []game.Renderable {
 		p.spriteMap.Produce("playing_button_reset", 270, 215, scale, 0),
 		p.spriteMap.Produce("playing_button_exit", 295, 215, scale, 0),
 	}
+
 	if p.running {
 		r = append(r, p.spriteMap.Produce("playing_button_stop", 245, 215, scale, 0))
 	} else {
 		r = append(r, p.spriteMap.Produce("playing_button_run", 245, 215, scale, 0))
 	}
+
 	for v := range p.fields {
 		r = append(
 			r,
@@ -101,10 +206,74 @@ func (p *playing) Renderables(scale int) []game.Renderable {
 			),
 		)
 	}
+
+	for bi := range p.beams {
+		pos := bi.v
+		if !bi.firstHalf {
+			pos = realGridPosition(int2d.Add(pos, directionVectors[bi.d]))
+		}
+		r = append(
+			r,
+			p.spriteMap.Produce(
+				beamSpriteIDs[bi.firstHalf][bi.d],
+				pos.X()*fieldsWidth+fieldsOffsetX-1,
+				pos.Y()*fieldsHeight+fieldsOffsetY-1,
+				scale,
+				0,
+			),
+		)
+	}
+
 	return r
+}
+
+var beamSpriteIDs = map[bool]map[direction]string{
+	true: {
+		dirUp:    "p_beam_up_1",
+		dirRight: "p_beam_right_1",
+		dirDown:  "p_beam_down_1",
+		dirLeft:  "p_beam_left_1",
+	},
+	false: {
+		dirUp:    "p_beam_up_2",
+		dirRight: "p_beam_right_2",
+		dirDown:  "p_beam_down_2",
+		dirLeft:  "p_beam_left_2",
+	},
 }
 
 const fieldsOffsetX = 10
 const fieldsOffsetY = 10
 const fieldsWidth = 20
 const fieldsHeight = 20
+
+const msPerBeamStep = 200
+
+type pulse struct {
+	pos int2d.Vector
+	dir direction
+}
+
+type beamIndex struct {
+	v         int2d.Vector
+	d         direction
+	firstHalf bool
+}
+
+func realGridPosition(v int2d.Vector) int2d.Vector {
+	x := v.X()
+	y := v.Y()
+	if x < 0 {
+		x += 11
+	}
+	if y < 0 {
+		y += 11
+	}
+	if x >= 11 {
+		x -= 11
+	}
+	if y >= 11 {
+		y -= 11
+	}
+	return int2d.FromXY(x, y)
+}
