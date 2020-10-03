@@ -39,8 +39,28 @@ func (p *playing) ReceiveMouseEvent(event interaction.MouseEvent) *game.Transiti
 				NextState: "title",
 			}
 		}
+
+		if rect.FromPositionAndSize(245, 215, 20, 20).Inside(event.X, event.Y) {
+			p.toggleRun()
+		}
 	}
 	return nil
+}
+
+func (p *playing) toggleRun() {
+	if p.running {
+		p.startRunning()
+	} else {
+		p.stopRunning()
+	}
+}
+
+func (p *playing) startRunning() {
+	p.running = true
+}
+
+func (p *playing) stopRunning() {
+	p.running = false
 }
 
 func (p *playing) Renderables(scale int) []game.Renderable {
