@@ -17,6 +17,7 @@ type playing struct {
 	isDeleteMode         bool
 	isMoveMode           bool
 	fieldSelectedForMove *int2d.Vector
+	selectableFields     []int2d.Vector
 
 	running             bool
 	msUntilNextBeamStep int
@@ -131,6 +132,11 @@ func (p *playing) toggleDeleteMode() {
 		return
 	}
 	p.isDeleteMode = true
+	p.findSelectableFields(
+		func(f field) bool {
+			return f.IsDeletable()
+		},
+	)
 }
 
 func (p *playing) attemptToDelete() {
@@ -198,6 +204,19 @@ func (p *playing) attemptToMove() {
 	}
 
 	p.clearMoveMode()
+}
+
+func (p *playing) clearSelectableFields() {
+	p.selectableFields = make([]int2d.Vector, 0)
+}
+
+func (p *playing) findSelectableFields(criteria func(field) bool) {
+	p.clearSelectableFields()
+	for v := range p.fields {
+		if criteria(p.fields[v]) {
+			p.selectableFields = append(p.selectableFields, v)
+		}
+	}
 }
 
 func (p *playing) toggleRun() {
@@ -389,6 +408,21 @@ func (p *playing) Renderables(scale int) []game.Renderable {
 				0,
 			),
 		)
+	}
+
+	if p.isDeleteMode || p.isMoveMode {
+		for i := range p.selectableFields {
+			r = append(
+				r,
+				p.spriteMap.Produce(
+					"p_marker",
+					p.selectableFields[i].X()*fieldsWidth+fieldsOffsetX,
+					p.selectableFields[i].Y()*fieldsHeight+fieldsOffsetY,
+					scale,
+					0,
+				),
+			)
+		}
 	}
 
 	if p.isDeleteMode {
