@@ -19,6 +19,7 @@ type playing struct {
 	pulses              []*pulse
 	acceptedPulses      map[int2d.Vector]map[direction]struct{}
 	firstHalf           bool
+	gameOver            bool
 	fields              map[int2d.Vector]field
 }
 
@@ -31,6 +32,7 @@ func newPlaying(spriteMap sprite.Map, levels *levels) game.State {
 
 func (p *playing) Init() {
 	p.running = false
+	p.gameOver = false
 	p.initRunningValues()
 	p.fields = make(map[int2d.Vector]field)
 	for x := 0; x < 11; x++ {
@@ -48,6 +50,11 @@ func (p *playing) Init() {
 }
 
 func (p *playing) Tick(ms int) *game.Transition {
+	if p.gameOver {
+		return &game.Transition{
+			NextState: "game_over",
+		}
+	}
 	if p.running {
 		p.msUntilNextBeamStep -= ms
 		if p.msUntilNextBeamStep <= 0 {
@@ -184,6 +191,22 @@ func (p *playing) pulsesExhausted() {
 		}
 		p.fields[v].Receive(dirs)
 	}
+
+	if p.hasWon() {
+		p.running = false
+		p.gameOver = true
+	}
+}
+
+func (p *playing) hasWon() bool {
+	for v := range p.fields {
+		if victoryCondition, ok := p.fields[v].(fieldWithVictoryCondition); ok {
+			if !victoryCondition.AllowsVictory() {
+				return false
+			}
+		}
+	}
+	return true
 }
 
 func (p *playing) stopRunning() {
