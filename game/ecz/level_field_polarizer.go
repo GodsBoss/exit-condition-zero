@@ -8,9 +8,10 @@ import (
 type polarizer struct {
 	spriteMap sprite.Map
 
-	orientation polarizerOrientation
-	deletable   bool
-	movable     bool
+	orientation  polarizerOrientation
+	deletable    bool
+	movable      bool
+	configurable bool
 }
 
 var _ field = &polarizer{}
@@ -36,10 +37,12 @@ func (pol *polarizer) IsMovable() bool {
 }
 
 func (pol *polarizer) IsConfigurable() bool {
-	return false
+	return pol.configurable
 }
 
-func (pol *polarizer) Configure() {}
+func (pol *polarizer) Configure() {
+	pol.orientation = pol.orientation.turn()
+}
 
 func (pol *polarizer) Renderable(x, y int, scale int) game.Renderable {
 	return pol.orientation.renderable(pol.spriteMap, x, y, scale)
