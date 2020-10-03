@@ -95,7 +95,7 @@ var spriteSources = sprite.SourceMap{
 		W: 20,
 		H: 20,
 	},
-	"p_source": {
+	"p_pulsor": {
 		X: 0,
 		Y: 0,
 		W: 20,
