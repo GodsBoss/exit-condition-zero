@@ -15,11 +15,17 @@ func NewGameOver() game.State {
 	return &gameOver{}
 }
 
-func (over *gameOver) Tick(ms int) {}
+func (over *gameOver) Tick(ms int) *game.Transition {
+	return nil
+}
 
-func (over *gameOver) ReceiveKeyEvent(event interaction.KeyEvent) {}
+func (over *gameOver) ReceiveKeyEvent(event interaction.KeyEvent) *game.Transition {
+	return nil
+}
 
-func (over *gameOver) ReceiveMouseEvent(event interaction.MouseEvent) {}
+func (over *gameOver) ReceiveMouseEvent(event interaction.MouseEvent) *game.Transition {
+	return nil
+}
 
 func (over *gameOver) Renderables() []game.Renderable {
 	return make([]game.Renderable, 0)

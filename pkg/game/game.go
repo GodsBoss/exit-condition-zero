@@ -68,15 +68,22 @@ func (g *Game) Scale(availableWidth, availableHeight int) (realWidth, realHeight
 }
 
 func (g *Game) Tick(ms int) {
-	g.currentState().Tick(ms)
+	g.transition(g.currentState().Tick(ms))
 }
 
 func (g *Game) ReceiveKeyEvent(event interaction.KeyEvent) {
-	g.currentState().ReceiveKeyEvent(event)
+	g.transition(g.currentState().ReceiveKeyEvent(event))
 }
 
 func (g *Game) ReceiveMouseEvent(event interaction.MouseEvent) {
-	g.currentState().ReceiveMouseEvent(event)
+	g.transition(g.currentState().ReceiveMouseEvent(event))
+}
+
+func (g *Game) transition(trans *Transition) {
+	if trans == nil {
+		return
+	}
+	g.currentStateID = trans.NextState
 }
 
 const (

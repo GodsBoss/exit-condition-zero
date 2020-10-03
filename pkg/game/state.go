@@ -5,8 +5,12 @@ import (
 )
 
 type State interface {
-	Tick(ms int)
-	ReceiveKeyEvent(event interaction.KeyEvent)
-	ReceiveMouseEvent(event interaction.MouseEvent)
+	Tick(ms int) *Transition
+	ReceiveKeyEvent(event interaction.KeyEvent) *Transition
+	ReceiveMouseEvent(event interaction.MouseEvent) *Transition
 	Renderables() []Renderable
+}
+
+type Transition struct {
+	NextState string
 }

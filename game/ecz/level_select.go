@@ -15,11 +15,17 @@ func NewLevelSelect() game.State {
 	return &levelSelect{}
 }
 
-func (ls *levelSelect) Tick(ms int) {}
+func (ls *levelSelect) Tick(ms int) *game.Transition {
+	return nil
+}
 
-func (ls *levelSelect) ReceiveKeyEvent(event interaction.KeyEvent) {}
+func (ls *levelSelect) ReceiveKeyEvent(event interaction.KeyEvent) *game.Transition {
+	return nil
+}
 
-func (ls *levelSelect) ReceiveMouseEvent(event interaction.MouseEvent) {}
+func (ls *levelSelect) ReceiveMouseEvent(event interaction.MouseEvent) *game.Transition {
+	return nil
+}
 
 func (ls *levelSelect) Renderables() []game.Renderable {
 	return make([]game.Renderable, 0)

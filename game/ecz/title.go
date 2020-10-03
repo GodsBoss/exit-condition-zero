@@ -17,11 +17,17 @@ func NewTitle(spriteMap sprite.Map) game.State {
 	}
 }
 
-func (t *title) Tick(ms int) {}
+func (t *title) Tick(ms int) *game.Transition {
+	return nil
+}
 
-func (t *title) ReceiveKeyEvent(event interaction.KeyEvent) {}
+func (t *title) ReceiveKeyEvent(event interaction.KeyEvent) *game.Transition {
+	return nil
+}
 
-func (t *title) ReceiveMouseEvent(event interaction.MouseEvent) {}
+func (t *title) ReceiveMouseEvent(event interaction.MouseEvent) *game.Transition {
+	return nil
+}
 
 func (t *title) Renderables() []game.Renderable {
 	return make([]game.Renderable, 0)

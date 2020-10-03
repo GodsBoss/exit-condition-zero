@@ -15,11 +15,17 @@ func NewPlaying() game.State {
 	return &playing{}
 }
 
-func (p *playing) Tick(ms int) {}
+func (p *playing) Tick(ms int) *game.Transition {
+	return nil
+}
 
-func (p *playing) ReceiveKeyEvent(event interaction.KeyEvent) {}
+func (p *playing) ReceiveKeyEvent(event interaction.KeyEvent) *game.Transition {
+	return nil
+}
 
-func (p *playing) ReceiveMouseEvent(event interaction.MouseEvent) {}
+func (p *playing) ReceiveMouseEvent(event interaction.MouseEvent) *game.Transition {
+	return nil
+}
 
 func (p *playing) Renderables() []game.Renderable {
 	return make([]game.Renderable, 0)
