@@ -4,20 +4,21 @@ all: \
 	dist/main.wasm \
 	dist/wasm_exec.js
 
-dist/wasm_exec.js: $(GOROOT)/misc/wasm/wasm_exec.js dist
+dist/wasm_exec.js: $(GOROOT)/misc/wasm/wasm_exec.js
+	@mkdir -p dist
 	cp $< $@
 
-dist/main.wasm: dist
+dist/main.wasm:
+	@mkdir -p dist
 	GOOS=js GOARCH=wasm go build -o $@ ./game
 
-dist/index.html: static/index.html dist
+dist/index.html: static/index.html
+	@mkdir -p dist
 	cp $< $@
 
-dist/gfx.png: gfx/gfx.xcf gfx/gfx.sh dist
+dist/gfx.png: gfx/gfx.xcf gfx/gfx.sh
+	@mkdir -p dist
 	gfx/gfx.sh $< $@
-
-dist:
-	[ -d dist ] || mkdir dist
 
 serve: all
 	@echo "Serving files at http://127.0.0.1:8080/ ..."
