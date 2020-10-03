@@ -155,6 +155,12 @@ var spriteSources = sprite.SourceMap{
 		W: 20,
 		H: 20,
 	},
+	"p_delayed_pulsor": {
+		X: 200,
+		Y: 0,
+		W: 20,
+		H: 20,
+	},
 	"p_beam_up_1": {
 		X: 367,
 		Y: 11,
