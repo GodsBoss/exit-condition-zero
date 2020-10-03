@@ -4,7 +4,7 @@ import (
 	"github.com/GodsBoss/gggg/pkg/interaction"
 )
 
-var _ state = &gameOver{}
+var _ State = &gameOver{}
 
 type gameOver struct {
 	spriteMap SpriteMap

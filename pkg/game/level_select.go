@@ -4,7 +4,7 @@ import (
 	"github.com/GodsBoss/gggg/pkg/interaction"
 )
 
-var _ state = &levelSelect{}
+var _ State = &levelSelect{}
 
 type levelSelect struct {
 	spriteMap SpriteMap

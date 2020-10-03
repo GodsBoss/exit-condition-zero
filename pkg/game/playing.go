@@ -4,7 +4,7 @@ import (
 	"github.com/GodsBoss/gggg/pkg/interaction"
 )
 
-var _ state = &playing{}
+var _ State = &playing{}
 
 type playing struct {
 	spriteMap SpriteMap

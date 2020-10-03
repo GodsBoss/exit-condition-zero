@@ -9,7 +9,7 @@ import (
 
 type Game struct {
 	scale int
-	state state
+	state State
 
 	output    *dom.Context2D
 	spriteMap SpriteMap
