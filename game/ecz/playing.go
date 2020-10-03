@@ -18,6 +18,7 @@ type playing struct {
 	isMoveMode           bool
 	fieldSelectedForMove *int2d.Vector
 	selectableFields     []int2d.Vector
+	isConfigureMode      bool
 
 	running             bool
 	msUntilNextBeamStep int
@@ -100,6 +101,11 @@ func (p *playing) ReceiveMouseEvent(event interaction.MouseEvent) *game.Transiti
 			p.toggleMoveMode()
 		}
 
+		// Configure button
+		if rect.FromPositionAndSize(295, 5, 20, 20).Inside(event.X, event.Y) && !p.running {
+			p.toggleConfigureMode()
+		}
+
 		// Something on the grid.
 		if p.gridCursor != nil {
 			if p.isDeleteMode {
@@ -126,6 +132,7 @@ func (p *playing) ReceiveMouseEvent(event interaction.MouseEvent) *game.Transiti
 
 func (p *playing) toggleDeleteMode() {
 	p.clearMoveMode()
+	p.isConfigureMode = false
 	p.fieldSelectedForMove = nil
 	if p.isDeleteMode {
 		p.isDeleteMode = false
@@ -157,6 +164,7 @@ func (p *playing) clearMoveMode() {
 
 func (p *playing) toggleMoveMode() {
 	p.isDeleteMode = false
+	p.isConfigureMode = false
 	if p.isMoveMode {
 		p.clearMoveMode()
 		return
@@ -208,6 +216,22 @@ func (p *playing) attemptToMove() {
 
 func isValidMoveDestination(f field) bool {
 	return isFieldFree(f) || f.IsMovable() || f.IsDeletable()
+}
+
+func (p *playing) toggleConfigureMode() {
+	p.isDeleteMode = false
+	p.clearMoveMode()
+	if p.isConfigureMode {
+		p.isConfigureMode = false
+		p.clearSelectableFields()
+		return
+	}
+	p.isConfigureMode = true
+	p.findSelectableFields(
+		func(f field) bool {
+			return f.IsConfigurable()
+		},
+	)
 }
 
 func (p *playing) clearSelectableFields() {
@@ -415,7 +439,7 @@ func (p *playing) Renderables(scale int) []game.Renderable {
 		)
 	}
 
-	if p.isDeleteMode || p.isMoveMode {
+	if p.isDeleteMode || p.isMoveMode || p.isConfigureMode {
 		for i := range p.selectableFields {
 			r = append(
 				r,
