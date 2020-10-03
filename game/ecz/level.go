@@ -40,6 +40,10 @@ type level struct {
 	Hover    bool
 	Selected bool
 
+	// Tutorial determines wether this is a tutorial level. Tutorial levels are
+	// easy and often have additional information in them.
+	Tutorial bool
+
 	getFields func(sprite.Map) map[int2d.Vector]field
 }
 
