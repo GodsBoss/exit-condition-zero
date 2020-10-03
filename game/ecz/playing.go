@@ -80,16 +80,16 @@ func (p *playing) ReceiveKeyEvent(event interaction.KeyEvent) *game.Transition {
 func (p *playing) ReceiveMouseEvent(event interaction.MouseEvent) *game.Transition {
 	if event.Type == interaction.MouseUp && event.PrimaryButton() {
 
+		// Start/Stop button
+		if rect.FromPositionAndSize(245, 215, 20, 20).Inside(event.X, event.Y) {
+			p.toggleRun()
+		}
+
 		// Exit button
 		if rect.FromPositionAndSize(295, 215, 20, 20).Inside(event.X, event.Y) {
 			return &game.Transition{
 				NextState: "title",
 			}
-		}
-
-		// Start/Stop button
-		if rect.FromPositionAndSize(245, 215, 20, 20).Inside(event.X, event.Y) {
-			p.toggleRun()
 		}
 
 		// Delete button
