@@ -51,7 +51,7 @@ type level struct {
 }
 
 func (lvl level) ContainsPointer(px, py int) bool {
-	return rect.FromPositionAndSize(lvl.X, lvl.Y, 48, 48).Inside(px, py)
+	return rect.FromPositionAndSize(lvl.X, lvl.Y, levelSelectLevelWidth, levelSelectLevelHeight).Inside(px, py)
 }
 
 type levelText struct {
@@ -60,3 +60,8 @@ type levelText struct {
 
 	Content string
 }
+
+const (
+	levelSelectLevelWidth  = 48
+	levelSelectLevelHeight = 48
+)
