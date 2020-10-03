@@ -11,6 +11,7 @@ var _ fieldWithVictoryCondition = &exitConditionField{}
 func (f *exitConditionField) Reset() {}
 
 func (f *exitConditionField) ExtractOutputPulses() []direction {
+	f.hasBeenHit = false
 	return make([]direction, 0)
 }
 
