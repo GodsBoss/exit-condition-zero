@@ -26,6 +26,11 @@ func (t *title) ReceiveKeyEvent(event interaction.KeyEvent) *game.Transition {
 }
 
 func (t *title) ReceiveMouseEvent(event interaction.MouseEvent) *game.Transition {
+	if event.Type == interaction.MouseUp && event.PrimaryButton() {
+		return &game.Transition{
+			NextState: "level_select",
+		}
+	}
 	return nil
 }
 
