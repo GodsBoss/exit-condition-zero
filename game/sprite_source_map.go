@@ -149,6 +149,12 @@ var spriteSources = sprite.SourceMap{
 		W: 20,
 		H: 20,
 	},
+	"p_inverted_pulsor": {
+		X: 180,
+		Y: 0,
+		W: 20,
+		H: 20,
+	},
 	"p_beam_up_1": {
 		X: 367,
 		Y: 11,
