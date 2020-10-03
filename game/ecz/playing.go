@@ -105,6 +105,10 @@ func (p *playing) ReceiveMouseEvent(event interaction.MouseEvent) *game.Transiti
 				p.attemptToDelete()
 				return nil
 			}
+			if p.isMoveMode {
+				p.attemptToMove()
+				return nil
+			}
 		}
 	}
 
@@ -120,7 +124,7 @@ func (p *playing) ReceiveMouseEvent(event interaction.MouseEvent) *game.Transiti
 }
 
 func (p *playing) toggleDeleteMode() {
-	p.isMoveMode = false
+	p.clearMoveMode()
 	p.fieldSelectedForMove = nil
 	if p.isDeleteMode {
 		p.isDeleteMode = false
@@ -140,14 +144,60 @@ func (p *playing) attemptToDelete() {
 	p.isDeleteMode = false
 }
 
+func (p *playing) clearMoveMode() {
+	p.isMoveMode = false
+	p.fieldSelectedForMove = nil
+}
+
 func (p *playing) toggleMoveMode() {
 	p.isDeleteMode = false
 	if p.isMoveMode {
-		p.isMoveMode = false
-		p.fieldSelectedForMove = nil
+		p.clearMoveMode()
 		return
 	}
 	p.isMoveMode = true
+}
+
+func (p *playing) attemptToMove() {
+	v := *p.gridCursor
+
+	// Select field.
+	if p.fieldSelectedForMove == nil {
+		if p.fields[v].IsMovable() {
+			p.fieldSelectedForMove = &v
+			return
+		}
+		p.clearMoveMode()
+		return
+	}
+
+	// Check wether fields to move are the same. In that case, do not move anything.
+	if v == *p.fieldSelectedForMove {
+		p.clearMoveMode()
+		return
+	}
+
+	destIsFree := false
+	if destAsEmptyField, ok := p.fields[v].(fieldFree); ok {
+		destIsFree = destAsEmptyField.IsFree()
+	}
+
+	destField := p.fields[v]
+	moveIsPossible := destIsFree || destField.IsMovable() || destField.IsDeletable()
+
+	if moveIsPossible {
+		p.fields[v] = p.fields[*p.fieldSelectedForMove]
+		if destIsFree || destField.IsMovable() {
+			p.fields[*p.fieldSelectedForMove] = destField
+		} else {
+			p.fields[*p.fieldSelectedForMove] = &emptyField{
+				spriteMap: p.spriteMap,
+				free:      true,
+			}
+		}
+	}
+
+	p.clearMoveMode()
 }
 
 func (p *playing) toggleRun() {
