@@ -16,6 +16,12 @@ type field interface {
 	// sense. This is logically different from being hit and sending a pulse into
 	// the same direction.
 	IsHit(direction) (bool, []direction)
+
+	// IsDeletable determines wether the player can delete this field.
+	IsDeletable() bool
+
+	// IsMovable determines wether the player can move this field.
+	IsMovable() bool
 }
 
 type direction string

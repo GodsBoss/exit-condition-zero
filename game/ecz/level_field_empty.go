@@ -11,3 +11,11 @@ func (f *emptyField) ExtractOutputPulses() []direction {
 func (f *emptyField) IsHit(direction) (bool, []direction) {
 	return false, nil
 }
+
+func (f *emptyField) IsDeletable() bool {
+	return false
+}
+
+func (f *emptyField) IsMovable() bool {
+	return false
+}
