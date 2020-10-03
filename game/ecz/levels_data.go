@@ -37,10 +37,7 @@ func levelsData() *levels {
 				Tutorial: true,
 				getFields: func(spriteMap sprite.Map) map[int2d.Vector]field {
 					return map[int2d.Vector]field{
-						v(3, 9): &pulsor{
-							spriteMap:  spriteMap,
-							directions: toDirectionsMap(dirRight),
-						},
+						v(3, 9): newPulsor(spriteMap, toDirectionsMap(dirRight), false, false),
 						v(1, 8): newBlocker(spriteMap, false, true),
 						v(6, 9): newFreeField(spriteMap),
 						v(9, 9): &exitConditionField{
@@ -68,10 +65,7 @@ func levelsData() *levels {
 				Tutorial: true,
 				getFields: func(spriteMap sprite.Map) map[int2d.Vector]field {
 					return map[int2d.Vector]field{
-						v(1, 9): &pulsor{
-							spriteMap:  spriteMap,
-							directions: toDirectionsMap(dirUp, dirRight),
-						},
+						v(1, 9): newPulsor(spriteMap, toDirectionsMap(dirUp, dirRight), false, false),
 						v(1, 7): &polarizer{
 							spriteMap:   spriteMap,
 							orientation: verticalPolarizerOrientation{},
@@ -114,10 +108,7 @@ func levelsData() *levels {
 				Tutorial: true,
 				getFields: func(spriteMap sprite.Map) map[int2d.Vector]field {
 					return map[int2d.Vector]field{
-						v(3, 7): &pulsor{
-							spriteMap:  spriteMap,
-							directions: toDirectionsMap(dirUp),
-						},
+						v(3, 7): newPulsor(spriteMap, toDirectionsMap(dirUp), false, false),
 						v(3, 3): newDelayedPulsor(
 							spriteMap,
 							delayPulsorModeInverted{},
@@ -151,10 +142,7 @@ func levelsData() *levels {
 				},
 				getFields: func(spriteMap sprite.Map) map[int2d.Vector]field {
 					return map[int2d.Vector]field{
-						v(5, 6): &pulsor{
-							spriteMap:  spriteMap,
-							directions: toDirectionsMap(dirRight, dirDown, dirLeft),
-						},
+						v(5, 6): newPulsor(spriteMap, toDirectionsMap(dirRight, dirDown, dirLeft), false, false),
 						v(7, 6): newFullMirror(spriteMap, ascendingFullMirrorOrientation{}, false, false, true),
 						v(7, 4): &exitConditionField{
 							spriteMap: spriteMap,
@@ -188,10 +176,7 @@ func levelsData() *levels {
 				},
 				getFields: func(spriteMap sprite.Map) map[int2d.Vector]field {
 					return map[int2d.Vector]field{
-						v(8, 2): &pulsor{
-							spriteMap:  spriteMap,
-							directions: toDirectionsMap(dirRight),
-						},
+						v(8, 2): newPulsor(spriteMap, toDirectionsMap(dirRight), false, false),
 						v(2, 2): newHalfMirror(spriteMap, 0, false, false, true),
 						v(2, 7): &exitConditionField{
 							spriteMap: spriteMap,
@@ -215,10 +200,7 @@ func levelsData() *levels {
 							spriteMap: spriteMap,
 							free:      true,
 						},
-						v(5, 3): &pulsor{
-							spriteMap:  spriteMap,
-							directions: toDirectionsMap(dirLeft, dirDown),
-						},
+						v(5, 3): newPulsor(spriteMap, toDirectionsMap(dirLeft, dirDown), false, false),
 						v(5, 7): &exitConditionField{
 							spriteMap: spriteMap,
 						},
@@ -260,10 +242,7 @@ func levelsData() *levels {
 							false,
 							false,
 						),
-						v(3, 9): &pulsor{
-							spriteMap:  spriteMap,
-							directions: toDirectionsMap(dirUp, dirRight, dirDown, dirLeft),
-						},
+						v(3, 9):  newPulsor(spriteMap, toDirectionsMap(dirUp, dirRight, dirDown, dirLeft), false, false),
 						v(3, 8):  newRotator(spriteMap, true, false, true, true),
 						v(4, 9):  newFreeField(spriteMap),
 						v(3, 10): newFreeField(spriteMap),
