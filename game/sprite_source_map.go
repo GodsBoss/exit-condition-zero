@@ -47,4 +47,28 @@ var spriteSources = sprite.SourceMap{
 		W: 48,
 		H: 48,
 	},
+	"output_up": {
+		X: 0,
+		Y: 20,
+		W: 20,
+		H: 20,
+	},
+	"output_right": {
+		X: 20,
+		Y: 20,
+		W: 20,
+		H: 20,
+	},
+	"output_down": {
+		X: 40,
+		Y: 20,
+		W: 20,
+		H: 20,
+	},
+	"output_left": {
+		X: 60,
+		Y: 20,
+		W: 20,
+		H: 20,
+	},
 }
