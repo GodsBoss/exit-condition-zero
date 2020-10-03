@@ -62,6 +62,6 @@ type levelText struct {
 }
 
 const (
-	levelSelectLevelWidth  = 48
-	levelSelectLevelHeight = 48
+	levelSelectLevelWidth  = 20
+	levelSelectLevelHeight = 20
 )
