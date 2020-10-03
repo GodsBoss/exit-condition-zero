@@ -26,12 +26,13 @@ func NewLevelSelect(spriteMap sprite.Map) game.State {
 }
 
 func (ls *levelSelect) Init() {
-	ls.clearHover()
+	ls.resetLevels()
 }
 
-func (ls *levelSelect) clearHover() {
+func (ls *levelSelect) resetLevels() {
 	for i := range ls.levels {
 		ls.levels[i].Hover = false
+		ls.levels[i].Selected = false
 	}
 }
 
@@ -45,7 +46,7 @@ func (ls *levelSelect) ReceiveKeyEvent(event interaction.KeyEvent) *game.Transit
 
 func (ls *levelSelect) ReceiveMouseEvent(event interaction.MouseEvent) *game.Transition {
 	if event.Type == interaction.MouseMove {
-		ls.clearHover()
+		ls.resetLevels()
 		for i := range ls.levels {
 			if ls.levels[i].ContainsPointer(event.X, event.Y) {
 				ls.levels[i].Hover = true
@@ -70,9 +71,10 @@ func (ls *levelSelect) Renderables(scale int) []game.Renderable {
 }
 
 type level struct {
-	X     int
-	Y     int
-	Hover bool
+	X        int
+	Y        int
+	Hover    bool
+	Selected bool
 }
 
 func (lvl level) ContainsPointer(px, py int) bool {
