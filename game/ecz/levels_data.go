@@ -41,6 +41,7 @@ func levelsData() *levels {
 							movable:      true,
 							configurable: true,
 						},
+						v(2, 2): newFullMirror(spriteMap, ascendingFullMirrorOrientation{}, true, true, true),
 					}
 				},
 			},
