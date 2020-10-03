@@ -1,5 +1,9 @@
 package ecz
 
+import (
+	"github.com/GodsBoss/exit-condition-zero/pkg/rect"
+)
+
 type levels struct {
 	levels []*level
 }
@@ -33,9 +37,5 @@ type level struct {
 }
 
 func (lvl level) ContainsPointer(px, py int) bool {
-	left := lvl.X
-	right := left + 48
-	top := lvl.Y
-	bottom := top + 48
-	return px >= left && px <= right && py >= top && py <= bottom
+	return rect.FromPositionAndSize(lvl.X, lvl.Y, 48, 48).Inside(px, py)
 }
