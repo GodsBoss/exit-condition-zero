@@ -16,14 +16,7 @@ type levelSelect struct {
 func NewLevelSelect(spriteMap sprite.Map) game.State {
 	return &levelSelect{
 		spriteMap: spriteMap,
-		levels: &levels{
-			levels: []*level{
-				{
-					X: 120,
-					Y: 40,
-				},
-			},
-		},
+		levels:    levelsData(),
 	}
 }
 
