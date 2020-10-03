@@ -40,6 +40,7 @@ func newPlaying(spriteMap sprite.Map, levels *levels) game.State {
 func (p *playing) Init() {
 	p.running = false
 	p.gameOver = false
+	p.resetFields()
 	p.initRunningValues()
 	p.fields = make(map[int2d.Vector]field)
 	for x := 0; x < 11; x++ {
@@ -269,6 +270,7 @@ func (p *playing) toggleRun() {
 
 func (p *playing) startRunning() {
 	p.running = true
+	p.resetFields()
 	p.initRunningValues()
 	p.extractPulses()
 }
@@ -390,6 +392,7 @@ func (p *playing) hasWon() bool {
 
 func (p *playing) stopRunning() {
 	p.running = false
+	p.resetFields()
 	p.initRunningValues()
 }
 
@@ -491,6 +494,12 @@ func (p *playing) Renderables(scale int) []game.Renderable {
 	}
 
 	return r
+}
+
+func (p *playing) resetFields() {
+	for v := range p.fields {
+		p.fields[v].Reset()
+	}
 }
 
 var beamSpriteIDs = map[bool]map[direction]string{
