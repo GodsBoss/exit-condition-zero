@@ -9,4 +9,4 @@ import (
 // Null implements rendering, but renders nothing.
 type Null struct{}
 
-func (n *Null) Render(output *dom.Context2D) {}
+func (n Null) Render(output *dom.Context2D) {}
