@@ -187,6 +187,34 @@ func levelsData() *levels {
 				},
 			},
 			{
+				X: 90,
+				Y: 10,
+				Texts: []levelText{
+					{
+						X: 100,
+						Y: 100,
+						Content: levelTextContent(
+							"Beware of the",
+							"wrap-around!",
+						),
+					},
+				},
+				getFields: func(spriteMap sprite.Map) map[int2d.Vector]field {
+					return map[int2d.Vector]field{
+						v(8, 2): &pulsor{
+							spriteMap: spriteMap,
+							directions: map[direction]bool{
+								dirRight: true,
+							},
+						},
+						v(2, 2): newHalfMirror(spriteMap, 0, false, false, true),
+						v(2, 7): &exitConditionField{
+							spriteMap: spriteMap,
+						},
+					}
+				},
+			},
+			{
 				X: 280,
 				Y: 200,
 				Texts: []levelText{
