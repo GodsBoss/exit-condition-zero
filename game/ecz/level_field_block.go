@@ -13,9 +13,11 @@ func (b *blocker) ExtractOutputPulses() []direction {
 	return make([]direction, 0)
 }
 
-func (b *blocker) IsHit(direction) (bool, []direction) {
+func (b *blocker) ImmediateHit(direction) (bool, []direction) {
 	return true, make([]direction, 0)
 }
+
+func (b *blocker) Receive([]direction) {}
 
 func (b *blocker) IsDeletable() bool {
 	return b.deletable

@@ -14,9 +14,12 @@ func (f *exitConditionField) ExtractOutputPulses() []direction {
 	return make([]direction, 0)
 }
 
-func (f *exitConditionField) IsHit(direction) (bool, []direction) {
-	f.hasBeenHit = true
+func (f *exitConditionField) ImmediateHit(direction) (bool, []direction) {
 	return true, make([]direction, 0)
+}
+
+func (f *exitConditionField) Receive([]direction) {
+	f.hasBeenHit = true
 }
 
 func (f *exitConditionField) IsDeletable() bool {

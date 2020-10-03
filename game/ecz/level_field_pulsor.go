@@ -20,9 +20,11 @@ func (p *pulsor) ExtractOutputPulses() []direction {
 	return dirs
 }
 
-func (p *pulsor) IsHit(direction) (bool, []direction) {
+func (p *pulsor) ImmediateHit(direction) (bool, []direction) {
 	return true, make([]direction, 0)
 }
+
+func (p *pulsor) Receive([]direction) {}
 
 func (p *pulsor) IsDeletable() bool {
 	return p.deletable

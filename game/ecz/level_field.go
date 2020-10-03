@@ -10,12 +10,16 @@ type field interface {
 	// This may change the field, e.g. "exhaust" pulses.
 	ExtractOutputPulses() []direction
 
-	// IsHit takes a beam from a direction. Returned directions are directly
-	// converted to new pulses. The field may also change state.
-	// If the first return value is false, the field is not "hit" in a meaningful
-	// sense. This is logically different from being hit and sending a pulse into
-	// the same direction.
-	IsHit(direction) (bool, []direction)
+	// ImmediateHit takes a beam from a direction. Returned directions are directly
+	// converted to new pulses. The field should not change state.
+	// The first return parameter determines wether this field was "hit" in a
+	// meaningful sense. The returned directions are handled wether the field was
+	// hit or not, so if a pulse is to be continued, it should be returned.
+	ImmediateHit(direction) (bool, []direction)
+
+	// Receive is called after all pulses have ended somewhere and a pulse hit
+	// this field. ImmediateHit() must have returned true for Receive() to be called.
+	Receive([]direction)
 
 	// IsDeletable determines wether the player can delete this field.
 	IsDeletable() bool

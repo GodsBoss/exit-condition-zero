@@ -10,9 +10,11 @@ func (f *emptyField) ExtractOutputPulses() []direction {
 	return make([]direction, 0)
 }
 
-func (f *emptyField) IsHit(direction) (bool, []direction) {
-	return false, nil
+func (f *emptyField) ImmediateHit(dir direction) (bool, []direction) {
+	return false, []direction{dir}
 }
+
+func (f *emptyField) Receive([]direction) {}
 
 func (f *emptyField) IsDeletable() bool {
 	return false
