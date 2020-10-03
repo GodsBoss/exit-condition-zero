@@ -434,7 +434,7 @@ const fieldsOffsetY = 10
 const fieldsWidth = 20
 const fieldsHeight = 20
 
-const msPerBeamStep = 200
+const msPerBeamStep = 50
 
 type pulse struct {
 	pos int2d.Vector
