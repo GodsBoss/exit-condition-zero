@@ -24,6 +24,7 @@ func New(
 	initialStateID string,
 	states map[string]State,
 ) *Game {
+	states[initialStateID].Init()
 	return &Game{
 		states:         states,
 		currentStateID: initialStateID,
