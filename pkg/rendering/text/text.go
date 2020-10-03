@@ -3,6 +3,7 @@ package text
 import (
 	"strings"
 
+	"github.com/GodsBoss/exit-condition-zero/pkg/rendering"
 	"github.com/GodsBoss/exit-condition-zero/pkg/rendering/sprite"
 	"github.com/GodsBoss/gggg/pkg/dom"
 )
@@ -33,17 +34,22 @@ func New(
 
 func (txt *Text) Render(output *dom.Context2D) {
 	lines := strings.Split(txt.contents, "\n")
+	renderables := make(rendering.Renderables, 0)
 	for row := range lines {
 		for col := range lines[row] {
-			txt.spriteMap.Produce(
-				"char_"+string(lines[row][col]),
-				txt.x+col*6,
-				txt.y+row*6,
-				txt.scale,
-				0,
-			).Render(output)
+			renderables = append(
+				renderables,
+				txt.spriteMap.Produce(
+					"char_"+string(lines[row][col]),
+					txt.x+col*6,
+					txt.y+row*6,
+					txt.scale,
+					0,
+				),
+			)
 		}
 	}
+	renderables.Render(output)
 }
 
 const allowedChars = "\nabcdefghijklmnopqrstuvwxyz 01234567890.,:;!?()[]-=><_+'\"%|~#/\\"
