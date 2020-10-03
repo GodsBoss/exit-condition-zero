@@ -9,12 +9,14 @@ import (
 
 type Game struct {
 	scale int
+	state state
 
 	output *dom.Context2D
 }
 
 func New() *Game {
 	return &Game{
+		state: &title{},
 		scale: 1,
 	}
 }
@@ -46,11 +48,17 @@ func (g *Game) Scale(availableWidth, availableHeight int) (realWidth, realHeight
 	return uiWidth * g.scale, uiHeight * g.scale, float64(g.scale), float64(g.scale)
 }
 
-func (g *Game) Tick(ms int) {}
+func (g *Game) Tick(ms int) {
+	g.state.Tick(ms)
+}
 
-func (g *Game) ReceiveKeyEvent(event interaction.KeyEvent) {}
+func (g *Game) ReceiveKeyEvent(event interaction.KeyEvent) {
+	g.state.ReceiveKeyEvent(event)
+}
 
-func (g *Game) ReceiveMouseEvent(event interaction.MouseEvent) {}
+func (g *Game) ReceiveMouseEvent(event interaction.MouseEvent) {
+	g.state.ReceiveMouseEvent(event)
+}
 
 const (
 	uiWidth  = 320
