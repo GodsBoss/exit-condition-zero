@@ -28,10 +28,7 @@ func levelsData() *levels {
 						v(5, 7): &exitConditionField{
 							spriteMap: spriteMap,
 						},
-						v(6, 7): &blocker{
-							spriteMap: spriteMap,
-							movable:   true,
-						},
+						v(6, 7): newBlocker(spriteMap, false, true),
 						v(7, 7): &blocker{
 							spriteMap: spriteMap,
 							deletable: true,

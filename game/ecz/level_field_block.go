@@ -12,6 +12,14 @@ type blocker struct {
 	movable   bool
 }
 
+func newBlocker(spriteMap sprite.Map, deletable, movable bool) field {
+	return &blocker{
+		spriteMap: spriteMap,
+		deletable: deletable,
+		movable:   movable,
+	}
+}
+
 var _ field = &blocker{}
 
 func (b *blocker) Reset() {}
