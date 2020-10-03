@@ -34,8 +34,6 @@ func newPulsor(
 	}
 }
 
-var _ field = &pulsor{}
-
 func (p *pulsor) Reset() {}
 
 func (p *pulsor) ExtractOutputPulses() []direction {
