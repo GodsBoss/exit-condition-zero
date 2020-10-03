@@ -10,36 +10,26 @@ import (
 type levelSelect struct {
 	spriteMap sprite.Map
 
-	levels []*level
+	levels *levels
 }
 
 func NewLevelSelect(spriteMap sprite.Map) game.State {
 	return &levelSelect{
 		spriteMap: spriteMap,
-		levels: []*level{
-			{
-				X: 120,
-				Y: 40,
+		levels: &levels{
+			levels: []*level{
+				{
+					X: 120,
+					Y: 40,
+				},
 			},
 		},
 	}
 }
 
 func (ls *levelSelect) Init() {
-	ls.unselectLevels()
-	ls.unhoverLevels()
-}
-
-func (ls *levelSelect) unselectLevels() {
-	for i := range ls.levels {
-		ls.levels[i].Selected = false
-	}
-}
-
-func (ls *levelSelect) unhoverLevels() {
-	for i := range ls.levels {
-		ls.levels[i].Hover = false
-	}
+	ls.levels.unselectLevels()
+	ls.levels.unhoverLevels()
 }
 
 func (ls *levelSelect) Tick(ms int) *game.Transition {
@@ -52,53 +42,45 @@ func (ls *levelSelect) ReceiveKeyEvent(event interaction.KeyEvent) *game.Transit
 
 func (ls *levelSelect) ReceiveMouseEvent(event interaction.MouseEvent) *game.Transition {
 	if event.Type == interaction.MouseMove {
-		ls.unhoverLevels()
-		lvl, ok := ls.findLevelWithCoordinates(event.X, event.Y)
+		ls.levels.unhoverLevels()
+		lvl, ok := ls.levels.findLevelWithCoordinates(event.X, event.Y)
 		if ok {
 			lvl.Hover = true
 		}
 	}
 	if event.Type == interaction.MouseDown {
-		ls.unselectLevels()
-		lvl, ok := ls.findLevelWithCoordinates(event.X, event.Y)
+		ls.levels.unselectLevels()
+		lvl, ok := ls.levels.findLevelWithCoordinates(event.X, event.Y)
 		if ok {
 			lvl.Selected = true
 		}
 	}
 	if event.Type == interaction.MouseUp {
-		lvl, ok := ls.findLevelWithCoordinates(event.X, event.Y)
+		lvl, ok := ls.levels.findLevelWithCoordinates(event.X, event.Y)
 		if ok && lvl.Selected {
 			return &game.Transition{
 				NextState: "playing",
 			}
 		}
-		ls.unselectLevels()
+		ls.levels.unselectLevels()
 	}
 	return nil
-}
-
-func (ls *levelSelect) findLevelWithCoordinates(X, Y int) (*level, bool) {
-	for i := range ls.levels {
-		if ls.levels[i].ContainsPointer(X, Y) {
-			return ls.levels[i], true
-		}
-	}
-	return nil, false
 }
 
 func (ls *levelSelect) Renderables(scale int) []game.Renderable {
 	r := []game.Renderable{
 		ls.spriteMap.Produce("bg_level_select", 0, 0, scale, 0),
 	}
-	for i := range ls.levels {
+	for i := range ls.levels.levels {
+		lvl := ls.levels.levels[i]
 		id := "level_select_level"
-		if ls.levels[i].Hover {
+		if lvl.Hover {
 			id = "level_select_level_hover"
 		}
-		if ls.levels[i].Selected {
+		if lvl.Selected {
 			id = "level_select_level_selected"
 		}
-		r = append(r, ls.spriteMap.Produce(id, ls.levels[i].X, ls.levels[i].Y, scale, 0))
+		r = append(r, ls.spriteMap.Produce(id, lvl.X, lvl.Y, scale, 0))
 	}
 	return r
 }
