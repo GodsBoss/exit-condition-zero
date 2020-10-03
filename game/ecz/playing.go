@@ -1,6 +1,8 @@
 package ecz
 
 import (
+	"math/rand"
+
 	"github.com/GodsBoss/exit-condition-zero/pkg/game"
 	"github.com/GodsBoss/exit-condition-zero/pkg/rect"
 	"github.com/GodsBoss/exit-condition-zero/pkg/rendering/sprite"
@@ -22,7 +24,7 @@ type playing struct {
 
 	running             bool
 	msUntilNextBeamStep int
-	beams               map[beamIndex]struct{}
+	beams               map[beamIndex]*beam
 	pulses              []*pulse
 	acceptedPulses      map[int2d.Vector]map[direction]struct{}
 	firstHalf           bool
@@ -64,6 +66,12 @@ func (p *playing) Tick(ms int) *game.Transition {
 		}
 	}
 	if p.running {
+		for bi := range p.beams {
+			p.beams[bi].animation += beamAnimationSpeed
+			if p.beams[bi].animation >= 4.0 {
+				p.beams[bi].animation -= 4.0
+			}
+		}
 		p.msUntilNextBeamStep -= ms
 		if p.msUntilNextBeamStep <= 0 {
 			p.msUntilNextBeamStep = msPerBeamStep
@@ -283,7 +291,7 @@ func (p *playing) startRunning() {
 func (p *playing) initRunningValues() {
 	p.firstHalf = true
 	p.msUntilNextBeamStep = msPerBeamStep
-	p.beams = make(map[beamIndex]struct{})
+	p.beams = make(map[beamIndex]*beam)
 	p.pulses = make([]*pulse, 0)
 	p.acceptedPulses = make(map[int2d.Vector]map[direction]struct{})
 }
@@ -325,7 +333,7 @@ func (p *playing) beamStep() {
 
 	// Create beams.
 	for i := range p.pulses {
-		p.beams[beamIndex{v: p.pulses[i].pos, d: p.pulses[i].dir, firstHalf: p.firstHalf}] = struct{}{}
+		p.beams[beamIndex{v: p.pulses[i].pos, d: p.pulses[i].dir, firstHalf: p.firstHalf}] = newBeam()
 	}
 
 	// The second part of beam creation is the interesting one. Fields may be hit
@@ -441,7 +449,7 @@ func (p *playing) Renderables(scale int) []game.Renderable {
 				pos.X()*fieldsWidth+fieldsOffsetX-1,
 				pos.Y()*fieldsHeight+fieldsOffsetY-1,
 				scale,
-				0,
+				int(p.beams[bi].animation),
 			),
 		)
 	}
@@ -529,6 +537,8 @@ const fieldsHeight = 20
 
 const msPerBeamStep = 50
 
+const beamAnimationSpeed = 0.1
+
 type pulse struct {
 	pos int2d.Vector
 	dir direction
@@ -538,6 +548,16 @@ type beamIndex struct {
 	v         int2d.Vector
 	d         direction
 	firstHalf bool
+}
+
+type beam struct {
+	animation float64
+}
+
+func newBeam() *beam {
+	return &beam{
+		animation: rand.Float64() * 4,
+	}
 }
 
 func realGridPosition(v int2d.Vector) int2d.Vector {
