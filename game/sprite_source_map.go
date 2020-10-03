@@ -185,6 +185,18 @@ var spriteSources = sprite.SourceMap{
 		W: 20,
 		H: 20,
 	},
+	"p_rotator_clockwise": {
+		X: 180,
+		Y: 20,
+		W: 20,
+		H: 20,
+	},
+	"p_rotator_counter_clockwise": {
+		X: 200,
+		Y: 20,
+		W: 20,
+		H: 20,
+	},
 	"p_beam_up_1": {
 		X: 367,
 		Y: 11,
