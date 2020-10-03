@@ -9,6 +9,7 @@ type rotator struct {
 	spriteMap        sprite.Map
 	counterClockwise bool
 	configurable     bool
+	anim             *animation
 }
 
 func newRotator(spriteMap sprite.Map, counterClockwise bool, deletable, movable bool, configurable bool) field {
@@ -17,6 +18,10 @@ func newRotator(spriteMap sprite.Map, counterClockwise bool, deletable, movable 
 			spriteMap:        spriteMap,
 			counterClockwise: counterClockwise,
 			configurable:     configurable,
+			anim: &animation{
+				fps:    8,
+				frames: 8,
+			},
 		},
 		setDeletable(deletable),
 		setMovable(movable),
@@ -46,10 +51,12 @@ func (r *rotator) Renderable(x, y int, scale int) game.Renderable {
 		false: "p_rotator_clockwise",
 	})[r.counterClockwise]
 
-	return r.spriteMap.Produce(spriteID, x, y, scale, 0)
+	return r.spriteMap.Produce(spriteID, x, y, scale, r.anim.frame())
 }
 
-func (r *rotator) Tick(ms int) {}
+func (r *rotator) Tick(ms int) {
+	r.anim.tick(ms)
+}
 
 func (r *rotator) IsConfigurable() bool {
 	return r.configurable
