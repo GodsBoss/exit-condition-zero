@@ -13,7 +13,10 @@ type playing struct {
 	spriteMap sprite.Map
 	levels    *levels
 
-	gridCursor *int2d.Vector
+	gridCursor           *int2d.Vector
+	isDeleteMode         bool
+	isMoveMode           bool
+	fieldSelectedForMove *int2d.Vector
 
 	running             bool
 	msUntilNextBeamStep int
@@ -85,6 +88,16 @@ func (p *playing) ReceiveMouseEvent(event interaction.MouseEvent) *game.Transiti
 		if rect.FromPositionAndSize(245, 215, 20, 20).Inside(event.X, event.Y) {
 			p.toggleRun()
 		}
+
+		// Delete button
+		if rect.FromPositionAndSize(245, 5, 20, 20).Inside(event.X, event.Y) && !p.running {
+			p.toggleDeleteMode()
+		}
+
+		// Move button
+		if rect.FromPositionAndSize(270, 5, 20, 20).Inside(event.X, event.Y) && !p.running {
+			p.toggleMoveMode()
+		}
 	}
 
 	if event.Type == interaction.MouseMove {
@@ -96,6 +109,26 @@ func (p *playing) ReceiveMouseEvent(event interaction.MouseEvent) *game.Transiti
 	}
 
 	return nil
+}
+
+func (p *playing) toggleDeleteMode() {
+	p.isMoveMode = false
+	p.fieldSelectedForMove = nil
+	if p.isDeleteMode {
+		p.isDeleteMode = false
+		return
+	}
+	p.isDeleteMode = true
+}
+
+func (p *playing) toggleMoveMode() {
+	p.isDeleteMode = false
+	if p.isMoveMode {
+		p.isMoveMode = false
+		p.fieldSelectedForMove = nil
+		return
+	}
+	p.isMoveMode = true
 }
 
 func (p *playing) toggleRun() {
@@ -286,6 +319,20 @@ func (p *playing) Renderables(scale int) []game.Renderable {
 				scale,
 				0,
 			),
+		)
+	}
+
+	if p.isDeleteMode {
+		r = append(
+			r,
+			p.spriteMap.Produce("p_cursor", 245, 5, scale, 0),
+		)
+	}
+
+	if p.isMoveMode {
+		r = append(
+			r,
+			p.spriteMap.Produce("p_cursor", 270, 5, scale, 0),
 		)
 	}
 
