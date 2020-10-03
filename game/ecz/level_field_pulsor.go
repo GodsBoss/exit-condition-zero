@@ -2,6 +2,7 @@ package ecz
 
 import (
 	"github.com/GodsBoss/exit-condition-zero/pkg/game"
+	"github.com/GodsBoss/exit-condition-zero/pkg/rendering"
 	"github.com/GodsBoss/exit-condition-zero/pkg/rendering/sprite"
 )
 
@@ -17,7 +18,7 @@ var _ field = &pulsor{}
 
 func (p *pulsor) Reset() {}
 
-func (p *pulsor) ExtractOutputPulses() []direction {
+func (p *pulsor) getOutputDirections() []direction {
 	dirs := make([]direction, 0)
 	for dir := range p.directions {
 		if p.directions[dir] {
@@ -25,6 +26,10 @@ func (p *pulsor) ExtractOutputPulses() []direction {
 		}
 	}
 	return dirs
+}
+
+func (p *pulsor) ExtractOutputPulses() []direction {
+	return p.getOutputDirections()
 }
 
 func (p *pulsor) ImmediateHit(direction) (bool, []direction) {
@@ -42,5 +47,8 @@ func (p *pulsor) IsMovable() bool {
 }
 
 func (p *pulsor) Renderable(x, y int, scale int) game.Renderable {
-	return p.spriteMap.Produce("p_source", x, y, scale, 0)
+	return rendering.Renderables{
+		p.spriteMap.Produce("p_source", x, y, scale, 0),
+		createRenderableForDirections(p.spriteMap, p.getOutputDirections(), x, y, scale),
+	}
 }
