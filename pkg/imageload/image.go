@@ -23,7 +23,7 @@ type loader struct {
 }
 
 func (l *loader) Load(imageURL string) (*dom.Image, error) {
-	img, err := l.doc.CreateImage(imageURL)
+	img, err := l.doc.CreateImageElement(imageURL)
 	if err != nil {
 		return nil, err
 	}
