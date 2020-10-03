@@ -13,7 +13,8 @@ type pulsor struct {
 	deletable  bool
 	movable    bool
 
-	anim *animation
+	anim    *animation
+	dirAnim *animation
 }
 
 func newPulsor(
@@ -30,6 +31,10 @@ func newPulsor(
 		anim: &animation{
 			fps:    10,
 			frames: 6,
+		},
+		dirAnim: &animation{
+			fps:    2,
+			frames: 2,
 		},
 	}
 }
@@ -63,10 +68,11 @@ func (p *pulsor) Configure() {}
 func (p *pulsor) Renderable(x, y int, scale int) game.Renderable {
 	return rendering.Renderables{
 		p.spriteMap.Produce("p_pulsor", x, y, scale, p.anim.frame()),
-		createRenderableForDirections(p.spriteMap, p.directions.Directions(), x, y, scale, 0),
+		createRenderableForDirections(p.spriteMap, p.directions.Directions(), x, y, scale, p.dirAnim.frame()),
 	}
 }
 
 func (p *pulsor) Tick(ms int) {
 	p.anim.tick(ms)
+	p.dirAnim.tick(ms)
 }
