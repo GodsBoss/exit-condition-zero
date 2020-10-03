@@ -89,4 +89,34 @@ var spriteSources = sprite.SourceMap{
 		W: 20,
 		H: 20,
 	},
+	"p_source": {
+		X: 0,
+		Y: 0,
+		W: 20,
+		H: 20,
+	},
+	"p_sink": {
+		X: 20,
+		Y: 0,
+		W: 20,
+		H: 20,
+	},
+	"p_field_free": {
+		X: 40,
+		Y: 0,
+		W: 20,
+		H: 20,
+	},
+	"p_field_blocked": {
+		X: 60,
+		Y: 0,
+		W: 20,
+		H: 20,
+	},
+	"p_block": {
+		X: 80,
+		Y: 0,
+		W: 20,
+		H: 20,
+	},
 }
