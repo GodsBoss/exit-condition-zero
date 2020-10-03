@@ -56,6 +56,24 @@ const (
 	dirLeft  direction = "left"
 )
 
+func turnDirectionClockwise(dir direction) direction {
+	return (map[direction]direction{
+		dirUp:    dirRight,
+		dirRight: dirDown,
+		dirDown:  dirLeft,
+		dirLeft:  dirUp,
+	})[dir]
+}
+
+func turnDirectionCounterClockwise(dir direction) direction {
+	return (map[direction]direction{
+		dirUp:    dirLeft,
+		dirRight: dirUp,
+		dirDown:  dirRight,
+		dirLeft:  dirDown,
+	})[dir]
+}
+
 var directionVectors = map[direction]int2d.Vector{
 	dirUp:    int2d.Up(),
 	dirRight: int2d.Right(),
