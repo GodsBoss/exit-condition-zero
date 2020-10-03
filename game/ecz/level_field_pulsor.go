@@ -18,6 +18,20 @@ type pulsor struct {
 	animation float64
 }
 
+func newPulsor(
+	spriteMap sprite.Map,
+	directions directionsMap,
+	deletable bool,
+	movable bool,
+) field {
+	return &pulsor{
+		spriteMap:  spriteMap,
+		directions: directions,
+		deletable:  deletable,
+		movable:    movable,
+	}
+}
+
 var _ field = &pulsor{}
 
 func (p *pulsor) Reset() {}
