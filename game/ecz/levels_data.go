@@ -18,6 +18,9 @@ func levelsData() *levels {
 							spriteMap: spriteMap,
 							free:      true,
 						},
+						v(4, 4): &pulsor{
+							spriteMap: spriteMap,
+						},
 					}
 				},
 			},

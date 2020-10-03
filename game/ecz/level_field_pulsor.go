@@ -2,10 +2,12 @@ package ecz
 
 import (
 	"github.com/GodsBoss/exit-condition-zero/pkg/game"
-	"github.com/GodsBoss/exit-condition-zero/pkg/rendering"
+	"github.com/GodsBoss/exit-condition-zero/pkg/rendering/sprite"
 )
 
 type pulsor struct {
+	spriteMap sprite.Map
+
 	directions map[direction]bool
 	deletable  bool
 	movable    bool
@@ -40,5 +42,5 @@ func (p *pulsor) IsMovable() bool {
 }
 
 func (p *pulsor) Renderable(x, y int, scale int) game.Renderable {
-	return rendering.Null{}
+	return p.spriteMap.Produce("p_source", x, y, scale, 0)
 }
