@@ -20,6 +20,7 @@ func (g *Game) TicksPerSecond() int {
 }
 
 func (g *Game) SetOutput(ctx2d *dom.Context2D) {
+	ctx2d.DisableImageSmoothing()
 	g.output = ctx2d
 }
 
