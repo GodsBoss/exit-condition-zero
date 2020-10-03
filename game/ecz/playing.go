@@ -162,6 +162,11 @@ func (p *playing) toggleMoveMode() {
 		return
 	}
 	p.isMoveMode = true
+	p.findSelectableFields(
+		func(f field) bool {
+			return f.IsMovable()
+		},
+	)
 }
 
 func (p *playing) attemptToMove() {
@@ -171,6 +176,7 @@ func (p *playing) attemptToMove() {
 	if p.fieldSelectedForMove == nil {
 		if p.fields[v].IsMovable() {
 			p.fieldSelectedForMove = &v
+			p.findSelectableFields(isValidMoveDestination)
 			return
 		}
 		p.clearMoveMode()
@@ -183,17 +189,11 @@ func (p *playing) attemptToMove() {
 		return
 	}
 
-	destIsFree := false
-	if destAsEmptyField, ok := p.fields[v].(fieldFree); ok {
-		destIsFree = destAsEmptyField.IsFree()
-	}
-
 	destField := p.fields[v]
-	moveIsPossible := destIsFree || destField.IsMovable() || destField.IsDeletable()
 
-	if moveIsPossible {
+	if isValidMoveDestination(destField) {
 		p.fields[v] = p.fields[*p.fieldSelectedForMove]
-		if destIsFree || destField.IsMovable() {
+		if isFieldFree(destField) || destField.IsMovable() {
 			p.fields[*p.fieldSelectedForMove] = destField
 		} else {
 			p.fields[*p.fieldSelectedForMove] = &emptyField{
@@ -204,6 +204,10 @@ func (p *playing) attemptToMove() {
 	}
 
 	p.clearMoveMode()
+}
+
+func isValidMoveDestination(f field) bool {
+	return isFieldFree(f) || f.IsMovable() || f.IsDeletable()
 }
 
 func (p *playing) clearSelectableFields() {

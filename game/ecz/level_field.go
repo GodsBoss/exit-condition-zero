@@ -87,3 +87,10 @@ type fieldFree interface {
 	// neither being deletable nor movable.
 	IsFree() bool
 }
+
+func isFieldFree(f field) bool {
+	if ff, ok := f.(fieldFree); ok {
+		return ff.IsFree()
+	}
+	return false
+}
