@@ -46,6 +46,7 @@ func (pol *polarizer) Renderable(x, y int, scale int) game.Renderable {
 type polarizerOrientation interface {
 	renderable(spriteMap sprite.Map, x, y int, scale int) game.Renderable
 	ImmediateHit(direction) (bool, []direction)
+	turn() polarizerOrientation
 }
 
 type horizontalPolarizerOrientation struct{}
@@ -63,6 +64,10 @@ func (orient horizontalPolarizerOrientation) renderable(spriteMap sprite.Map, x,
 	return spriteMap.Produce("p_polarizer_horizontal", x, y, scale, 0)
 }
 
+func (orient horizontalPolarizerOrientation) turn() polarizerOrientation {
+	return verticalPolarizerOrientation{}
+}
+
 type verticalPolarizerOrientation struct{}
 
 var _ polarizerOrientation = verticalPolarizerOrientation{}
@@ -76,4 +81,8 @@ func (orient verticalPolarizerOrientation) ImmediateHit(dir direction) (bool, []
 
 func (orient verticalPolarizerOrientation) renderable(spriteMap sprite.Map, x, y int, scale int) game.Renderable {
 	return spriteMap.Produce("p_polarizer_vertical", x, y, scale, 0)
+}
+
+func (orient verticalPolarizerOrientation) turn() polarizerOrientation {
+	return horizontalPolarizerOrientation{}
 }
