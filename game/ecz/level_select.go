@@ -47,11 +47,7 @@ func (ls *levelSelect) ReceiveMouseEvent(event interaction.MouseEvent) *game.Tra
 	if event.Type == interaction.MouseMove {
 		ls.clearHover()
 		for i := range ls.levels {
-			left := ls.levels[i].X
-			right := left + 48
-			top := ls.levels[i].Y
-			bottom := top + 48
-			if event.X >= left && event.X <= right && event.Y >= top && event.Y <= bottom {
+			if ls.levels[i].ContainsPointer(event.X, event.Y) {
 				ls.levels[i].Hover = true
 			}
 		}
@@ -77,4 +73,12 @@ type level struct {
 	X     int
 	Y     int
 	Hover bool
+}
+
+func (lvl level) ContainsPointer(px, py int) bool {
+	left := lvl.X
+	right := left + 48
+	top := lvl.Y
+	bottom := top + 48
+	return px >= left && px <= right && py >= top && py <= bottom
 }
