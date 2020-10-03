@@ -6,9 +6,11 @@ import (
 )
 
 func States(spriteMap sprite.Map) map[string]game.State {
+	lvls := levelsData()
+
 	return map[string]game.State{
 		"game_over":    newGameOver(spriteMap),
-		"level_select": newLevelSelect(spriteMap),
+		"level_select": newLevelSelect(spriteMap, lvls),
 		"playing":      newPlaying(spriteMap),
 		"title":        newTitle(spriteMap),
 	}
