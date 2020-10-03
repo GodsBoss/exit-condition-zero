@@ -17,6 +17,8 @@ func NewLevelSelect(spriteMap sprite.Map) game.State {
 	}
 }
 
+func (ls *levelSelect) Init() {}
+
 func (ls *levelSelect) Tick(ms int) *game.Transition {
 	return nil
 }

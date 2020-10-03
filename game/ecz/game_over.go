@@ -17,6 +17,8 @@ func NewGameOver(spriteMap sprite.Map) game.State {
 	}
 }
 
+func (over *gameOver) Init() {}
+
 func (over *gameOver) Tick(ms int) *game.Transition {
 	return nil
 }

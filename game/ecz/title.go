@@ -17,6 +17,8 @@ func NewTitle(spriteMap sprite.Map) game.State {
 	}
 }
 
+func (t *title) Init() {}
+
 func (t *title) Tick(ms int) *game.Transition {
 	return nil
 }

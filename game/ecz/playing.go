@@ -17,6 +17,8 @@ func NewPlaying(spriteMap sprite.Map) game.State {
 	}
 }
 
+func (p *playing) Init() {}
+
 func (p *playing) Tick(ms int) *game.Transition {
 	return nil
 }
