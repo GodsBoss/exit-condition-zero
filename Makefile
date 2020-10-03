@@ -1,4 +1,5 @@
 all: \
+	dist/gfx.png \
 	dist/index.html \
 	dist/main.wasm \
 	dist/wasm_exec.js
@@ -11,6 +12,9 @@ dist/main.wasm: dist
 
 dist/index.html: static/index.html dist
 	cp $< $@
+
+dist/gfx.png: gfx/gfx.xcf gfx/gfx.sh dist
+	gfx/gfx.sh $< $@
 
 dist:
 	mkdir -p dist
