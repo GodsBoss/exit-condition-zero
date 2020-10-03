@@ -11,6 +11,19 @@ type emptyField struct {
 	free bool
 }
 
+func newEmptyField(spriteMap sprite.Map) field {
+	return &emptyField{
+		spriteMap: spriteMap,
+	}
+}
+
+func newFreeField(spriteMap sprite.Map) field {
+	return &emptyField{
+		spriteMap: spriteMap,
+		free:      true,
+	}
+}
+
 var _ field = &emptyField{}
 var _ fieldFree = &emptyField{}
 
