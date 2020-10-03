@@ -8,4 +8,5 @@ type state interface {
 	Tick(ms int)
 	ReceiveKeyEvent(event interaction.KeyEvent)
 	ReceiveMouseEvent(event interaction.MouseEvent)
+	Renderables() []Renderable
 }

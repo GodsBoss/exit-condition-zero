@@ -15,3 +15,7 @@ func (p *playing) Tick(ms int) {}
 func (p *playing) ReceiveKeyEvent(event interaction.KeyEvent) {}
 
 func (p *playing) ReceiveMouseEvent(event interaction.MouseEvent) {}
+
+func (p *playing) Renderables() []Renderable {
+	return make([]Renderable, 0)
+}

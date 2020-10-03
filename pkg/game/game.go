@@ -38,7 +38,12 @@ func (g *Game) SetOutput(ctx2d *dom.Context2D) {
 	g.output = ctx2d
 }
 
-func (g *Game) Render() {}
+func (g *Game) Render() {
+	renderables := g.state.Renderables()
+	for i := range renderables {
+		renderables[i].Render(g.output)
+	}
+}
 
 func (g *Game) Scale(availableWidth, availableHeight int) (realWidth, realHeight int, scaleX, scaleY float64) {
 	sx := (availableWidth - 20) / uiWidth
