@@ -1,5 +1,10 @@
 package ecz
 
+import (
+	"github.com/GodsBoss/exit-condition-zero/pkg/game"
+	"github.com/GodsBoss/exit-condition-zero/pkg/rendering"
+)
+
 type emptyField struct {
 	free bool
 }
@@ -29,4 +34,8 @@ func (f *emptyField) IsMovable() bool {
 
 func (f *emptyField) IsFree() bool {
 	return f.free
+}
+
+func (f *emptyField) Renderable() game.Renderable {
+	return rendering.Null{}
 }

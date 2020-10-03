@@ -1,5 +1,10 @@
 package ecz
 
+import (
+	"github.com/GodsBoss/exit-condition-zero/pkg/game"
+	"github.com/GodsBoss/exit-condition-zero/pkg/rendering"
+)
+
 type exitConditionField struct {
 	hasBeenHit bool
 	movable    bool
@@ -33,4 +38,8 @@ func (f *exitConditionField) IsMovable() bool {
 
 func (f *exitConditionField) AllowsVictory() bool {
 	return !f.hasBeenHit
+}
+
+func (f *exitConditionField) Renderable() game.Renderable {
+	return rendering.Null{}
 }

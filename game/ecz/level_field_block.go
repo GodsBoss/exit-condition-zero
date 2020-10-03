@@ -1,5 +1,10 @@
 package ecz
 
+import (
+	"github.com/GodsBoss/exit-condition-zero/pkg/game"
+	"github.com/GodsBoss/exit-condition-zero/pkg/rendering"
+)
+
 type blocker struct {
 	deletable bool
 	movable   bool
@@ -25,4 +30,8 @@ func (b *blocker) IsDeletable() bool {
 
 func (b *blocker) IsMovable() bool {
 	return b.movable
+}
+
+func (b *blocker) Renderable() game.Renderable {
+	return rendering.Null{}
 }

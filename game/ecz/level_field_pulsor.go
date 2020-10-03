@@ -1,5 +1,10 @@
 package ecz
 
+import (
+	"github.com/GodsBoss/exit-condition-zero/pkg/game"
+	"github.com/GodsBoss/exit-condition-zero/pkg/rendering"
+)
+
 type pulsor struct {
 	directions map[direction]bool
 	deletable  bool
@@ -32,4 +37,8 @@ func (p *pulsor) IsDeletable() bool {
 
 func (p *pulsor) IsMovable() bool {
 	return p.movable
+}
+
+func (p *pulsor) Renderable() game.Renderable {
+	return rendering.Null{}
 }

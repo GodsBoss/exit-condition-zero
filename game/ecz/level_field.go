@@ -1,6 +1,7 @@
 package ecz
 
 import (
+	"github.com/GodsBoss/exit-condition-zero/pkg/game"
 	"github.com/GodsBoss/exit-condition-zero/pkg/vector/int2d"
 )
 
@@ -30,6 +31,9 @@ type field interface {
 
 	// IsMovable determines wether the player can move this field.
 	IsMovable() bool
+
+	// Renderable returns the graphical representation of a field.
+	Renderable() game.Renderable
 }
 
 type direction string
