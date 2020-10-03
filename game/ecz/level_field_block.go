@@ -13,14 +13,14 @@ type blocker struct {
 }
 
 func newBlocker(spriteMap sprite.Map, deletable, movable bool) field {
-	return &blocker{
-		spriteMap: spriteMap,
+	return &commonField{
+		field: &blocker{
+			spriteMap: spriteMap,
+		},
 		deletable: deletable,
 		movable:   movable,
 	}
 }
-
-var _ field = &blocker{}
 
 func (b *blocker) Reset() {}
 
@@ -33,14 +33,6 @@ func (b *blocker) ImmediateHit(direction) (bool, []direction) {
 }
 
 func (b *blocker) Receive([]direction) {}
-
-func (b *blocker) IsDeletable() bool {
-	return b.deletable
-}
-
-func (b *blocker) IsMovable() bool {
-	return b.movable
-}
 
 func (b *blocker) IsConfigurable() bool {
 	return false
