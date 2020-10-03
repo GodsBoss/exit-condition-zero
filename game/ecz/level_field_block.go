@@ -43,3 +43,5 @@ func (b *blocker) Configure() {}
 func (b *blocker) Renderable(x, y int, scale int) game.Renderable {
 	return b.spriteMap.Produce("p_block", x, y, scale, 0)
 }
+
+func (b *blocker) Tick(ms int) {}

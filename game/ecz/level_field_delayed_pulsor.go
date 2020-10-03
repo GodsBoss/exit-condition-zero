@@ -68,6 +68,8 @@ func (p *delayedPulsor) Renderable(x, y int, scale int) game.Renderable {
 	}
 }
 
+func (p *delayedPulsor) Tick(ms int) {}
+
 func (p *delayedPulsor) IsConfigurable() bool {
 	return false
 }

@@ -48,3 +48,5 @@ func (p *pulsor) Renderable(x, y int, scale int) game.Renderable {
 		createRenderableForDirections(p.spriteMap, p.directions.Directions(), x, y, scale),
 	}
 }
+
+func (p *pulsor) Tick(ms int) {}

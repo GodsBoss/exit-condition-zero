@@ -57,6 +57,8 @@ func (cf *commonField) Renderable(x, y int, scale int) game.Renderable {
 	return cf.field.Renderable(x, y, scale)
 }
 
+func (cf *commonField) Tick(ms int) {}
+
 type simpleField interface {
 	Reset()
 	ExtractOutputPulses() []direction

@@ -42,6 +42,8 @@ type field interface {
 	// Renderable returns the graphical representation of a field. x and y are
 	// in-game unscaled pixel coordinates.
 	Renderable(x, y int, scale int) game.Renderable
+
+	Tick(ms int)
 }
 
 // fieldWithVictoryCondition is an optional interface fields can implement.

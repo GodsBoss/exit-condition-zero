@@ -49,6 +49,8 @@ func (r *rotator) Renderable(x, y int, scale int) game.Renderable {
 	return r.spriteMap.Produce(spriteID, x, y, scale, 0)
 }
 
+func (r *rotator) Tick(ms int) {}
+
 func (r *rotator) IsConfigurable() bool {
 	return r.configurable
 }

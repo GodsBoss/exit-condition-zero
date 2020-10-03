@@ -48,6 +48,8 @@ func (pol *polarizer) Renderable(x, y int, scale int) game.Renderable {
 	return pol.orientation.renderable(pol.spriteMap, x, y, scale)
 }
 
+func (pol *polarizer) Tick(ms int) {}
+
 type polarizerOrientation interface {
 	renderable(spriteMap sprite.Map, x, y int, scale int) game.Renderable
 	ImmediateHit(direction) (bool, []direction)

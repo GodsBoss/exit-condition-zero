@@ -64,3 +64,5 @@ func (f *emptyField) Renderable(x, y int, scale int) game.Renderable {
 	}
 	return f.spriteMap.Produce(spriteID, x, y, scale, 0)
 }
+
+func (f *emptyField) Tick(ms int) {}
