@@ -125,6 +125,18 @@ var spriteSources = sprite.SourceMap{
 		W: 20,
 		H: 20,
 	},
+	"p_polarizer_horizontal": {
+		X: 100,
+		Y: 0,
+		W: 20,
+		H: 20,
+	},
+	"p_polarizer_vertical": {
+		X: 120,
+		Y: 0,
+		W: 20,
+		H: 20,
+	},
 	"p_beam_up_1": {
 		X: 367,
 		Y: 11,
