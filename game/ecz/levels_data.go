@@ -42,9 +42,10 @@ func levelsData() *levels {
 							movable:     true,
 						},
 						v(1, 5): &polarizer{
-							spriteMap:   spriteMap,
-							orientation: verticalPolarizerOrientation{},
-							movable:     true,
+							spriteMap:    spriteMap,
+							orientation:  verticalPolarizerOrientation{},
+							movable:      true,
+							configurable: true,
 						},
 					}
 				},
