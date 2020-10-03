@@ -21,6 +21,9 @@ func levelsData() *levels {
 						v(4, 4): &pulsor{
 							spriteMap: spriteMap,
 						},
+						v(5, 7): &exitConditionField{
+							spriteMap: spriteMap,
+						},
 					}
 				},
 			},

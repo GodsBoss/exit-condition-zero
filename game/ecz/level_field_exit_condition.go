@@ -2,10 +2,12 @@ package ecz
 
 import (
 	"github.com/GodsBoss/exit-condition-zero/pkg/game"
-	"github.com/GodsBoss/exit-condition-zero/pkg/rendering"
+	"github.com/GodsBoss/exit-condition-zero/pkg/rendering/sprite"
 )
 
 type exitConditionField struct {
+	spriteMap sprite.Map
+
 	hasBeenHit bool
 	movable    bool
 }
@@ -41,5 +43,5 @@ func (f *exitConditionField) AllowsVictory() bool {
 }
 
 func (f *exitConditionField) Renderable(x, y int, scale int) game.Renderable {
-	return rendering.Null{}
+	return f.spriteMap.Produce("p_sink", x, y, scale, 0)
 }
