@@ -17,7 +17,7 @@ dist/gfx.png: gfx/gfx.xcf gfx/gfx.sh dist
 	gfx/gfx.sh $< $@
 
 dist:
-	mkdir -p dist
+	[ -d dist ] || mkdir dist
 
 serve: all
 	@echo "Serving files at http://127.0.0.1:8080/ ..."
