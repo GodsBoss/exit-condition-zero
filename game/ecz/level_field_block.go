@@ -34,6 +34,10 @@ func (b *blocker) IsMovable() bool {
 	return b.movable
 }
 
+func (b *blocker) IsConfigurable() bool {
+	return false
+}
+
 func (b *blocker) Renderable(x, y int, scale int) game.Renderable {
 	return b.spriteMap.Produce("p_block", x, y, scale, 0)
 }

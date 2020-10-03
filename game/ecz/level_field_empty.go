@@ -34,6 +34,10 @@ func (f *emptyField) IsMovable() bool {
 	return false
 }
 
+func (f *emptyField) IsConfigurable() bool {
+	return false
+}
+
 func (f *emptyField) IsFree() bool {
 	return f.free
 }

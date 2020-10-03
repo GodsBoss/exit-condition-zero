@@ -46,6 +46,10 @@ func (p *pulsor) IsMovable() bool {
 	return p.movable
 }
 
+func (p *pulsor) IsConfigurable() bool {
+	return false
+}
+
 func (p *pulsor) Renderable(x, y int, scale int) game.Renderable {
 	return rendering.Renderables{
 		p.spriteMap.Produce("p_source", x, y, scale, 0),

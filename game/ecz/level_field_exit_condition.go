@@ -38,6 +38,10 @@ func (f *exitConditionField) IsMovable() bool {
 	return f.movable
 }
 
+func (f *exitConditionField) IsConfigurable() bool {
+	return false
+}
+
 func (f *exitConditionField) AllowsVictory() bool {
 	return !f.hasBeenHit
 }
