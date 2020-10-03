@@ -81,7 +81,7 @@ func levelsData() *levels {
 								dirLeft:  true,
 							},
 						},
-						v(3, 8):  newFreeField(spriteMap),
+						v(3, 8):  newRotator(spriteMap, true, false, true, true),
 						v(4, 9):  newFreeField(spriteMap),
 						v(3, 10): newFreeField(spriteMap),
 						v(2, 9):  newHalfMirror(spriteMap, 1, false, true, true),
