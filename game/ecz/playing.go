@@ -31,6 +31,8 @@ type playing struct {
 	firstHalf           bool
 	gameOver            bool
 	fields              map[int2d.Vector]field
+
+	cursorAnimation *animation
 }
 
 func newPlaying(spriteMap sprite.Map, levels *levels) game.State {
@@ -41,6 +43,10 @@ func newPlaying(spriteMap sprite.Map, levels *levels) game.State {
 }
 
 func (p *playing) Init() {
+	p.cursorAnimation = &animation{
+		frames: 4,
+		fps:    8,
+	}
 	p.running = false
 	p.gameOver = false
 	p.resetFields()
@@ -66,6 +72,7 @@ func (p *playing) Tick(ms int) *game.Transition {
 			NextState: "game_over",
 		}
 	}
+	p.cursorAnimation.tick(ms)
 	if p.running {
 		for bi := range p.beams {
 			p.beams[bi].animation += beamAnimationSpeed
@@ -466,7 +473,7 @@ func (p *playing) Renderables(scale int) []game.Renderable {
 				p.gridCursor.X()*fieldsWidth+fieldsOffsetX,
 				p.gridCursor.Y()*fieldsHeight+fieldsOffsetY,
 				scale,
-				0,
+				p.cursorAnimation.frame(),
 			),
 		)
 	}
@@ -487,11 +494,11 @@ func (p *playing) Renderables(scale int) []game.Renderable {
 	}
 
 	if p.isDeleteMode {
-		r = append(r, p.spriteMap.Produce("p_cursor", 245, 5, scale, 0))
+		r = append(r, p.spriteMap.Produce("p_cursor", 245, 5, scale, p.cursorAnimation.frame()))
 	}
 
 	if p.isMoveMode {
-		r = append(r, p.spriteMap.Produce("p_cursor", 270, 5, scale, 0))
+		r = append(r, p.spriteMap.Produce("p_cursor", 270, 5, scale, p.cursorAnimation.frame()))
 		if p.fieldSelectedForMove != nil {
 			r = append(
 				r,
@@ -500,14 +507,14 @@ func (p *playing) Renderables(scale int) []game.Renderable {
 					(*p.fieldSelectedForMove).X()*fieldsWidth+fieldsOffsetX,
 					(*p.fieldSelectedForMove).Y()*fieldsHeight+fieldsOffsetY,
 					scale,
-					0,
+					p.cursorAnimation.frame(),
 				),
 			)
 		}
 	}
 
 	if p.isConfigureMode {
-		r = append(r, p.spriteMap.Produce("p_cursor", 295, 5, scale, 0))
+		r = append(r, p.spriteMap.Produce("p_cursor", 295, 5, scale, p.cursorAnimation.frame()))
 	}
 
 	txts := p.levels.levels[p.levels.selectedLevel].Texts

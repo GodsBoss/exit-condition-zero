@@ -260,10 +260,11 @@ var spriteSources = sprite.SourceMap{
 		Frames: 4,
 	},
 	"p_cursor": {
-		X: 0,
-		Y: 40,
-		W: 20,
-		H: 20,
+		X:      100,
+		Y:      60,
+		W:      20,
+		H:      20,
+		Frames: 4,
 	},
 	"p_marker": {
 		X: 0,
