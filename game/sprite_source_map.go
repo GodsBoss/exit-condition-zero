@@ -103,10 +103,11 @@ var spriteSources = sprite.SourceMap{
 		Frames: 6,
 	},
 	"p_exit_condition": {
-		X: 20,
-		Y: 0,
-		W: 20,
-		H: 20,
+		X:      20,
+		Y:      60,
+		W:      20,
+		H:      20,
+		Frames: 4,
 	},
 	"p_field_free": {
 		X: 40,

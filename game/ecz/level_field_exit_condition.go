@@ -10,12 +10,18 @@ type exitConditionField struct {
 
 	hasBeenHit bool
 	movable    bool
+
+	anim *animation
 }
 
 func newExitCondition(spriteMap sprite.Map, movable bool) field {
 	return &exitConditionField{
 		spriteMap: spriteMap,
 		movable:   movable,
+		anim: &animation{
+			fps:    10,
+			frames: 4,
+		},
 	}
 }
 
@@ -55,7 +61,9 @@ func (f *exitConditionField) AllowsVictory() bool {
 }
 
 func (f *exitConditionField) Renderable(x, y int, scale int) game.Renderable {
-	return f.spriteMap.Produce("p_exit_condition", x, y, scale, 0)
+	return f.spriteMap.Produce("p_exit_condition", x, y, scale, f.anim.frame())
 }
 
-func (f *exitConditionField) Tick(ms int) {}
+func (f *exitConditionField) Tick(ms int) {
+	f.anim.tick(ms)
+}
