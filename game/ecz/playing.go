@@ -2,6 +2,7 @@ package ecz
 
 import (
 	"github.com/GodsBoss/exit-condition-zero/pkg/game"
+	"github.com/GodsBoss/exit-condition-zero/pkg/rect"
 	"github.com/GodsBoss/exit-condition-zero/pkg/rendering/sprite"
 
 	"github.com/GodsBoss/gggg/pkg/interaction"
@@ -33,8 +34,10 @@ func (p *playing) ReceiveKeyEvent(event interaction.KeyEvent) *game.Transition {
 
 func (p *playing) ReceiveMouseEvent(event interaction.MouseEvent) *game.Transition {
 	if event.Type == interaction.MouseUp && event.PrimaryButton() {
-		return &game.Transition{
-			NextState: "title",
+		if rect.FromPositionAndSize(295, 215, 20, 20).Inside(event.X, event.Y) {
+			return &game.Transition{
+				NextState: "title",
+			}
 		}
 	}
 	return nil
