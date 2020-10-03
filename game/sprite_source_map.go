@@ -119,4 +119,28 @@ var spriteSources = sprite.SourceMap{
 		W: 20,
 		H: 20,
 	},
+	"p_beam_up": {
+		X: 36,
+		Y: 11,
+		W: 22,
+		H: 22,
+	},
+	"p_beam_right": {
+		X: 36,
+		Y: 33,
+		W: 22,
+		H: 22,
+	},
+	"p_beam_down": {
+		X: 36,
+		Y: 55,
+		W: 22,
+		H: 22,
+	},
+	"p_beam_left": {
+		X: 36,
+		Y: 77,
+		W: 22,
+		H: 22,
+	},
 }
