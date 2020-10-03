@@ -29,10 +29,7 @@ func levelsData() *levels {
 							spriteMap: spriteMap,
 						},
 						v(6, 7): newBlocker(spriteMap, false, true),
-						v(7, 7): &blocker{
-							spriteMap: spriteMap,
-							deletable: true,
-						},
+						v(7, 7): newBlocker(spriteMap, true, false),
 						v(1, 4): &polarizer{
 							spriteMap:   spriteMap,
 							orientation: horizontalPolarizerOrientation{},
