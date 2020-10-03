@@ -9,6 +9,16 @@ type commonField struct {
 	movable   bool
 }
 
+func newCommonField(field simpleField, options ...commonFieldOption) field {
+	f := &commonField{
+		field: field,
+	}
+	for i := range options {
+		options[i](f)
+	}
+	return f
+}
+
 var _ field = &commonField{}
 
 func (cf *commonField) Reset() {
@@ -55,4 +65,18 @@ type simpleField interface {
 	Renderable(x, y int, scale int) game.Renderable
 	IsConfigurable() bool
 	Configure()
+}
+
+type commonFieldOption func(*commonField)
+
+func setDeletable(deletable bool) func(*commonField) {
+	return func(field *commonField) {
+		field.deletable = deletable
+	}
+}
+
+func setMovable(movable bool) func(*commonField) {
+	return func(field *commonField) {
+		field.movable = movable
+	}
 }
