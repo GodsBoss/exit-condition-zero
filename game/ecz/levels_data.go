@@ -20,6 +20,10 @@ func levelsData() *levels {
 						},
 						v(4, 4): &pulsor{
 							spriteMap: spriteMap,
+							directions: map[direction]bool{
+								dirLeft: true,
+								dirDown: true,
+							},
 						},
 						v(5, 7): &exitConditionField{
 							spriteMap: spriteMap,
