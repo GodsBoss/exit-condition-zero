@@ -35,5 +35,7 @@ func (over *gameOver) ReceiveMouseEvent(event interaction.MouseEvent) *game.Tran
 }
 
 func (over *gameOver) Renderables(scale int) []game.Renderable {
-	return make([]game.Renderable, 0)
+	return []game.Renderable{
+		over.spriteMap.Produce("bg_game_over", 0, 0, scale, 0),
+	}
 }

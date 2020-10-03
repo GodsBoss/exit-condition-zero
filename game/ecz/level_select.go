@@ -30,5 +30,7 @@ func (ls *levelSelect) ReceiveMouseEvent(event interaction.MouseEvent) *game.Tra
 }
 
 func (ls *levelSelect) Renderables(scale int) []game.Renderable {
-	return make([]game.Renderable, 0)
+	return []game.Renderable{
+		ls.spriteMap.Produce("bg_level_select", 0, 0, scale, 0),
+	}
 }

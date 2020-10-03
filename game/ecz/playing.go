@@ -30,5 +30,7 @@ func (p *playing) ReceiveMouseEvent(event interaction.MouseEvent) *game.Transiti
 }
 
 func (p *playing) Renderables(scale int) []game.Renderable {
-	return make([]game.Renderable, 0)
+	return []game.Renderable{
+		p.spriteMap.Produce("bg_playing", 0, 0, scale, 0),
+	}
 }
