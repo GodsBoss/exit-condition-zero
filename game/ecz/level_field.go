@@ -1,5 +1,9 @@
 package ecz
 
+import (
+	"github.com/GodsBoss/exit-condition-zero/pkg/vector/int2d"
+)
+
 // field is a level's field when playing.
 type field interface {
 	// Resets this field to its initial state as found in the level's data (for
@@ -36,6 +40,13 @@ const (
 	dirDown  direction = "down"
 	dirLeft  direction = "left"
 )
+
+var directionVectors = map[direction]int2d.Vector{
+	dirUp:    int2d.Up(),
+	dirRight: int2d.Right(),
+	dirDown:  int2d.Down(),
+	dirLeft:  int2d.Left(),
+}
 
 // fieldWithVictoryCondition is an optional interface fields can implement.
 // Every field will be questioned for victory when running. If any field
