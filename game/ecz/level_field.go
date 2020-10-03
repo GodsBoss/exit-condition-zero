@@ -74,6 +74,15 @@ func turnDirectionCounterClockwise(dir direction) direction {
 	})[dir]
 }
 
+func oppositeDirection(dir direction) direction {
+	return (map[direction]direction{
+		dirUp:    dirDown,
+		dirRight: dirLeft,
+		dirDown:  dirUp,
+		dirLeft:  dirRight,
+	})[dir]
+}
+
 var directionVectors = map[direction]int2d.Vector{
 	dirUp:    int2d.Up(),
 	dirRight: int2d.Right(),
