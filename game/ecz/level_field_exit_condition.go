@@ -12,7 +12,13 @@ type exitConditionField struct {
 	movable    bool
 }
 
-var _ field = &exitConditionField{}
+func newExitCondition(spriteMap sprite.Map, movable bool) field {
+	return &exitConditionField{
+		spriteMap: spriteMap,
+		movable:   movable,
+	}
+}
+
 var _ fieldWithVictoryCondition = &exitConditionField{}
 
 func (f *exitConditionField) Reset() {}

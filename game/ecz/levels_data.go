@@ -40,9 +40,7 @@ func levelsData() *levels {
 						v(3, 9): newPulsor(spriteMap, toDirectionsMap(dirRight), false, false),
 						v(1, 8): newBlocker(spriteMap, false, true),
 						v(6, 9): newFreeField(spriteMap),
-						v(9, 9): &exitConditionField{
-							spriteMap: spriteMap,
-						},
+						v(9, 9): newExitCondition(spriteMap, false),
 					}
 				},
 			},
@@ -71,17 +69,13 @@ func levelsData() *levels {
 							orientation: verticalPolarizerOrientation{},
 							movable:     true,
 						},
-						v(1, 5): &exitConditionField{
-							spriteMap: spriteMap,
-						},
+						v(1, 5): newExitCondition(spriteMap, false),
 						v(3, 9): &polarizer{
 							spriteMap:   spriteMap,
 							orientation: horizontalPolarizerOrientation{},
 							movable:     true,
 						},
-						v(5, 9): &exitConditionField{
-							spriteMap: spriteMap,
-						},
+						v(5, 9): newExitCondition(spriteMap, false),
 					}
 				},
 			},
@@ -118,9 +112,7 @@ func levelsData() *levels {
 							false,
 						),
 						v(3, 5): newBlocker(spriteMap, true, false),
-						v(9, 3): &exitConditionField{
-							spriteMap: spriteMap,
-						},
+						v(9, 3): newExitCondition(spriteMap, false),
 						v(5, 5): newFreeField(spriteMap),
 					}
 				},
@@ -142,21 +134,15 @@ func levelsData() *levels {
 				},
 				getFields: func(spriteMap sprite.Map) map[int2d.Vector]field {
 					return map[int2d.Vector]field{
-						v(5, 6): newPulsor(spriteMap, toDirectionsMap(dirRight, dirDown, dirLeft), false, false),
-						v(7, 6): newFullMirror(spriteMap, ascendingFullMirrorOrientation{}, false, false, true),
-						v(7, 4): &exitConditionField{
-							spriteMap: spriteMap,
-						},
-						v(7, 8): newBlocker(spriteMap, true, false),
-						v(3, 6): newHalfMirror(spriteMap, 1, false, false, true),
-						v(3, 4): &exitConditionField{
-							spriteMap: spriteMap,
-						},
-						v(3, 9): newBlocker(spriteMap, true, false),
-						v(5, 7): newRotator(spriteMap, false, false, false, true),
-						v(2, 7): &exitConditionField{
-							spriteMap: spriteMap,
-						},
+						v(5, 6):  newPulsor(spriteMap, toDirectionsMap(dirRight, dirDown, dirLeft), false, false),
+						v(7, 6):  newFullMirror(spriteMap, ascendingFullMirrorOrientation{}, false, false, true),
+						v(7, 4):  newExitCondition(spriteMap, false),
+						v(7, 8):  newBlocker(spriteMap, true, false),
+						v(3, 6):  newHalfMirror(spriteMap, 1, false, false, true),
+						v(3, 4):  newExitCondition(spriteMap, false),
+						v(3, 9):  newBlocker(spriteMap, true, false),
+						v(5, 7):  newRotator(spriteMap, false, false, false, true),
+						v(2, 7):  newExitCondition(spriteMap, false),
 						v(10, 7): newBlocker(spriteMap, true, false),
 					}
 				},
@@ -178,9 +164,7 @@ func levelsData() *levels {
 					return map[int2d.Vector]field{
 						v(8, 2): newPulsor(spriteMap, toDirectionsMap(dirRight), false, false),
 						v(2, 2): newHalfMirror(spriteMap, 0, false, false, true),
-						v(2, 7): &exitConditionField{
-							spriteMap: spriteMap,
-						},
+						v(2, 7): newExitCondition(spriteMap, false),
 					}
 				},
 			},
@@ -201,9 +185,7 @@ func levelsData() *levels {
 							free:      true,
 						},
 						v(5, 3): newPulsor(spriteMap, toDirectionsMap(dirLeft, dirDown), false, false),
-						v(5, 7): &exitConditionField{
-							spriteMap: spriteMap,
-						},
+						v(5, 7): newExitCondition(spriteMap, false),
 						v(6, 7): newBlocker(spriteMap, false, true),
 						v(7, 7): newBlocker(spriteMap, true, false),
 						v(1, 4): &polarizer{
