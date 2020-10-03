@@ -149,6 +149,30 @@ var spriteSources = sprite.SourceMap{
 		W: 20,
 		H: 20,
 	},
+	"p_half_mirror_left_top": {
+		X: 100,
+		Y: 20,
+		W: 20,
+		H: 20,
+	},
+	"p_half_mirror_right_top": {
+		X: 120,
+		Y: 20,
+		W: 20,
+		H: 20,
+	},
+	"p_half_mirror_right_bottom": {
+		X: 140,
+		Y: 20,
+		W: 20,
+		H: 20,
+	},
+	"p_half_mirror_left_bottom": {
+		X: 160,
+		Y: 20,
+		W: 20,
+		H: 20,
+	},
 	"p_inverted_pulsor": {
 		X: 180,
 		Y: 0,
