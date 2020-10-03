@@ -1,8 +1,6 @@
 package ecz
 
 import (
-	"math"
-
 	"github.com/GodsBoss/exit-condition-zero/pkg/game"
 	"github.com/GodsBoss/exit-condition-zero/pkg/rendering"
 	"github.com/GodsBoss/exit-condition-zero/pkg/rendering/sprite"
@@ -15,7 +13,7 @@ type pulsor struct {
 	deletable  bool
 	movable    bool
 
-	animation float64
+	anim *animation
 }
 
 func newPulsor(
@@ -29,6 +27,10 @@ func newPulsor(
 		directions: directions,
 		deletable:  deletable,
 		movable:    movable,
+		anim: &animation{
+			fps:    10,
+			frames: 6,
+		},
 	}
 }
 
@@ -62,19 +64,11 @@ func (p *pulsor) Configure() {}
 
 func (p *pulsor) Renderable(x, y int, scale int) game.Renderable {
 	return rendering.Renderables{
-		p.spriteMap.Produce("p_pulsor", x, y, scale, int(math.Floor(p.animation))),
+		p.spriteMap.Produce("p_pulsor", x, y, scale, p.anim.frame()),
 		createRenderableForDirections(p.spriteMap, p.directions.Directions(), x, y, scale, 0),
 	}
 }
 
 func (p *pulsor) Tick(ms int) {
-	p.animation += float64(pulsorFPS) * float64(ms) / 1000.0
-	if p.animation >= float64(pulsorFrames) {
-		p.animation -= float64(pulsorFrames)
-	}
+	p.anim.tick(ms)
 }
-
-const (
-	pulsorFrames = 6
-	pulsorFPS    = 10
-)
