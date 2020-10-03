@@ -2,10 +2,12 @@ package ecz
 
 import (
 	"github.com/GodsBoss/exit-condition-zero/pkg/game"
-	"github.com/GodsBoss/exit-condition-zero/pkg/rendering"
+	"github.com/GodsBoss/exit-condition-zero/pkg/rendering/sprite"
 )
 
 type blocker struct {
+	spriteMap sprite.Map
+
 	deletable bool
 	movable   bool
 }
@@ -33,5 +35,5 @@ func (b *blocker) IsMovable() bool {
 }
 
 func (b *blocker) Renderable(x, y int, scale int) game.Renderable {
-	return rendering.Null{}
+	return b.spriteMap.Produce("p_block", x, y, scale, 0)
 }
