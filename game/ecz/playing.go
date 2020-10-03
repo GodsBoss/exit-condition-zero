@@ -465,19 +465,6 @@ func (p *playing) Renderables(scale int) []game.Renderable {
 		)
 	}
 
-	if p.gridCursor != nil {
-		r = append(
-			r,
-			p.spriteMap.Produce(
-				"p_cursor",
-				p.gridCursor.X()*fieldsWidth+fieldsOffsetX,
-				p.gridCursor.Y()*fieldsHeight+fieldsOffsetY,
-				scale,
-				p.cursorAnimation.frame(),
-			),
-		)
-	}
-
 	if p.isDeleteMode || p.isMoveMode || p.isConfigureMode {
 		for i := range p.selectableFields {
 			r = append(
@@ -491,6 +478,19 @@ func (p *playing) Renderables(scale int) []game.Renderable {
 				),
 			)
 		}
+	}
+
+	if p.gridCursor != nil {
+		r = append(
+			r,
+			p.spriteMap.Produce(
+				"p_cursor",
+				p.gridCursor.X()*fieldsWidth+fieldsOffsetX,
+				p.gridCursor.Y()*fieldsHeight+fieldsOffsetY,
+				scale,
+				p.cursorAnimation.frame(),
+			),
+		)
 	}
 
 	if p.isDeleteMode {
