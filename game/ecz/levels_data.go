@@ -48,7 +48,7 @@ func levelsData() *levels {
 							map[direction]struct{}{
 								dirUp: struct{}{},
 							},
-							false,
+							true,
 							false,
 							false,
 						),
