@@ -176,7 +176,15 @@ func (p *playing) beamStep() {
 	p.firstHalf = !p.firstHalf
 }
 
-func (p *playing) pulsesExhausted() {}
+func (p *playing) pulsesExhausted() {
+	for v := range p.acceptedPulses {
+		dirs := make([]direction, 0)
+		for dir := range p.acceptedPulses[v] {
+			dirs = append(dirs, dir)
+		}
+		p.fields[v].Receive(dirs)
+	}
+}
 
 func (p *playing) stopRunning() {
 	p.running = false
