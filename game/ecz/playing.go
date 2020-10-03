@@ -13,6 +13,8 @@ type playing struct {
 	spriteMap sprite.Map
 	levels    *levels
 
+	gridCursor *int2d.Vector
+
 	running             bool
 	msUntilNextBeamStep int
 	beams               map[beamIndex]struct{}
@@ -81,6 +83,15 @@ func (p *playing) ReceiveMouseEvent(event interaction.MouseEvent) *game.Transiti
 			p.toggleRun()
 		}
 	}
+
+	if event.Type == interaction.MouseMove {
+		p.gridCursor = nil
+		gridPos := pointerPositionToGrid(int2d.FromXY(event.X, event.Y))
+		if gridPos.X() >= 0 && gridPos.X() < 11 && gridPos.Y() >= 0 && gridPos.Y() < 11 {
+			p.gridCursor = &gridPos
+		}
+	}
+
 	return nil
 }
 
@@ -259,6 +270,19 @@ func (p *playing) Renderables(scale int) []game.Renderable {
 		)
 	}
 
+	if p.gridCursor != nil {
+		r = append(
+			r,
+			p.spriteMap.Produce(
+				"p_cursor",
+				p.gridCursor.X()*fieldsWidth+fieldsOffsetX,
+				p.gridCursor.Y()*fieldsHeight+fieldsOffsetY,
+				scale,
+				0,
+			),
+		)
+	}
+
 	return r
 }
 
@@ -311,4 +335,16 @@ func realGridPosition(v int2d.Vector) int2d.Vector {
 		y -= 11
 	}
 	return int2d.FromXY(x, y)
+}
+
+func pointerPositionToGrid(v int2d.Vector) int2d.Vector {
+	x := v.X() - fieldsOffsetX
+	y := v.Y() - fieldsOffsetY
+	if x < 0 || y < 0 {
+		return int2d.FromXY(-1, -1)
+	}
+	return int2d.FromXY(
+		x/fieldsWidth,
+		y/fieldsHeight,
+	)
 }

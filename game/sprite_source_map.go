@@ -173,4 +173,10 @@ var spriteSources = sprite.SourceMap{
 		W: 22,
 		H: 22,
 	},
+	"p_cursor": {
+		X: 0,
+		Y: 40,
+		W: 20,
+		H: 20,
+	},
 }
