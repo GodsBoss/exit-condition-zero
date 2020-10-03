@@ -14,11 +14,11 @@ func levelsData() *levels {
 				Y: 40,
 				getFields: func(spriteMap sprite.Map) map[int2d.Vector]field {
 					return map[int2d.Vector]field{
-						v(2, 2): &emptyField{
+						v(5, 5): &emptyField{
 							spriteMap: spriteMap,
 							free:      true,
 						},
-						v(4, 4): &pulsor{
+						v(5, 3): &pulsor{
 							spriteMap: spriteMap,
 							directions: map[direction]bool{
 								dirLeft: true,
@@ -30,6 +30,7 @@ func levelsData() *levels {
 						},
 						v(6, 7): &blocker{
 							spriteMap: spriteMap,
+							movable:   true,
 						},
 					}
 				},
