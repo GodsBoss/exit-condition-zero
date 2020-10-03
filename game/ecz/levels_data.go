@@ -97,6 +97,53 @@ func levelsData() *levels {
 				},
 			},
 			{
+				X: 50,
+				Y: 10,
+				Texts: []levelText{
+					{
+						X: 5,
+						Y: 170,
+						Content: levelTextContent(
+							"Sometimes elements help you. Inverting",
+							"pulsers send pulses when they did not",
+							"receive a pulse in the last cycle. In",
+							"this case, you have to remove the",
+							"blocker so the inverting pulser can be",
+							"disabled. Use the 'delete' button in",
+							"the top right corner (left button).",
+							"Also, not all elements can be moved,",
+							"despite free fields being available.",
+						),
+					},
+				},
+				Tutorial: true,
+				getFields: func(spriteMap sprite.Map) map[int2d.Vector]field {
+					return map[int2d.Vector]field{
+						v(3, 7): &pulsor{
+							spriteMap: spriteMap,
+							directions: map[direction]bool{
+								dirUp: true,
+							},
+						},
+						v(3, 3): newDelayedPulsor(
+							spriteMap,
+							delayPulsorModeInverted{},
+							map[direction]struct{}{
+								dirRight: struct{}{},
+							},
+							false,
+							false,
+							false,
+						),
+						v(3, 5): newBlocker(spriteMap, true, false),
+						v(9, 3): &exitConditionField{
+							spriteMap: spriteMap,
+						},
+						v(5, 5): newFreeField(spriteMap),
+					}
+				},
+			},
+			{
 				X: 280,
 				Y: 200,
 				Texts: []levelText{
