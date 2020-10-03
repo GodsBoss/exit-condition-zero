@@ -3,6 +3,8 @@
 package game
 
 import (
+	"sync"
+
 	"github.com/GodsBoss/gggg/pkg/dom"
 	"github.com/GodsBoss/gggg/pkg/interaction"
 )
@@ -14,6 +16,8 @@ type Game struct {
 	states         map[string]State
 
 	output *dom.Context2D
+
+	lock sync.Mutex
 }
 
 type SpriteMap interface {
@@ -47,7 +51,9 @@ func (g *Game) SetOutput(ctx2d *dom.Context2D) {
 func (g *Game) Render() {
 	g.output.DisableImageSmoothing()
 	g.output.ClearRect(0, 0, g.scale*uiWidth, g.scale*uiHeight)
+	g.lock.Lock()
 	renderables := g.currentState().Renderables(g.scale)
+	g.lock.Unlock()
 	for i := range renderables {
 		renderables[i].Render(g.output)
 	}
@@ -70,15 +76,21 @@ func (g *Game) Scale(availableWidth, availableHeight int) (realWidth, realHeight
 }
 
 func (g *Game) Tick(ms int) {
+	g.lock.Lock()
 	g.transition(g.currentState().Tick(ms))
+	g.lock.Unlock()
 }
 
 func (g *Game) ReceiveKeyEvent(event interaction.KeyEvent) {
+	g.lock.Lock()
 	g.transition(g.currentState().ReceiveKeyEvent(event))
+	g.lock.Unlock()
 }
 
 func (g *Game) ReceiveMouseEvent(event interaction.MouseEvent) {
+	g.lock.Lock()
 	g.transition(g.currentState().ReceiveMouseEvent(event))
+	g.lock.Unlock()
 }
 
 func (g *Game) transition(trans *Transition) {
