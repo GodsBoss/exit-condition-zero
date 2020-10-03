@@ -12,6 +12,13 @@ func levelsData() *levels {
 			{
 				X: 120,
 				Y: 40,
+				Texts: []levelText{
+					{
+						X:       100,
+						Y:       12,
+						Content: "Example text",
+					},
+				},
 				getFields: func(spriteMap sprite.Map) map[int2d.Vector]field {
 					return map[int2d.Vector]field{
 						v(5, 5): &emptyField{
