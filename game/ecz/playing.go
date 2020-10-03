@@ -11,8 +11,10 @@ type playing struct {
 	spriteMap sprite.Map
 }
 
-func NewPlaying() game.State {
-	return &playing{}
+func NewPlaying(spriteMap sprite.Map) game.State {
+	return &playing{
+		spriteMap: spriteMap,
+	}
 }
 
 func (p *playing) Tick(ms int) *game.Transition {

@@ -11,8 +11,10 @@ type levelSelect struct {
 	spriteMap sprite.Map
 }
 
-func NewLevelSelect() game.State {
-	return &levelSelect{}
+func NewLevelSelect(spriteMap sprite.Map) game.State {
+	return &levelSelect{
+		spriteMap: spriteMap,
+	}
 }
 
 func (ls *levelSelect) Tick(ms int) *game.Transition {
