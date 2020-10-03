@@ -474,6 +474,10 @@ func (p *playing) Renderables(scale int) []game.Renderable {
 		}
 	}
 
+	if p.isConfigureMode {
+		r = append(r, p.spriteMap.Produce("p_cursor", 295, 5, scale, 0))
+	}
+
 	return r
 }
 
