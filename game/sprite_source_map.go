@@ -96,10 +96,11 @@ var spriteSources = sprite.SourceMap{
 		H: 20,
 	},
 	"p_pulsor": {
-		X: 0,
-		Y: 0,
-		W: 20,
-		H: 20,
+		X:      20,
+		Y:      40,
+		W:      20,
+		H:      20,
+		Frames: 6,
 	},
 	"p_sink": {
 		X: 20,
