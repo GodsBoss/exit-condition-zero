@@ -42,6 +42,36 @@ func levelsData() *levels {
 							configurable: true,
 						},
 						v(2, 2): newFullMirror(spriteMap, ascendingFullMirrorOrientation{}, true, true, true),
+						v(8, 4): newDelayedPulsor(
+							spriteMap,
+							delayPulsorModeDelayed{},
+							map[direction]struct{}{
+								dirUp: struct{}{},
+							},
+							false,
+							false,
+							false,
+						),
+						v(10, 4): newDelayedPulsor(
+							spriteMap,
+							delayPulsorModeInverted{},
+							map[direction]struct{}{
+								dirLeft: struct{}{},
+							},
+							false,
+							false,
+							false,
+						),
+						v(9, 8): newDelayedPulsor(
+							spriteMap,
+							delayPulsorModeInverted{},
+							map[direction]struct{}{
+								dirUp: struct{}{},
+							},
+							false,
+							false,
+							false,
+						),
 					}
 				},
 			},
