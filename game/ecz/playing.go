@@ -195,7 +195,11 @@ func (p *playing) pulsesExhausted() {
 	if p.hasWon() {
 		p.running = false
 		p.gameOver = true
+		return
 	}
+
+	p.initRunningValues()
+	p.extractPulses()
 }
 
 func (p *playing) hasWon() bool {
