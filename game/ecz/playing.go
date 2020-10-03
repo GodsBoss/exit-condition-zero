@@ -397,6 +397,18 @@ func (p *playing) Renderables(scale int) []game.Renderable {
 
 	if p.isMoveMode {
 		r = append(r, p.spriteMap.Produce("p_cursor", 270, 5, scale, 0))
+		if p.fieldSelectedForMove != nil {
+			r = append(
+				r,
+				p.spriteMap.Produce(
+					"p_cursor",
+					(*p.fieldSelectedForMove).X()*fieldsWidth+fieldsOffsetX,
+					(*p.fieldSelectedForMove).Y()*fieldsHeight+fieldsOffsetY,
+					scale,
+					0,
+				),
+			)
+		}
 	}
 
 	return r
