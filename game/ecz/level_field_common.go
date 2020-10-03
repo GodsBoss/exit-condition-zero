@@ -55,7 +55,9 @@ func (cf *commonField) Renderable(x, y int, scale int) game.Renderable {
 	return cf.field.Renderable(x, y, scale)
 }
 
-func (cf *commonField) Tick(ms int) {}
+func (cf *commonField) Tick(ms int) {
+	cf.field.Tick(ms)
+}
 
 type simpleField interface {
 	Reset()
@@ -65,6 +67,7 @@ type simpleField interface {
 	Renderable(x, y int, scale int) game.Renderable
 	IsConfigurable() bool
 	Configure()
+	Tick(ms int)
 }
 
 type commonFieldOption func(*commonField)
