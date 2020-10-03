@@ -11,6 +11,7 @@ import (
 type field interface {
 	// Resets this field to its initial state as found in the level's data (for
 	// pre-existing fields) or configured by the player (for fields set by the player).
+	// This is called when the player stops the run, not if the level is reset.
 	Reset()
 
 	// ExtractOutputPulses takes all the output pulses this field has to offer.
