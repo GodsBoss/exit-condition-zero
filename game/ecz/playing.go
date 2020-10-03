@@ -9,8 +9,6 @@ import (
 
 type playing struct {
 	spriteMap sprite.Map
-
-	waitTime int
 }
 
 func NewPlaying(spriteMap sprite.Map) game.State {
@@ -19,17 +17,9 @@ func NewPlaying(spriteMap sprite.Map) game.State {
 	}
 }
 
-func (p *playing) Init() {
-	p.waitTime = 0
-}
+func (p *playing) Init() {}
 
 func (p *playing) Tick(ms int) *game.Transition {
-	p.waitTime += ms
-	if p.waitTime > 5000 {
-		return &game.Transition{
-			NextState: "game_over",
-		}
-	}
 	return nil
 }
 
