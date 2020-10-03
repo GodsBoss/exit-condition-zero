@@ -9,15 +9,31 @@ import (
 
 type levelSelect struct {
 	spriteMap sprite.Map
+
+	levels []level
 }
 
 func NewLevelSelect(spriteMap sprite.Map) game.State {
 	return &levelSelect{
 		spriteMap: spriteMap,
+		levels: []level{
+			{
+				X: 120,
+				Y: 40,
+			},
+		},
 	}
 }
 
-func (ls *levelSelect) Init() {}
+func (ls *levelSelect) Init() {
+	ls.clearHover()
+}
+
+func (ls *levelSelect) clearHover() {
+	for i := range ls.levels {
+		ls.levels[i].Hover = false
+	}
+}
 
 func (ls *levelSelect) Tick(ms int) *game.Transition {
 	return nil
@@ -28,11 +44,37 @@ func (ls *levelSelect) ReceiveKeyEvent(event interaction.KeyEvent) *game.Transit
 }
 
 func (ls *levelSelect) ReceiveMouseEvent(event interaction.MouseEvent) *game.Transition {
+	if event.Type == interaction.MouseMove {
+		ls.clearHover()
+	}
+	for i := range ls.levels {
+		left := ls.levels[i].X
+		right := left + 48
+		top := ls.levels[i].Y
+		bottom := top + 48
+		if event.X >= left && event.X <= right && event.Y >= top && event.Y <= bottom {
+			ls.levels[i].Hover = true
+		}
+	}
 	return nil
 }
 
 func (ls *levelSelect) Renderables(scale int) []game.Renderable {
-	return []game.Renderable{
+	r := []game.Renderable{
 		ls.spriteMap.Produce("bg_level_select", 0, 0, scale, 0),
 	}
+	for i := range ls.levels {
+		id := "level_select_level"
+		if ls.levels[i].Hover {
+			id = "level_select_level_hover"
+		}
+		r = append(r, ls.spriteMap.Produce(id, ls.levels[i].X, ls.levels[i].Y, scale, 0))
+	}
+	return r
+}
+
+type level struct {
+	X     int
+	Y     int
+	Hover bool
 }
