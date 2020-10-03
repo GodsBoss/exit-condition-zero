@@ -3,9 +3,12 @@ package ecz
 import (
 	"github.com/GodsBoss/exit-condition-zero/pkg/game"
 	"github.com/GodsBoss/exit-condition-zero/pkg/rendering"
+	"github.com/GodsBoss/exit-condition-zero/pkg/rendering/sprite"
 )
 
 type emptyField struct {
+	spriteMap sprite.Map
+
 	free bool
 }
 

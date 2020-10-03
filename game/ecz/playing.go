@@ -29,7 +29,9 @@ func (p *playing) Init() {
 	p.fields = make(map[int2d.Vector]field)
 	for x := 0; x < 11; x++ {
 		for y := 0; y < 11; y++ {
-			p.fields[int2d.FromXY(x, y)] = &emptyField{}
+			p.fields[int2d.FromXY(x, y)] = &emptyField{
+				spriteMap: p.spriteMap,
+			}
 		}
 	}
 
