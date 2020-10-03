@@ -12,7 +12,10 @@ type field interface {
 
 	// IsHit takes a beam from a direction. Returned directions are directly
 	// converted to new pulses. The field may also change state.
-	IsHit(direction) []direction
+	// If the first return value is false, the field is not "hit" in a meaningful
+	// sense. This is logically different from being hit and sending a pulse into
+	// the same direction.
+	IsHit(direction) (bool, []direction)
 }
 
 type direction string
