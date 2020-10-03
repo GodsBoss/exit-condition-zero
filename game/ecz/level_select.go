@@ -26,13 +26,19 @@ func NewLevelSelect(spriteMap sprite.Map) game.State {
 }
 
 func (ls *levelSelect) Init() {
-	ls.resetLevels()
+	ls.unselectLevels()
+	ls.unhoverLevels()
 }
 
-func (ls *levelSelect) resetLevels() {
+func (ls *levelSelect) unselectLevels() {
+	for i := range ls.levels {
+		ls.levels[i].Selected = false
+	}
+}
+
+func (ls *levelSelect) unhoverLevels() {
 	for i := range ls.levels {
 		ls.levels[i].Hover = false
-		ls.levels[i].Selected = false
 	}
 }
 
@@ -46,11 +52,27 @@ func (ls *levelSelect) ReceiveKeyEvent(event interaction.KeyEvent) *game.Transit
 
 func (ls *levelSelect) ReceiveMouseEvent(event interaction.MouseEvent) *game.Transition {
 	if event.Type == interaction.MouseMove {
-		ls.resetLevels()
+		ls.unhoverLevels()
 		lvl, ok := ls.findLevelWithCoordinates(event.X, event.Y)
 		if ok {
 			lvl.Hover = true
 		}
+	}
+	if event.Type == interaction.MouseDown {
+		ls.unselectLevels()
+		lvl, ok := ls.findLevelWithCoordinates(event.X, event.Y)
+		if ok {
+			lvl.Selected = true
+		}
+	}
+	if event.Type == interaction.MouseUp {
+		lvl, ok := ls.findLevelWithCoordinates(event.X, event.Y)
+		if ok && lvl.Selected {
+			return &game.Transition{
+				NextState: "playing",
+			}
+		}
+		ls.unselectLevels()
 	}
 	return nil
 }
@@ -72,6 +94,9 @@ func (ls *levelSelect) Renderables(scale int) []game.Renderable {
 		id := "level_select_level"
 		if ls.levels[i].Hover {
 			id = "level_select_level_hover"
+		}
+		if ls.levels[i].Selected {
+			id = "level_select_level_selected"
 		}
 		r = append(r, ls.spriteMap.Produce(id, ls.levels[i].X, ls.levels[i].Y, scale, 0))
 	}
