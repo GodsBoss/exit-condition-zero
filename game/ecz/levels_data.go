@@ -52,8 +52,8 @@ func levelsData() *levels {
 				},
 			},
 			{
-				X: 120,
-				Y: 40,
+				X: 280,
+				Y: 200,
 				Texts: []levelText{
 					{
 						X:       100,
