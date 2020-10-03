@@ -439,6 +439,12 @@ var spriteSources = sprite.SourceMap{
 		W: 5,
 		H: 5,
 	},
+	"char_ ": {
+		X: 157,
+		Y: 1543,
+		W: 5,
+		H: 5,
+	},
 	"char_0": {
 		X: 1,
 		Y: 1549,
