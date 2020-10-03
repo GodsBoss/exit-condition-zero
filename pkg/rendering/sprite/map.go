@@ -6,6 +6,7 @@ import (
 	"errors"
 
 	"github.com/GodsBoss/exit-condition-zero/pkg/game"
+	"github.com/GodsBoss/exit-condition-zero/pkg/rendering"
 	"github.com/GodsBoss/gggg/pkg/dom"
 )
 
@@ -53,7 +54,7 @@ func (m SourceMap) Get(id string) (Source, error) {
 		return Source{}, errors.New("sprite " + id + " not found")
 	}
 	s.ID = id
-	return s
+	return s, nil
 }
 
 type Source struct {

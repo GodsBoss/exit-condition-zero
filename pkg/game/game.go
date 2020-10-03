@@ -19,10 +19,13 @@ type SpriteMap interface {
 	Produce(id string, x, y int, scale int, frame int) Renderable
 }
 
-func New() *Game {
+func New(spriteMap SpriteMap) *Game {
 	return &Game{
-		state: &title{},
-		scale: 1,
+		state: &title{
+			spriteMap: spriteMap,
+		},
+		scale:     1,
+		spriteMap: spriteMap,
 	}
 }
 
