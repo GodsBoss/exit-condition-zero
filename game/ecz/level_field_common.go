@@ -39,7 +39,9 @@ func (cf *commonField) IsConfigurable() bool {
 	return cf.field.IsConfigurable()
 }
 
-func (cf *commonField) Configure() {}
+func (cf *commonField) Configure() {
+	cf.field.Configure()
+}
 
 func (cf *commonField) Renderable(x, y int, scale int) game.Renderable {
 	return cf.field.Renderable(x, y, scale)
