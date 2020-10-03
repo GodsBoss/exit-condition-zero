@@ -32,7 +32,8 @@ type playing struct {
 	gameOver            bool
 	fields              map[int2d.Vector]field
 
-	cursorAnimation *animation
+	cursorAnimation    *animation
+	runButtonAnimation *sporadicAnimation
 }
 
 func newPlaying(spriteMap sprite.Map, levels *levels) game.State {
@@ -46,6 +47,12 @@ func (p *playing) Init() {
 	p.cursorAnimation = &animation{
 		frames: 4,
 		fps:    8,
+	}
+	p.runButtonAnimation = &sporadicAnimation{
+		interval:           2000,
+		remainingSleepTime: 2000,
+		frames:             8,
+		fps:                16,
 	}
 	p.running = false
 	p.gameOver = false
@@ -73,6 +80,7 @@ func (p *playing) Tick(ms int) *game.Transition {
 		}
 	}
 	p.cursorAnimation.tick(ms)
+	p.runButtonAnimation.tick(ms)
 	if p.running {
 		for bi := range p.beams {
 			p.beams[bi].animation += beamAnimationSpeed
@@ -434,7 +442,7 @@ func (p *playing) Renderables(scale int) []game.Renderable {
 	if p.running {
 		r = append(r, p.spriteMap.Produce("playing_button_stop", 245, 215, scale, 0))
 	} else {
-		r = append(r, p.spriteMap.Produce("playing_button_run", 245, 215, scale, 0))
+		r = append(r, p.spriteMap.Produce("playing_button_run", 245, 215, scale, p.runButtonAnimation.frame()))
 	}
 
 	for v := range p.fields {
