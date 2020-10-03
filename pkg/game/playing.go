@@ -4,6 +4,8 @@ import (
 	"github.com/GodsBoss/gggg/pkg/interaction"
 )
 
+var _ state = &playing{}
+
 type playing struct{}
 
 func (p *playing) Tick(ms int) {}

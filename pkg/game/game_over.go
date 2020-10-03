@@ -4,6 +4,8 @@ import (
 	"github.com/GodsBoss/gggg/pkg/interaction"
 )
 
+var _ state = &gameOver{}
+
 type gameOver struct{}
 
 func (over *gameOver) Tick(ms int) {}

@@ -4,6 +4,8 @@ import (
 	"github.com/GodsBoss/gggg/pkg/interaction"
 )
 
+var _ state = &levelSelect{}
+
 type levelSelect struct{}
 
 func (ls *levelSelect) Tick(ms int) {}
