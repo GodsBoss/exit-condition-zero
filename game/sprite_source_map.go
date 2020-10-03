@@ -11,7 +11,7 @@ var spriteSources = sprite.SourceMap{
 		W: 320,
 		H: 240,
 	},
-	"bg_levelselect": {
+	"bg_level_select": {
 		X: 480,
 		Y: 240,
 		W: 320,
@@ -23,7 +23,7 @@ var spriteSources = sprite.SourceMap{
 		W: 320,
 		H: 240,
 	},
-	"bg_gameover": {
+	"bg_game_over": {
 		X: 480,
 		Y: 720,
 		W: 320,
