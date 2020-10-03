@@ -10,13 +10,13 @@ import (
 type levelSelect struct {
 	spriteMap sprite.Map
 
-	levels []level
+	levels []*level
 }
 
 func NewLevelSelect(spriteMap sprite.Map) game.State {
 	return &levelSelect{
 		spriteMap: spriteMap,
-		levels: []level{
+		levels: []*level{
 			{
 				X: 120,
 				Y: 40,
@@ -47,13 +47,21 @@ func (ls *levelSelect) ReceiveKeyEvent(event interaction.KeyEvent) *game.Transit
 func (ls *levelSelect) ReceiveMouseEvent(event interaction.MouseEvent) *game.Transition {
 	if event.Type == interaction.MouseMove {
 		ls.resetLevels()
-		for i := range ls.levels {
-			if ls.levels[i].ContainsPointer(event.X, event.Y) {
-				ls.levels[i].Hover = true
-			}
+		lvl, ok := ls.findLevelWithCoordinates(event.X, event.Y)
+		if ok {
+			lvl.Hover = true
 		}
 	}
 	return nil
+}
+
+func (ls *levelSelect) findLevelWithCoordinates(X, Y int) (*level, bool) {
+	for i := range ls.levels {
+		if ls.levels[i].ContainsPointer(X, Y) {
+			return ls.levels[i], true
+		}
+	}
+	return nil, false
 }
 
 func (ls *levelSelect) Renderables(scale int) []game.Renderable {
