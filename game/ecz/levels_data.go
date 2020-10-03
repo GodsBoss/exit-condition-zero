@@ -1,6 +1,8 @@
 package ecz
 
 import (
+	"strings"
+
 	"github.com/GodsBoss/exit-condition-zero/pkg/rendering/sprite"
 	"github.com/GodsBoss/exit-condition-zero/pkg/vector/int2d"
 )
@@ -9,6 +11,46 @@ func levelsData() *levels {
 	v := int2d.FromXY
 	return &levels{
 		levels: []*level{
+			{
+				X: 10,
+				Y: 10,
+				Texts: []levelText{
+					{
+						X: 5,
+						Y: 5,
+						Content: levelTextContent(
+							"On every CPU cycle, a pulse is",
+							"generated. To avoid an infinite loop,",
+							"you have to make the exit condition",
+							"zero. You can accomplish this by",
+							"blocking all pulses going to the",
+							"condition check.",
+							"If you just run the level via the",
+							"'play' button, it will never end.",
+							"Block the pulse by moving the pulse",
+							"blocker via the 'move' button (top",
+							"right corner, middle one) between",
+							"pulser and exit condition checker.",
+						),
+					},
+				},
+				Tutorial: true,
+				getFields: func(spriteMap sprite.Map) map[int2d.Vector]field {
+					return map[int2d.Vector]field{
+						v(3, 9): &pulsor{
+							spriteMap: spriteMap,
+							directions: map[direction]bool{
+								dirRight: true,
+							},
+						},
+						v(1, 8): newBlocker(spriteMap, false, true),
+						v(6, 9): newFreeField(spriteMap),
+						v(9, 9): &exitConditionField{
+							spriteMap: spriteMap,
+						},
+					}
+				},
+			},
 			{
 				X: 120,
 				Y: 40,
@@ -97,4 +139,8 @@ func levelsData() *levels {
 			},
 		},
 	}
+}
+
+func levelTextContent(lines ...string) string {
+	return strings.Join(lines, "\n")
 }
