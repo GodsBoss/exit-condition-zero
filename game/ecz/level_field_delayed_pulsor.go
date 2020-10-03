@@ -14,6 +14,9 @@ type delayedPulsor struct {
 
 	directions map[direction]struct{}
 
+	// initialPowered is the value powered will be set to at Reset().
+	initialPowered bool
+
 	// powered remembers wether the pulsor had received a pulse in the last cycle.
 	powered bool
 }
@@ -28,17 +31,20 @@ func newDelayedPulsor(
 ) field {
 	return newCommonField(
 		&delayedPulsor{
-			spriteMap:  spriteMap,
-			mode:       mode,
-			directions: directions,
-			powered:    initialPowered,
+			spriteMap:      spriteMap,
+			mode:           mode,
+			directions:     directions,
+			initialPowered: initialPowered,
+			powered:        initialPowered,
 		},
 		setDeletable(deletable),
 		setMovable(movable),
 	)
 }
 
-func (p *delayedPulsor) Reset() {}
+func (p *delayedPulsor) Reset() {
+	p.powered = p.initialPowered
+}
 
 func (p *delayedPulsor) ExtractOutputPulses() []direction {
 	dirs := p.mode.extractOutputPulses(p.powered, p.directions)
