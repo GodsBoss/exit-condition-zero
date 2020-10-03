@@ -27,7 +27,19 @@ func (g *Game) SetOutput(ctx2d *dom.Context2D) {
 func (g *Game) Render() {}
 
 func (g *Game) Scale(availableWidth, availableHeight int) (realWidth, realHeight int, scaleX, scaleY float64) {
-	return uiWidth, uiHeight, 1.0, 1.0
+	sx := (availableWidth - 20) / uiWidth
+	sy := (availableHeight - 20) / uiHeight
+	if sx < 1 {
+		sx = 1
+	}
+	if sy < 1 {
+		sy = 1
+	}
+	s := sx
+	if sy < s {
+		s = sy
+	}
+	return uiWidth * s, uiHeight * s, float64(s), float64(s)
 }
 
 func (g *Game) Tick(ms int) {}
