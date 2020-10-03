@@ -30,5 +30,7 @@ func (t *title) ReceiveMouseEvent(event interaction.MouseEvent) *game.Transition
 }
 
 func (t *title) Renderables(scale int) []game.Renderable {
-	return make([]game.Renderable, 0)
+	return []game.Renderable{
+		t.spriteMap.Produce("bg_title", 0, 0, scale, 0),
+	}
 }
