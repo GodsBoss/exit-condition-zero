@@ -39,6 +39,8 @@ func (pol *polarizer) IsConfigurable() bool {
 	return false
 }
 
+func (pol *polarizer) Configure() {}
+
 func (pol *polarizer) Renderable(x, y int, scale int) game.Renderable {
 	return pol.orientation.renderable(pol.spriteMap, x, y, scale)
 }

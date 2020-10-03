@@ -38,6 +38,8 @@ func (f *emptyField) IsConfigurable() bool {
 	return false
 }
 
+func (f *emptyField) Configure() {}
+
 func (f *emptyField) IsFree() bool {
 	return f.free
 }

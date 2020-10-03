@@ -42,6 +42,8 @@ func (f *exitConditionField) IsConfigurable() bool {
 	return false
 }
 
+func (f *exitConditionField) Configure() {}
+
 func (f *exitConditionField) AllowsVictory() bool {
 	return !f.hasBeenHit
 }

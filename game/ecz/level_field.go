@@ -38,6 +38,10 @@ type field interface {
 	// IsConfigurable determines wether the player can configure this field.
 	IsConfigurable() bool
 
+	// Configure changes the state of the field, caused by the initiative of the
+	// player.
+	Configure()
+
 	// Renderable returns the graphical representation of a field. x and y are
 	// in-game unscaled pixel coordinates.
 	Renderable(x, y int, scale int) game.Renderable
