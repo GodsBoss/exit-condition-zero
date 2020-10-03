@@ -57,6 +57,24 @@ var directionSpriteIDs = map[direction]string{
 	dirLeft:  "output_left",
 }
 
+func toDirectionsMap(directions ...direction) directionsMap {
+	m := make(directionsMap)
+	for i := range directions {
+		m[directions[i]] = struct{}{}
+	}
+	return m
+}
+
+type directionsMap map[direction]struct{}
+
+func (m directionsMap) Directions() []direction {
+	dirs := make([]direction, 0, len(m))
+	for dir := range m {
+		dirs = append(dirs, dir)
+	}
+	return dirs
+}
+
 func createRenderableForDirections(spriteMap sprite.Map, directions []direction, x, y int, scale int) game.Renderable {
 	r := make(rendering.Renderables, 0)
 	for i := range directions {
