@@ -37,7 +37,10 @@ func run() error {
 		game.New(
 			"title",
 			map[string]game.State{
-				"title": ecz.NewTitle(spriteMap),
+				"game_over":    ecz.NewGameOver(),
+				"level_select": ecz.NewLevelSelect(),
+				"playing":      ecz.NewPlaying(),
+				"title":        ecz.NewTitle(spriteMap),
 			},
 		),
 	)
