@@ -27,6 +27,6 @@ func (p *playing) ReceiveMouseEvent(event interaction.MouseEvent) *game.Transiti
 	return nil
 }
 
-func (p *playing) Renderables() []game.Renderable {
+func (p *playing) Renderables(scale int) []game.Renderable {
 	return make([]game.Renderable, 0)
 }

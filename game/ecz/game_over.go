@@ -27,6 +27,6 @@ func (over *gameOver) ReceiveMouseEvent(event interaction.MouseEvent) *game.Tran
 	return nil
 }
 
-func (over *gameOver) Renderables() []game.Renderable {
+func (over *gameOver) Renderables(scale int) []game.Renderable {
 	return make([]game.Renderable, 0)
 }

@@ -45,7 +45,7 @@ func (g *Game) SetOutput(ctx2d *dom.Context2D) {
 }
 
 func (g *Game) Render() {
-	renderables := g.currentState().Renderables()
+	renderables := g.currentState().Renderables(g.scale)
 	for i := range renderables {
 		renderables[i].Render(g.output)
 	}

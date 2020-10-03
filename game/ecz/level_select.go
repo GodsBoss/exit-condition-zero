@@ -27,6 +27,6 @@ func (ls *levelSelect) ReceiveMouseEvent(event interaction.MouseEvent) *game.Tra
 	return nil
 }
 
-func (ls *levelSelect) Renderables() []game.Renderable {
+func (ls *levelSelect) Renderables(scale int) []game.Renderable {
 	return make([]game.Renderable, 0)
 }
