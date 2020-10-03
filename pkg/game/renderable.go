@@ -6,6 +6,6 @@ import (
 	"github.com/GodsBoss/gggg/pkg/dom"
 )
 
-type renderable interface {
-	render(output *dom.Context2D)
+type Renderable interface {
+	Render(output *dom.Context2D)
 }
