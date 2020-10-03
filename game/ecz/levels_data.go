@@ -32,6 +32,10 @@ func levelsData() *levels {
 							spriteMap: spriteMap,
 							movable:   true,
 						},
+						v(7, 7): &blocker{
+							spriteMap: spriteMap,
+							deletable: true,
+						},
 					}
 				},
 			},

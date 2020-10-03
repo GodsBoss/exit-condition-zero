@@ -98,6 +98,14 @@ func (p *playing) ReceiveMouseEvent(event interaction.MouseEvent) *game.Transiti
 		if rect.FromPositionAndSize(270, 5, 20, 20).Inside(event.X, event.Y) && !p.running {
 			p.toggleMoveMode()
 		}
+
+		// Something on the grid.
+		if p.gridCursor != nil {
+			if p.isDeleteMode {
+				p.attemptToDelete()
+				return nil
+			}
+		}
 	}
 
 	if event.Type == interaction.MouseMove {
@@ -119,6 +127,17 @@ func (p *playing) toggleDeleteMode() {
 		return
 	}
 	p.isDeleteMode = true
+}
+
+func (p *playing) attemptToDelete() {
+	v := *p.gridCursor
+	if p.fields[v].IsDeletable() {
+		p.fields[v] = &emptyField{
+			spriteMap: p.spriteMap,
+			free:      true,
+		}
+	}
+	p.isDeleteMode = false
 }
 
 func (p *playing) toggleMoveMode() {
