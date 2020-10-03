@@ -181,7 +181,7 @@ var spriteSources = sprite.SourceMap{
 	},
 	"p_marker": {
 		X: 0,
-		Y: 40,
+		Y: 60,
 		W: 20,
 		H: 20,
 	},
