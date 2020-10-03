@@ -1,8 +1,11 @@
 package ecz
 
-type emptyField struct{}
+type emptyField struct {
+	free bool
+}
 
 var _ field = &emptyField{}
+var _ fieldFree = &emptyField{}
 
 func (f *emptyField) Reset() {}
 
@@ -22,4 +25,8 @@ func (f *emptyField) IsDeletable() bool {
 
 func (f *emptyField) IsMovable() bool {
 	return false
+}
+
+func (f *emptyField) IsFree() bool {
+	return f.free
 }

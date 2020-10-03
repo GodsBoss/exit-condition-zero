@@ -56,3 +56,10 @@ type fieldWithVictoryCondition interface {
 	// victorious in this level.
 	AllowsVictory() bool
 }
+
+// fieldFree is implemented only be empty fields.
+type fieldFree interface {
+	// IsFree returns wether other fields may be placed here despite the field
+	// neither being deletable nor movable.
+	IsFree() bool
+}
