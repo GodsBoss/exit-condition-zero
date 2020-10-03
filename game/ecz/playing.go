@@ -10,13 +10,15 @@ import (
 
 type playing struct {
 	spriteMap sprite.Map
+	levels    *levels
 
 	running bool
 }
 
-func newPlaying(spriteMap sprite.Map) game.State {
+func newPlaying(spriteMap sprite.Map, levels *levels) game.State {
 	return &playing{
 		spriteMap: spriteMap,
+		levels:    levels,
 	}
 }
 
