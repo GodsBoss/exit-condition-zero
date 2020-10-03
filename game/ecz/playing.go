@@ -37,10 +37,11 @@ func (p *playing) ReceiveMouseEvent(event interaction.MouseEvent) *game.Transiti
 }
 
 func (p *playing) Renderables(scale int) []game.Renderable {
-	return []game.Renderable{
+	r := []game.Renderable{
 		p.spriteMap.Produce("bg_playing", 0, 0, scale, 0),
 		p.spriteMap.Produce("playing_button_run", 245, 215, scale, 0),
 		p.spriteMap.Produce("playing_button_reset", 270, 215, scale, 0),
 		p.spriteMap.Produce("playing_button_exit", 295, 215, scale, 0),
 	}
+	return r
 }
