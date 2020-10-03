@@ -85,6 +85,7 @@ func (g *Game) transition(trans *Transition) {
 		return
 	}
 	g.currentStateID = trans.NextState
+	g.currentState().Init()
 }
 
 const (
