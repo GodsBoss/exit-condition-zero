@@ -6,7 +6,9 @@ import (
 
 var _ state = &title{}
 
-type title struct{}
+type title struct {
+	spriteMap SpriteMap
+}
 
 func (t *title) Tick(ms int) {}
 

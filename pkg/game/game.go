@@ -11,7 +11,12 @@ type Game struct {
 	scale int
 	state state
 
-	output *dom.Context2D
+	output    *dom.Context2D
+	spriteMap SpriteMap
+}
+
+type SpriteMap interface {
+	Produce(id string, x, y int, scale int, frame int) Renderable
 }
 
 func New() *Game {

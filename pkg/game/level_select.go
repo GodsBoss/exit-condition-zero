@@ -6,7 +6,9 @@ import (
 
 var _ state = &levelSelect{}
 
-type levelSelect struct{}
+type levelSelect struct {
+	spriteMap SpriteMap
+}
 
 func (ls *levelSelect) Tick(ms int) {}
 

@@ -6,7 +6,9 @@ import (
 
 var _ state = &playing{}
 
-type playing struct{}
+type playing struct {
+	spriteMap SpriteMap
+}
 
 func (p *playing) Tick(ms int) {}
 

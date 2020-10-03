@@ -6,7 +6,9 @@ import (
 
 var _ state = &gameOver{}
 
-type gameOver struct{}
+type gameOver struct {
+	spriteMap SpriteMap
+}
 
 func (over *gameOver) Tick(ms int) {}
 
