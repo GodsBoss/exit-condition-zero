@@ -6,6 +6,9 @@ import (
 
 type levels struct {
 	levels []*level
+
+	// selectedLevel contains the index to an item in levels.levels.
+	selectedLevel int
 }
 
 func (ls *levels) unselectLevels() {
@@ -20,13 +23,13 @@ func (ls *levels) unhoverLevels() {
 	}
 }
 
-func (ls *levels) findLevelWithCoordinates(X, Y int) (*level, bool) {
+func (ls *levels) findLevelWithCoordinates(X, Y int) (int, *level, bool) {
 	for i := range ls.levels {
 		if ls.levels[i].ContainsPointer(X, Y) {
-			return ls.levels[i], true
+			return i, ls.levels[i], true
 		}
 	}
-	return nil, false
+	return -1, nil, false
 }
 
 type level struct {

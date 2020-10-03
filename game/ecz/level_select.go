@@ -36,21 +36,22 @@ func (ls *levelSelect) ReceiveKeyEvent(event interaction.KeyEvent) *game.Transit
 func (ls *levelSelect) ReceiveMouseEvent(event interaction.MouseEvent) *game.Transition {
 	if event.Type == interaction.MouseMove {
 		ls.levels.unhoverLevels()
-		lvl, ok := ls.levels.findLevelWithCoordinates(event.X, event.Y)
+		_, lvl, ok := ls.levels.findLevelWithCoordinates(event.X, event.Y)
 		if ok {
 			lvl.Hover = true
 		}
 	}
 	if event.Type == interaction.MouseDown {
 		ls.levels.unselectLevels()
-		lvl, ok := ls.levels.findLevelWithCoordinates(event.X, event.Y)
+		_, lvl, ok := ls.levels.findLevelWithCoordinates(event.X, event.Y)
 		if ok {
 			lvl.Selected = true
 		}
 	}
 	if event.Type == interaction.MouseUp {
-		lvl, ok := ls.levels.findLevelWithCoordinates(event.X, event.Y)
+		i, lvl, ok := ls.levels.findLevelWithCoordinates(event.X, event.Y)
 		if ok && lvl.Selected {
+			ls.levels.selectedLevel = i
 			return &game.Transition{
 				NextState: "playing",
 			}
