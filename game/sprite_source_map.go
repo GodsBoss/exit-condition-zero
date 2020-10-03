@@ -96,8 +96,8 @@ var spriteSources = sprite.SourceMap{
 		H: 20,
 	},
 	"playing_button_exit": {
-		X: 340,
-		Y: 0,
+		X: 160,
+		Y: 100,
 		W: 20,
 		H: 20,
 	},
