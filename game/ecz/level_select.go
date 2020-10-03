@@ -13,7 +13,7 @@ type levelSelect struct {
 	levels *levels
 }
 
-func NewLevelSelect(spriteMap sprite.Map) game.State {
+func newLevelSelect(spriteMap sprite.Map) game.State {
 	return &levelSelect{
 		spriteMap: spriteMap,
 		levels:    levelsData(),

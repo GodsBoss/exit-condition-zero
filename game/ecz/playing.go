@@ -14,7 +14,7 @@ type playing struct {
 	running bool
 }
 
-func NewPlaying(spriteMap sprite.Map) game.State {
+func newPlaying(spriteMap sprite.Map) game.State {
 	return &playing{
 		spriteMap: spriteMap,
 	}

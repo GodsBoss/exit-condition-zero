@@ -11,7 +11,7 @@ type gameOver struct {
 	spriteMap sprite.Map
 }
 
-func NewGameOver(spriteMap sprite.Map) game.State {
+func newGameOver(spriteMap sprite.Map) game.State {
 	return &gameOver{
 		spriteMap: spriteMap,
 	}
