@@ -365,6 +365,7 @@ func (p *playing) Renderables(scale int) []game.Renderable {
 
 		p.spriteMap.Produce("p_button_delete", 245, 5, scale, 0),
 		p.spriteMap.Produce("p_button_move", 270, 5, scale, 0),
+		p.spriteMap.Produce("p_button_configure", 295, 5, scale, 0),
 	}
 
 	if p.running {
