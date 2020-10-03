@@ -13,7 +13,7 @@ type delayedPulsor struct {
 	// mode determines how powering the pulsor lets pulses loose.
 	mode delayPulsorMode
 
-	directions map[direction]struct{}
+	directions directionsMap
 
 	// initialPowered is the value powered will be set to at Reset().
 	initialPowered bool
@@ -64,16 +64,8 @@ func (p *delayedPulsor) Receive([]direction) {
 func (p *delayedPulsor) Renderable(x, y int, scale int) game.Renderable {
 	return rendering.Renderables{
 		p.mode.renderable(p.spriteMap, x, y, scale),
-		createRenderableForDirections(p.spriteMap, p.getOutputDirections(), x, y, scale),
+		createRenderableForDirections(p.spriteMap, p.directions.Directions(), x, y, scale),
 	}
-}
-
-func (p *delayedPulsor) getOutputDirections() []direction {
-	dirs := make([]direction, 0)
-	for dir := range p.directions {
-		dirs = append(dirs, dir)
-	}
-	return dirs
 }
 
 func (p *delayedPulsor) IsConfigurable() bool {
@@ -83,7 +75,7 @@ func (p *delayedPulsor) IsConfigurable() bool {
 func (p *delayedPulsor) Configure() {}
 
 type delayPulsorMode interface {
-	extractOutputPulses(powered bool, directions map[direction]struct{}) []direction
+	extractOutputPulses(powered bool, directions directionsMap) []direction
 	renderable(spriteMap sprite.Map, x, y int, scale int) game.Renderable
 }
 
@@ -91,15 +83,11 @@ type delayPulsorModeDelayed struct{}
 
 var _ delayPulsorMode = delayPulsorModeDelayed{}
 
-func (mode delayPulsorModeDelayed) extractOutputPulses(powered bool, directions map[direction]struct{}) []direction {
+func (mode delayPulsorModeDelayed) extractOutputPulses(powered bool, directions directionsMap) []direction {
 	if !powered {
 		return make([]direction, 0)
 	}
-	dirs := make([]direction, 0)
-	for dir := range directions {
-		dirs = append(dirs, dir)
-	}
-	return dirs
+	return directions.Directions()
 }
 
 func (mode delayPulsorModeDelayed) renderable(spriteMap sprite.Map, x, y int, scale int) game.Renderable {
@@ -110,15 +98,11 @@ type delayPulsorModeInverted struct{}
 
 var _ delayPulsorMode = delayPulsorModeInverted{}
 
-func (mode delayPulsorModeInverted) extractOutputPulses(powered bool, directions map[direction]struct{}) []direction {
+func (mode delayPulsorModeInverted) extractOutputPulses(powered bool, directions directionsMap) []direction {
 	if powered {
 		return make([]direction, 0)
 	}
-	dirs := make([]direction, 0)
-	for dir := range directions {
-		dirs = append(dirs, dir)
-	}
-	return dirs
+	return directions.Directions()
 }
 
 func (mode delayPulsorModeInverted) renderable(spriteMap sprite.Map, x, y int, scale int) game.Renderable {
