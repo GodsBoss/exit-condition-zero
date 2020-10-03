@@ -24,7 +24,6 @@ func newFreeField(spriteMap sprite.Map) field {
 	}
 }
 
-var _ field = &emptyField{}
 var _ fieldFree = &emptyField{}
 
 func (f *emptyField) Reset() {}

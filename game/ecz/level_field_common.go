@@ -19,8 +19,6 @@ func newCommonField(field simpleField, options ...commonFieldOption) field {
 	return f
 }
 
-var _ field = &commonField{}
-
 func (cf *commonField) Reset() {
 	cf.field.Reset()
 }
