@@ -85,6 +85,11 @@ func (p *playing) ReceiveMouseEvent(event interaction.MouseEvent) *game.Transiti
 			p.toggleRun()
 		}
 
+		// Reset button
+		if rect.FromPositionAndSize(270, 215, 20, 20).Inside(event.X, event.Y) {
+			p.Init()
+		}
+
 		// Exit button
 		if rect.FromPositionAndSize(295, 215, 20, 20).Inside(event.X, event.Y) {
 			return &game.Transition{
