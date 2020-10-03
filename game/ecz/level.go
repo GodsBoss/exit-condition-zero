@@ -44,9 +44,19 @@ type level struct {
 	// easy and often have additional information in them.
 	Tutorial bool
 
+	// Texts are texts shown inside the level.
+	Texts []levelText
+
 	getFields func(sprite.Map) map[int2d.Vector]field
 }
 
 func (lvl level) ContainsPointer(px, py int) bool {
 	return rect.FromPositionAndSize(lvl.X, lvl.Y, 48, 48).Inside(px, py)
+}
+
+type levelText struct {
+	X int
+	Y int
+
+	Content string
 }

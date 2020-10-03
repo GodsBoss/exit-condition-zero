@@ -6,6 +6,7 @@ import (
 	"github.com/GodsBoss/exit-condition-zero/pkg/game"
 	"github.com/GodsBoss/exit-condition-zero/pkg/rect"
 	"github.com/GodsBoss/exit-condition-zero/pkg/rendering/sprite"
+	"github.com/GodsBoss/exit-condition-zero/pkg/rendering/text"
 	"github.com/GodsBoss/exit-condition-zero/pkg/vector/int2d"
 
 	"github.com/GodsBoss/gggg/pkg/interaction"
@@ -504,6 +505,11 @@ func (p *playing) Renderables(scale int) []game.Renderable {
 
 	if p.isConfigureMode {
 		r = append(r, p.spriteMap.Produce("p_cursor", 295, 5, scale, 0))
+	}
+
+	txts := p.levels.levels[p.levels.selectedLevel].Texts
+	for i := range txts {
+		r = append(r, text.New(p.spriteMap, txts[i].Content, txts[i].X, txts[i].Y, scale))
 	}
 
 	return r
