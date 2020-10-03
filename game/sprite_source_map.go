@@ -137,6 +137,18 @@ var spriteSources = sprite.SourceMap{
 		W: 20,
 		H: 20,
 	},
+	"p_full_mirror_asc": {
+		X: 140,
+		Y: 0,
+		W: 20,
+		H: 20,
+	},
+	"p_full_mirror_desc": {
+		X: 160,
+		Y: 0,
+		W: 20,
+		H: 20,
+	},
 	"p_beam_up_1": {
 		X: 367,
 		Y: 11,
