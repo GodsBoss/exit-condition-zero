@@ -46,14 +46,14 @@ func (ls *levelSelect) ReceiveKeyEvent(event interaction.KeyEvent) *game.Transit
 func (ls *levelSelect) ReceiveMouseEvent(event interaction.MouseEvent) *game.Transition {
 	if event.Type == interaction.MouseMove {
 		ls.clearHover()
-	}
-	for i := range ls.levels {
-		left := ls.levels[i].X
-		right := left + 48
-		top := ls.levels[i].Y
-		bottom := top + 48
-		if event.X >= left && event.X <= right && event.Y >= top && event.Y <= bottom {
-			ls.levels[i].Hover = true
+		for i := range ls.levels {
+			left := ls.levels[i].X
+			right := left + 48
+			top := ls.levels[i].Y
+			bottom := top + 48
+			if event.X >= left && event.X <= right && event.Y >= top && event.Y <= bottom {
+				ls.levels[i].Hover = true
+			}
 		}
 	}
 	return nil
