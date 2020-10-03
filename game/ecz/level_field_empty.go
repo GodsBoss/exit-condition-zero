@@ -2,6 +2,8 @@ package ecz
 
 type emptyField struct{}
 
+var _ field = &emptyField{}
+
 func (f *emptyField) Reset() {}
 
 func (f *emptyField) ExtractOutputPulses() []direction {
