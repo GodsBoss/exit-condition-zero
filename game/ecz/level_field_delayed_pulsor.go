@@ -2,6 +2,7 @@ package ecz
 
 import (
 	"github.com/GodsBoss/exit-condition-zero/pkg/game"
+	"github.com/GodsBoss/exit-condition-zero/pkg/rendering"
 	"github.com/GodsBoss/exit-condition-zero/pkg/rendering/sprite"
 )
 
@@ -61,7 +62,18 @@ func (p *delayedPulsor) Receive([]direction) {
 }
 
 func (p *delayedPulsor) Renderable(x, y int, scale int) game.Renderable {
-	return p.mode.renderable(p.spriteMap, x, y, scale)
+	return rendering.Renderables{
+		p.mode.renderable(p.spriteMap, x, y, scale),
+		createRenderableForDirections(p.spriteMap, p.getOutputDirections(), x, y, scale),
+	}
+}
+
+func (p *delayedPulsor) getOutputDirections() []direction {
+	dirs := make([]direction, 0)
+	for dir := range p.directions {
+		dirs = append(dirs, dir)
+	}
+	return dirs
 }
 
 func (p *delayedPulsor) IsConfigurable() bool {
