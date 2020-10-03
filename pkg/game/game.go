@@ -41,11 +41,11 @@ func (g *Game) TicksPerSecond() int {
 }
 
 func (g *Game) SetOutput(ctx2d *dom.Context2D) {
-	ctx2d.DisableImageSmoothing()
 	g.output = ctx2d
 }
 
 func (g *Game) Render() {
+	g.output.DisableImageSmoothing()
 	g.output.ClearRect(0, 0, g.scale*uiWidth, g.scale*uiHeight)
 	renderables := g.currentState().Renderables(g.scale)
 	for i := range renderables {
