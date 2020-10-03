@@ -79,6 +79,9 @@ func (p *playing) Tick(ms int) *game.Transition {
 			p.beamStep()
 		}
 	}
+	for i := range p.fields {
+		p.fields[i].Tick(ms)
+	}
 	return nil
 }
 
