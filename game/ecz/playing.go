@@ -9,6 +9,8 @@ import (
 
 type playing struct {
 	spriteMap sprite.Map
+
+	running bool
 }
 
 func NewPlaying(spriteMap sprite.Map) game.State {
@@ -17,7 +19,9 @@ func NewPlaying(spriteMap sprite.Map) game.State {
 	}
 }
 
-func (p *playing) Init() {}
+func (p *playing) Init() {
+	p.running = false
+}
 
 func (p *playing) Tick(ms int) *game.Transition {
 	return nil
