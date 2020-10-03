@@ -5,7 +5,7 @@ package imageload
 import (
 	"errors"
 
-	"github.com/GodsBoss/gggg/dom"
+	"github.com/GodsBoss/gggg/pkg/dom"
 )
 
 type Loader interface {
