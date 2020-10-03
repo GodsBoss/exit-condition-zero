@@ -116,6 +116,10 @@ func (p *playing) ReceiveMouseEvent(event interaction.MouseEvent) *game.Transiti
 				p.attemptToMove()
 				return nil
 			}
+			if p.isConfigureMode {
+				p.attemptToConfigure()
+				return nil
+			}
 		}
 	}
 
@@ -232,6 +236,14 @@ func (p *playing) toggleConfigureMode() {
 			return f.IsConfigurable()
 		},
 	)
+}
+
+func (p *playing) attemptToConfigure() {
+	v := *p.gridCursor
+
+	if p.fields[v].IsConfigurable() {
+		p.fields[v].Configure()
+	}
 }
 
 func (p *playing) clearSelectableFields() {
