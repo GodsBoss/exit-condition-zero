@@ -38,10 +38,8 @@ func levelsData() *levels {
 				getFields: func(spriteMap sprite.Map) map[int2d.Vector]field {
 					return map[int2d.Vector]field{
 						v(3, 9): &pulsor{
-							spriteMap: spriteMap,
-							directions: map[direction]bool{
-								dirRight: true,
-							},
+							spriteMap:  spriteMap,
+							directions: toDirectionsMap(dirRight),
 						},
 						v(1, 8): newBlocker(spriteMap, false, true),
 						v(6, 9): newFreeField(spriteMap),
@@ -71,11 +69,8 @@ func levelsData() *levels {
 				getFields: func(spriteMap sprite.Map) map[int2d.Vector]field {
 					return map[int2d.Vector]field{
 						v(1, 9): &pulsor{
-							spriteMap: spriteMap,
-							directions: map[direction]bool{
-								dirUp:    true,
-								dirRight: true,
-							},
+							spriteMap:  spriteMap,
+							directions: toDirectionsMap(dirUp, dirRight),
 						},
 						v(1, 7): &polarizer{
 							spriteMap:   spriteMap,
@@ -120,17 +115,13 @@ func levelsData() *levels {
 				getFields: func(spriteMap sprite.Map) map[int2d.Vector]field {
 					return map[int2d.Vector]field{
 						v(3, 7): &pulsor{
-							spriteMap: spriteMap,
-							directions: map[direction]bool{
-								dirUp: true,
-							},
+							spriteMap:  spriteMap,
+							directions: toDirectionsMap(dirUp),
 						},
 						v(3, 3): newDelayedPulsor(
 							spriteMap,
 							delayPulsorModeInverted{},
-							map[direction]struct{}{
-								dirRight: struct{}{},
-							},
+							toDirectionsMap(dirRight),
 							false,
 							false,
 							false,
@@ -161,12 +152,8 @@ func levelsData() *levels {
 				getFields: func(spriteMap sprite.Map) map[int2d.Vector]field {
 					return map[int2d.Vector]field{
 						v(5, 6): &pulsor{
-							spriteMap: spriteMap,
-							directions: map[direction]bool{
-								dirRight: true,
-								dirDown:  true,
-								dirLeft:  true,
-							},
+							spriteMap:  spriteMap,
+							directions: toDirectionsMap(dirRight, dirDown, dirLeft),
 						},
 						v(7, 6): newFullMirror(spriteMap, ascendingFullMirrorOrientation{}, false, false, true),
 						v(7, 4): &exitConditionField{
@@ -202,10 +189,8 @@ func levelsData() *levels {
 				getFields: func(spriteMap sprite.Map) map[int2d.Vector]field {
 					return map[int2d.Vector]field{
 						v(8, 2): &pulsor{
-							spriteMap: spriteMap,
-							directions: map[direction]bool{
-								dirRight: true,
-							},
+							spriteMap:  spriteMap,
+							directions: toDirectionsMap(dirRight),
 						},
 						v(2, 2): newHalfMirror(spriteMap, 0, false, false, true),
 						v(2, 7): &exitConditionField{
@@ -231,11 +216,8 @@ func levelsData() *levels {
 							free:      true,
 						},
 						v(5, 3): &pulsor{
-							spriteMap: spriteMap,
-							directions: map[direction]bool{
-								dirLeft: true,
-								dirDown: true,
-							},
+							spriteMap:  spriteMap,
+							directions: toDirectionsMap(dirLeft, dirDown),
 						},
 						v(5, 7): &exitConditionField{
 							spriteMap: spriteMap,
@@ -257,9 +239,7 @@ func levelsData() *levels {
 						v(8, 4): newDelayedPulsor(
 							spriteMap,
 							delayPulsorModeDelayed{},
-							map[direction]struct{}{
-								dirUp: struct{}{},
-							},
+							toDirectionsMap(dirUp),
 							true,
 							false,
 							false,
@@ -267,9 +247,7 @@ func levelsData() *levels {
 						v(10, 4): newDelayedPulsor(
 							spriteMap,
 							delayPulsorModeInverted{},
-							map[direction]struct{}{
-								dirLeft: struct{}{},
-							},
+							toDirectionsMap(dirLeft),
 							false,
 							false,
 							false,
@@ -277,21 +255,14 @@ func levelsData() *levels {
 						v(9, 8): newDelayedPulsor(
 							spriteMap,
 							delayPulsorModeInverted{},
-							map[direction]struct{}{
-								dirUp: struct{}{},
-							},
+							toDirectionsMap(dirUp),
 							false,
 							false,
 							false,
 						),
 						v(3, 9): &pulsor{
-							spriteMap: spriteMap,
-							directions: map[direction]bool{
-								dirUp:    true,
-								dirRight: true,
-								dirDown:  true,
-								dirLeft:  true,
-							},
+							spriteMap:  spriteMap,
+							directions: toDirectionsMap(dirUp, dirRight, dirDown, dirLeft),
 						},
 						v(3, 8):  newRotator(spriteMap, true, false, true, true),
 						v(4, 9):  newFreeField(spriteMap),

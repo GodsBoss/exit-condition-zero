@@ -9,7 +9,7 @@ import (
 type pulsor struct {
 	spriteMap sprite.Map
 
-	directions map[direction]bool
+	directions directionsMap
 	deletable  bool
 	movable    bool
 }
@@ -18,18 +18,8 @@ var _ field = &pulsor{}
 
 func (p *pulsor) Reset() {}
 
-func (p *pulsor) getOutputDirections() []direction {
-	dirs := make([]direction, 0)
-	for dir := range p.directions {
-		if p.directions[dir] {
-			dirs = append(dirs, dir)
-		}
-	}
-	return dirs
-}
-
 func (p *pulsor) ExtractOutputPulses() []direction {
-	return p.getOutputDirections()
+	return p.directions.Directions()
 }
 
 func (p *pulsor) ImmediateHit(direction) (bool, []direction) {
@@ -55,6 +45,6 @@ func (p *pulsor) Configure() {}
 func (p *pulsor) Renderable(x, y int, scale int) game.Renderable {
 	return rendering.Renderables{
 		p.spriteMap.Produce("p_source", x, y, scale, 0),
-		createRenderableForDirections(p.spriteMap, p.getOutputDirections(), x, y, scale),
+		createRenderableForDirections(p.spriteMap, p.directions.Directions(), x, y, scale),
 	}
 }
