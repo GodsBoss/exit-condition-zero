@@ -35,7 +35,7 @@ func (p *playing) Init() {
 		}
 	}
 
-	lvlFields := p.levels.levels[p.levels.selectedLevel].getFields()
+	lvlFields := p.levels.levels[p.levels.selectedLevel].getFields(p.spriteMap)
 	for v := range lvlFields {
 		p.fields[v] = lvlFields[v]
 	}

@@ -2,6 +2,7 @@ package ecz
 
 import (
 	"github.com/GodsBoss/exit-condition-zero/pkg/rect"
+	"github.com/GodsBoss/exit-condition-zero/pkg/rendering/sprite"
 	"github.com/GodsBoss/exit-condition-zero/pkg/vector/int2d"
 )
 
@@ -39,7 +40,7 @@ type level struct {
 	Hover    bool
 	Selected bool
 
-	getFields func() map[int2d.Vector]field
+	getFields func(sprite.Map) map[int2d.Vector]field
 }
 
 func (lvl level) ContainsPointer(px, py int) bool {

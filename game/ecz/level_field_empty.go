@@ -2,7 +2,6 @@ package ecz
 
 import (
 	"github.com/GodsBoss/exit-condition-zero/pkg/game"
-	"github.com/GodsBoss/exit-condition-zero/pkg/rendering"
 	"github.com/GodsBoss/exit-condition-zero/pkg/rendering/sprite"
 )
 
@@ -40,5 +39,9 @@ func (f *emptyField) IsFree() bool {
 }
 
 func (f *emptyField) Renderable(x, y int, scale int) game.Renderable {
-	return rendering.Null{}
+	spriteID := "p_field_blocked"
+	if f.free {
+		spriteID = "p_field_free"
+	}
+	return f.spriteMap.Produce(spriteID, x, y, scale, 0)
 }
