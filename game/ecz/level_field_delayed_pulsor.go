@@ -64,7 +64,7 @@ func (p *delayedPulsor) Receive([]direction) {
 func (p *delayedPulsor) Renderable(x, y int, scale int) game.Renderable {
 	return rendering.Renderables{
 		p.mode.renderable(p.spriteMap, x, y, scale),
-		createRenderableForDirections(p.spriteMap, p.directions.Directions(), x, y, scale),
+		createRenderableForDirections(p.spriteMap, p.directions.Directions(), x, y, scale, 0),
 	}
 }
 

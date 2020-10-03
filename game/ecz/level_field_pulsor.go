@@ -49,7 +49,7 @@ func (p *pulsor) Configure() {}
 func (p *pulsor) Renderable(x, y int, scale int) game.Renderable {
 	return rendering.Renderables{
 		p.spriteMap.Produce("p_pulsor", x, y, scale, int(math.Floor(p.animation))),
-		createRenderableForDirections(p.spriteMap, p.directions.Directions(), x, y, scale),
+		createRenderableForDirections(p.spriteMap, p.directions.Directions(), x, y, scale, 0),
 	}
 }
 

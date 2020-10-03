@@ -75,11 +75,11 @@ func (m directionsMap) Directions() []direction {
 	return dirs
 }
 
-func createRenderableForDirections(spriteMap sprite.Map, directions []direction, x, y int, scale int) game.Renderable {
+func createRenderableForDirections(spriteMap sprite.Map, directions []direction, x, y int, scale int, frame int) game.Renderable {
 	r := make(rendering.Renderables, 0)
 	for i := range directions {
 		if id, ok := directionSpriteIDs[directions[i]]; ok {
-			r = append(r, spriteMap.Produce(id, x, y, scale, 0))
+			r = append(r, spriteMap.Produce(id, x, y, scale, frame))
 		}
 	}
 	return r
