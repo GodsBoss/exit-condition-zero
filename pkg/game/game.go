@@ -7,7 +7,9 @@ import (
 	"github.com/GodsBoss/gggg/pkg/interaction"
 )
 
-type Game struct{}
+type Game struct {
+	output *dom.Context2D
+}
 
 func New() *Game {
 	return &Game{}
@@ -17,7 +19,9 @@ func (g *Game) TicksPerSecond() int {
 	return 40
 }
 
-func (g *Game) SetOutput(ctx2d *dom.Context2D) {}
+func (g *Game) SetOutput(ctx2d *dom.Context2D) {
+	g.output = ctx2d
+}
 
 func (g *Game) Render() {}
 
