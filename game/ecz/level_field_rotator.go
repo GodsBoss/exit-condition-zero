@@ -16,8 +16,8 @@ func newRotator(spriteMap sprite.Map, options ...rotatorOption) field {
 	r := &rotator{
 		spriteMap: spriteMap,
 		anim: &animation{
-			fps:    8,
-			frames: 8,
+			fps:    16,
+			frames: 16,
 		},
 	}
 	cf := newCommonField(r)
