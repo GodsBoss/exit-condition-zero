@@ -9,7 +9,7 @@ type commonField struct {
 	movable   bool
 }
 
-func newCommonField(field simpleField, options ...commonFieldOption) field {
+func newCommonField(field simpleField, options ...commonFieldOption) *commonField {
 	f := &commonField{
 		field: field,
 	}
