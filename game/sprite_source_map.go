@@ -257,6 +257,18 @@ var spriteSources = sprite.SourceMap{
 		W: 20,
 		H: 20,
 	},
+	"on_off_closed": {
+		X: 300,
+		Y: 100,
+		W: 20,
+		H: 20,
+	},
+	"on_off_open": {
+		X: 320,
+		Y: 100,
+		W: 20,
+		H: 20,
+	},
 	"p_beam_up_1": {
 		X:      360,
 		Y:      144,

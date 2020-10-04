@@ -264,6 +264,34 @@ func levelsData() *levels {
 					}
 				},
 			},
+			{
+				Name:     "Open thyself!",
+				X:        10,
+				Y:        30,
+				Tutorial: true,
+				Texts: []levelText{
+					{
+						X: 70,
+						Y: 15,
+						Content: levelTextContent(
+							"Open/Closed gates open when",
+							"hit with pulses. They will",
+							"close again on the next",
+							"cycle.",
+						),
+					},
+				},
+				getFields: func(spriteMap sprite.Map) map[int2d.Vector]field {
+					return map[int2d.Vector]field{
+						v(1, 1): newExitCondition(spriteMap),
+						v(1, 9): newExitCondition(spriteMap),
+						v(1, 5): newPulsor(spriteMap, toDirectionsMap(dirUp, dirDown)),
+						v(1, 3): newOnOff(spriteMap, onOffStartOpen(), asOnOffOption(makeMovable())),
+						v(1, 7): newOnOff(spriteMap, asOnOffOption(makeMovable())),
+						v(0, 4): newBlocker(spriteMap, asBlockerOption(makeMovable())),
+					}
+				},
+			},
 		},
 	}
 }
