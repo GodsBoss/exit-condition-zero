@@ -15,12 +15,7 @@ type pulsor struct {
 	dirAnim *animation
 }
 
-func newPulsor(
-	spriteMap sprite.Map,
-	directions directionsMap,
-	deletable bool,
-	movable bool,
-) field {
+func newPulsor(spriteMap sprite.Map, directions directionsMap, options ...pulsorOption) field {
 	p := &pulsor{
 		spriteMap:  spriteMap,
 		directions: directions,
@@ -33,7 +28,19 @@ func newPulsor(
 			frames: 2,
 		},
 	}
-	return newCommonField(p, setMovable(movable), setDeletable(deletable))
+	cf := newCommonField(p)
+	for i := range options {
+		options[i](p, cf)
+	}
+	return cf
+}
+
+type pulsorOption func(*pulsor, *commonField)
+
+func asPulsorOption(cfOpt commonFieldOption) pulsorOption {
+	return func(_ *pulsor, cf *commonField) {
+		cfOpt(cf)
+	}
 }
 
 func (p *pulsor) Reset() {}
