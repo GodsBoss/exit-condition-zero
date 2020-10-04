@@ -170,36 +170,6 @@ func levelsData() *levels {
 				},
 			},
 			{
-				X: 70,
-				Y: 30,
-				Texts: []levelText{
-					{
-						X: 5,
-						Y: 5,
-						Content: levelTextContent(
-							"Some elements can be configured on",
-							"the spot. Use the 'configure' button",
-							"in the top right corner (the right",
-							"one).",
-						),
-					},
-				},
-				getFields: func(spriteMap sprite.Map) map[int2d.Vector]field {
-					return map[int2d.Vector]field{
-						v(5, 6):  newPulsor(spriteMap, toDirectionsMap(dirRight, dirDown, dirLeft)),
-						v(7, 6):  newFullMirror(spriteMap, configurableFullMirror()),
-						v(7, 4):  newExitCondition(spriteMap),
-						v(7, 8):  newBlocker(spriteMap),
-						v(3, 6):  newHalfMirror(spriteMap, halfMirrorRotation(1), configurableHalfMirror()),
-						v(3, 4):  newExitCondition(spriteMap),
-						v(3, 9):  newBlocker(spriteMap),
-						v(5, 7):  newRotator(spriteMap, configurableRotator()),
-						v(2, 7):  newExitCondition(spriteMap),
-						v(10, 7): newBlocker(spriteMap),
-					}
-				},
-			},
-			{
 				Name:     "Wrap-around",
 				X:        110,
 				Y:        10,
