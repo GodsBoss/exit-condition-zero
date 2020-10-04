@@ -66,14 +66,19 @@ func (ls *levelSelect) Renderables(scale int) []game.Renderable {
 	r := []game.Renderable{
 		ls.spriteMap.Produce("bg_level_select", 0, 0, scale, 0),
 	}
+	levelIndexToShowNameFor := -1
 	for i := range ls.levels.levels {
 		lvl := ls.levels.levels[i]
 		id := "level_select_level"
 		if lvl.Hover {
 			id = "level_select_level_hover"
+			if levelIndexToShowNameFor == -1 {
+				levelIndexToShowNameFor = i
+			}
 		}
 		if lvl.Selected {
 			id = "level_select_level_selected"
+			levelIndexToShowNameFor = i
 		}
 		r = append(r, ls.spriteMap.Produce(id, lvl.X, lvl.Y, scale, 0))
 	}
@@ -87,5 +92,11 @@ func (ls *levelSelect) Renderables(scale int) []game.Renderable {
 			scale,
 		),
 	)
+	if levelIndexToShowNameFor >= 0 {
+		r = append(
+			r,
+			text.New(ls.spriteMap, ls.levels.levels[levelIndexToShowNameFor].getName(), 4, 230, scale),
+		)
+	}
 	return r
 }

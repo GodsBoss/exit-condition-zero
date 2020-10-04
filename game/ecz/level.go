@@ -40,6 +40,10 @@ type level struct {
 	Hover    bool
 	Selected bool
 
+	// Name is the level's name. It should be relatively short. The name is shown
+	// in the level selection screen when hovering over the level.
+	Name string
+
 	// Tutorial determines wether this is a tutorial level. Tutorial levels are
 	// easy and often have additional information in them.
 	Tutorial bool
@@ -48,6 +52,13 @@ type level struct {
 	Texts []levelText
 
 	getFields func(sprite.Map) map[int2d.Vector]field
+}
+
+func (lvl level) getName() string {
+	if lvl.Name != "" {
+		return lvl.Name
+	}
+	return "Nameless level"
 }
 
 func (lvl level) ContainsPointer(px, py int) bool {
