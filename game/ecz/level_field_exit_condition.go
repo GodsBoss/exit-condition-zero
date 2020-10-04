@@ -14,14 +14,25 @@ type exitConditionField struct {
 	anim *animation
 }
 
-func newExitCondition(spriteMap sprite.Map, movable bool) field {
-	return &exitConditionField{
+func newExitCondition(spriteMap sprite.Map, options ...exitConditionOption) field {
+	f := &exitConditionField{
 		spriteMap: spriteMap,
-		movable:   movable,
 		anim: &animation{
 			fps:    10,
 			frames: 4,
 		},
+	}
+	for i := range options {
+		options[i](f)
+	}
+	return f
+}
+
+type exitConditionOption func(*exitConditionField)
+
+func moveableExitCondition() exitConditionOption {
+	return func(f *exitConditionField) {
+		f.movable = true
 	}
 }
 

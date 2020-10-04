@@ -40,7 +40,7 @@ func levelsData() *levels {
 						v(3, 9): newPulsor(spriteMap, toDirectionsMap(dirRight), false, false),
 						v(1, 8): newBlocker(spriteMap, asBlockerOption(makeMovable())),
 						v(6, 9): newFreeField(spriteMap),
-						v(9, 9): newExitCondition(spriteMap, false),
+						v(9, 9): newExitCondition(spriteMap),
 					}
 				},
 			},
@@ -69,13 +69,13 @@ func levelsData() *levels {
 							orientation: verticalPolarizerOrientation{},
 							movable:     true,
 						},
-						v(1, 5): newExitCondition(spriteMap, false),
+						v(1, 5): newExitCondition(spriteMap),
 						v(3, 9): &polarizer{
 							spriteMap:   spriteMap,
 							orientation: horizontalPolarizerOrientation{},
 							movable:     true,
 						},
-						v(5, 9): newExitCondition(spriteMap, false),
+						v(5, 9): newExitCondition(spriteMap),
 					}
 				},
 			},
@@ -109,7 +109,7 @@ func levelsData() *levels {
 							withInvertedPulsorMode(),
 						),
 						v(3, 5): newBlocker(spriteMap, asBlockerOption(makeDeletable())),
-						v(9, 3): newExitCondition(spriteMap, false),
+						v(9, 3): newExitCondition(spriteMap),
 						v(5, 5): newFreeField(spriteMap),
 					}
 				},
@@ -134,12 +134,12 @@ func levelsData() *levels {
 						v(7, 5):  newFreeField(spriteMap),
 						v(7, 3):  newBlocker(spriteMap),
 						v(9, 3):  newFullMirror(spriteMap, ascendingFullMirrorOrientation{}, false, true, false),
-						v(10, 5): newExitCondition(spriteMap, false),
+						v(10, 5): newExitCondition(spriteMap),
 						v(0, 5):  newFullMirror(spriteMap, ascendingFullMirrorOrientation{}, false, false, true),
-						v(0, 8):  newExitCondition(spriteMap, false),
+						v(0, 8):  newExitCondition(spriteMap),
 						v(0, 1):  newBlocker(spriteMap),
 						v(5, 2):  newFullMirror(spriteMap, descendingFullMirrorOrientation{}, true, false, false),
-						v(2, 2):  newExitCondition(spriteMap, false),
+						v(2, 2):  newExitCondition(spriteMap),
 						v(5, 0):  newBlocker(spriteMap),
 					}
 				},
@@ -163,9 +163,9 @@ func levelsData() *levels {
 						v(10, 5): newPulsor(spriteMap, toDirectionsMap(dirLeft), false, false),
 						v(3, 5):  newPulsor(spriteMap, toDirectionsMap(dirRight), false, false),
 						v(5, 5):  newHalfMirror(spriteMap, 2, false, false, true),
-						v(5, 9):  newExitCondition(spriteMap, false),
+						v(5, 9):  newExitCondition(spriteMap),
 						v(5, 3):  newDelayedPulsor(spriteMap, toDirectionsMap(dirRight), withInvertedPulsorMode()),
-						v(8, 3):  newExitCondition(spriteMap, false),
+						v(8, 3):  newExitCondition(spriteMap),
 					}
 				},
 			},
@@ -188,13 +188,13 @@ func levelsData() *levels {
 					return map[int2d.Vector]field{
 						v(5, 6):  newPulsor(spriteMap, toDirectionsMap(dirRight, dirDown, dirLeft), false, false),
 						v(7, 6):  newFullMirror(spriteMap, ascendingFullMirrorOrientation{}, false, false, true),
-						v(7, 4):  newExitCondition(spriteMap, false),
+						v(7, 4):  newExitCondition(spriteMap),
 						v(7, 8):  newBlocker(spriteMap),
 						v(3, 6):  newHalfMirror(spriteMap, 1, false, false, true),
-						v(3, 4):  newExitCondition(spriteMap, false),
+						v(3, 4):  newExitCondition(spriteMap),
 						v(3, 9):  newBlocker(spriteMap),
 						v(5, 7):  newRotator(spriteMap, configurableRotator()),
-						v(2, 7):  newExitCondition(spriteMap, false),
+						v(2, 7):  newExitCondition(spriteMap),
 						v(10, 7): newBlocker(spriteMap),
 					}
 				},
@@ -216,7 +216,7 @@ func levelsData() *levels {
 					return map[int2d.Vector]field{
 						v(8, 2): newPulsor(spriteMap, toDirectionsMap(dirRight), false, false),
 						v(2, 2): newHalfMirror(spriteMap, 0, false, false, true),
-						v(2, 7): newExitCondition(spriteMap, false),
+						v(2, 7): newExitCondition(spriteMap),
 					}
 				},
 			},
@@ -237,7 +237,7 @@ func levelsData() *levels {
 							free:      true,
 						},
 						v(5, 3): newPulsor(spriteMap, toDirectionsMap(dirLeft, dirDown), false, false),
-						v(5, 7): newExitCondition(spriteMap, false),
+						v(5, 7): newExitCondition(spriteMap),
 						v(6, 7): newBlocker(spriteMap, asBlockerOption(makeMovable())),
 						v(7, 7): newBlocker(spriteMap, asBlockerOption(makeDeletable())),
 						v(1, 4): &polarizer{
