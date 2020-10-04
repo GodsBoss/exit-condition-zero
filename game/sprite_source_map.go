@@ -283,7 +283,7 @@ var spriteSources = sprite.SourceMap{
 		H: 20,
 	},
 	"p_button_move": {
-		X: 320,
+		X: 240,
 		Y: 20,
 		W: 20,
 		H: 20,
