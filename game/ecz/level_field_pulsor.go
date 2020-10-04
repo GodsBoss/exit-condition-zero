@@ -10,8 +10,6 @@ type pulsor struct {
 	spriteMap sprite.Map
 
 	directions directionsMap
-	deletable  bool
-	movable    bool
 
 	anim    *animation
 	dirAnim *animation
@@ -23,11 +21,9 @@ func newPulsor(
 	deletable bool,
 	movable bool,
 ) field {
-	return &pulsor{
+	p := &pulsor{
 		spriteMap:  spriteMap,
 		directions: directions,
-		deletable:  deletable,
-		movable:    movable,
 		anim: &animation{
 			fps:    10,
 			frames: 6,
@@ -37,6 +33,7 @@ func newPulsor(
 			frames: 2,
 		},
 	}
+	return newCommonField(p, setMovable(movable), setDeletable(deletable))
 }
 
 func (p *pulsor) Reset() {}
@@ -50,14 +47,6 @@ func (p *pulsor) ImmediateHit(direction) (bool, []direction) {
 }
 
 func (p *pulsor) Receive([]direction) {}
-
-func (p *pulsor) IsDeletable() bool {
-	return p.deletable
-}
-
-func (p *pulsor) IsMovable() bool {
-	return p.movable
-}
 
 func (p *pulsor) IsConfigurable() bool {
 	return false
