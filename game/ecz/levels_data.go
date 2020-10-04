@@ -122,6 +122,36 @@ func levelsData() *levels {
 				Y: 10,
 				Texts: []levelText{
 					{
+						X: 25,
+						Y: 210,
+						Content: levelTextContent(
+							"Mirrors reflect pulses. Use this",
+							"to your advantage.",
+						),
+					},
+				},
+				Tutorial: true,
+				getFields: func(spriteMap sprite.Map) map[int2d.Vector]field {
+					return map[int2d.Vector]field{
+						v(5, 5):  newPulsor(spriteMap, toDirectionsMap(dirRight, dirUp, dirLeft), false, false),
+						v(7, 5):  newFreeField(spriteMap),
+						v(7, 3):  newBlocker(spriteMap, false, false),
+						v(9, 3):  newFullMirror(spriteMap, ascendingFullMirrorOrientation{}, false, true, false),
+						v(10, 5): newExitCondition(spriteMap, false),
+						v(0, 5):  newFullMirror(spriteMap, ascendingFullMirrorOrientation{}, false, false, true),
+						v(0, 8):  newExitCondition(spriteMap, false),
+						v(0, 1):  newBlocker(spriteMap, false, false),
+						v(5, 2):  newFullMirror(spriteMap, descendingFullMirrorOrientation{}, true, false, false),
+						v(2, 2):  newExitCondition(spriteMap, false),
+						v(5, 0):  newBlocker(spriteMap, false, false),
+					}
+				},
+			},
+			{
+				X: 70,
+				Y: 30,
+				Texts: []levelText{
+					{
 						X: 5,
 						Y: 5,
 						Content: levelTextContent(
@@ -149,7 +179,7 @@ func levelsData() *levels {
 			},
 			{
 				X: 90,
-				Y: 10,
+				Y: 30,
 				Texts: []levelText{
 					{
 						X: 100,
