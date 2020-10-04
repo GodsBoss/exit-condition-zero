@@ -14,7 +14,15 @@ type polarizer struct {
 	configurable bool
 }
 
-var _ field = &polarizer{}
+func newPolarizer(spriteMap sprite.Map, orientation polarizerOrientation, deletable, movable, configurable bool) field {
+	return &polarizer{
+		spriteMap:    spriteMap,
+		orientation:  orientation,
+		deletable:    deletable,
+		movable:      movable,
+		configurable: configurable,
+	}
+}
 
 func (pol *polarizer) Reset() {}
 
