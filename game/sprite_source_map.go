@@ -269,6 +269,13 @@ var spriteSources = sprite.SourceMap{
 		W: 20,
 		H: 20,
 	},
+	"level_over_mover": {
+		X:      300,
+		Y:      40,
+		W:      20,
+		H:      20,
+		Frames: 3,
+	},
 	"p_beam_up_1": {
 		X:      360,
 		Y:      144,
