@@ -220,6 +220,24 @@ func levelsData() *levels {
 					}
 				},
 			},
+			{
+				Name:     "See you later!",
+				X:        150,
+				Y:        10,
+				Tutorial: true,
+				Texts:    []levelText{},
+				getFields: func(spriteMap sprite.Map) map[int2d.Vector]field {
+					return map[int2d.Vector]field{
+						v(2, 8): newPulsor(spriteMap, toDirectionsMap(dirUp)),
+						v(2, 5): newDelayedPulsor(spriteMap, toDirectionsMap(dirRight)),
+						v(6, 5): newDelayedPulsor(spriteMap, toDirectionsMap(dirDown)),
+						v(6, 8): newFreeField(spriteMap),
+						v(9, 8): newDelayedPulsor(spriteMap, toDirectionsMap(dirUp), withInvertedPulsorMode()),
+						v(9, 4): newExitCondition(spriteMap),
+						v(4, 3): newDelayedPulsor(spriteMap, toDirectionsMap(dirRight), asDelayedPulsorOption(makeMovable())),
+					}
+				},
+			},
 		},
 	}
 }
