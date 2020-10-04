@@ -13,16 +13,35 @@ type halfMirror struct {
 	rotatedBy int
 }
 
-func newHalfMirror(spriteMap sprite.Map, rotatedBy int, deletable, movable, configurable bool) field {
-	return newCommonField(
-		&halfMirror{
-			spriteMap:    spriteMap,
-			rotatedBy:    rotatedBy,
-			configurable: configurable,
-		},
-		setDeletable(deletable),
-		setMovable(movable),
-	)
+func newHalfMirror(spriteMap sprite.Map, options ...halfMirrorOption) field {
+	mirror := &halfMirror{
+		spriteMap: spriteMap,
+	}
+	cf := newCommonField(mirror)
+	for i := range options {
+		options[i](mirror, cf)
+	}
+	return cf
+}
+
+type halfMirrorOption func(*halfMirror, *commonField)
+
+func asHalfMirrorOption(cfOpt commonFieldOption) halfMirrorOption {
+	return func(_ *halfMirror, cf *commonField) {
+		cfOpt(cf)
+	}
+}
+
+func halfMirrorRotation(rotation int) halfMirrorOption {
+	return func(mirror *halfMirror, _ *commonField) {
+		mirror.rotatedBy = rotation
+	}
+}
+
+func configurableHalfMirror() halfMirrorOption {
+	return func(mirror *halfMirror, _ *commonField) {
+		mirror.configurable = true
+	}
 }
 
 func (mirror *halfMirror) Reset() {}

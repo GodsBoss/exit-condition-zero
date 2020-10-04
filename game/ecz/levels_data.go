@@ -162,7 +162,7 @@ func levelsData() *levels {
 					return map[int2d.Vector]field{
 						v(10, 5): newPulsor(spriteMap, toDirectionsMap(dirLeft), false, false),
 						v(3, 5):  newPulsor(spriteMap, toDirectionsMap(dirRight), false, false),
-						v(5, 5):  newHalfMirror(spriteMap, 2, false, false, true),
+						v(5, 5):  newHalfMirror(spriteMap, halfMirrorRotation(2), configurableHalfMirror()),
 						v(5, 9):  newExitCondition(spriteMap),
 						v(5, 3):  newDelayedPulsor(spriteMap, toDirectionsMap(dirRight), withInvertedPulsorMode()),
 						v(8, 3):  newExitCondition(spriteMap),
@@ -190,7 +190,7 @@ func levelsData() *levels {
 						v(7, 6):  newFullMirror(spriteMap, configurableFullMirror()),
 						v(7, 4):  newExitCondition(spriteMap),
 						v(7, 8):  newBlocker(spriteMap),
-						v(3, 6):  newHalfMirror(spriteMap, 1, false, false, true),
+						v(3, 6):  newHalfMirror(spriteMap, halfMirrorRotation(1), configurableHalfMirror()),
 						v(3, 4):  newExitCondition(spriteMap),
 						v(3, 9):  newBlocker(spriteMap),
 						v(5, 7):  newRotator(spriteMap, configurableRotator()),
@@ -215,7 +215,7 @@ func levelsData() *levels {
 				getFields: func(spriteMap sprite.Map) map[int2d.Vector]field {
 					return map[int2d.Vector]field{
 						v(8, 2): newPulsor(spriteMap, toDirectionsMap(dirRight), false, false),
-						v(2, 2): newHalfMirror(spriteMap, 0, false, false, true),
+						v(2, 2): newHalfMirror(spriteMap, configurableHalfMirror()),
 						v(2, 7): newExitCondition(spriteMap),
 					}
 				},
@@ -276,7 +276,7 @@ func levelsData() *levels {
 						v(3, 8):  newRotator(spriteMap, withCounterClockwiseRotation(), asRotatorOption(makeMovable()), configurableRotator()),
 						v(4, 9):  newFreeField(spriteMap),
 						v(3, 10): newFreeField(spriteMap),
-						v(2, 9):  newHalfMirror(spriteMap, 1, false, true, true),
+						v(2, 9):  newHalfMirror(spriteMap, halfMirrorRotation(1), asHalfMirrorOption(makeMovable()), configurableHalfMirror()),
 					}
 				},
 			},
