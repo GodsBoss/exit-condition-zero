@@ -148,6 +148,31 @@ func levelsData() *levels {
 				},
 			},
 			{
+				X: 90,
+				Y: 10,
+				Texts: []levelText{
+					{
+						X: 15,
+						Y: 15,
+						Content: levelTextContent(
+							"Half-mirrors reflect pulses only on",
+							"two sides, the other two block them.",
+						),
+					},
+				},
+				Tutorial: true,
+				getFields: func(spriteMap sprite.Map) map[int2d.Vector]field {
+					return map[int2d.Vector]field{
+						v(10, 5): newPulsor(spriteMap, toDirectionsMap(dirLeft), false, false),
+						v(3, 5):  newPulsor(spriteMap, toDirectionsMap(dirRight), false, false),
+						v(5, 5):  newHalfMirror(spriteMap, 2, false, false, true),
+						v(5, 9):  newExitCondition(spriteMap, false),
+						v(5, 3):  newDelayedPulsor(spriteMap, delayPulsorModeInverted{}, toDirectionsMap(dirRight), false, false, false),
+						v(8, 3):  newExitCondition(spriteMap, false),
+					}
+				},
+			},
+			{
 				X: 70,
 				Y: 30,
 				Texts: []levelText{
