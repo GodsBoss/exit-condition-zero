@@ -387,6 +387,37 @@ func levelsData() *levels {
 					}
 				},
 			},
+			{
+				Name:  "Reflections",
+				X:     70,
+				Y:     50,
+				Texts: []levelText{},
+				getFields: func(spriteMap sprite.Map) map[int2d.Vector]field {
+					return map[int2d.Vector]field{
+						v(1, 1): newPulsor(spriteMap, toDirectionsMap(dirRight, dirDown)),
+						v(9, 9): newPulsor(spriteMap, toDirectionsMap(dirLeft, dirUp)),
+						v(2, 8): newMirrorBlock(spriteMap, toDirectionsMap(dirUp, dirRight, dirDown, dirLeft), asMirrorBlockOption(makeMovable())),
+						v(8, 2): newMirrorBlock(spriteMap, toDirectionsMap(dirUp, dirRight, dirDown, dirLeft), asMirrorBlockOption(makeMovable())),
+						v(4, 4): newExitCondition(spriteMap),
+						v(3, 4): newFreeField(spriteMap),
+						v(4, 3): newFreeField(spriteMap),
+						v(4, 6): newExitCondition(spriteMap),
+						v(3, 6): newFreeField(spriteMap),
+						v(4, 7): newFreeField(spriteMap),
+						v(6, 4): newExitCondition(spriteMap),
+						v(7, 4): newFreeField(spriteMap),
+						v(6, 3): newFreeField(spriteMap),
+						v(6, 6): newExitCondition(spriteMap),
+						v(6, 7): newFreeField(spriteMap),
+						v(7, 6): newFreeField(spriteMap),
+						v(4, 1): newFullMirror(spriteMap, configurableFullMirror(), descendingMirror()),
+						v(9, 4): newFullMirror(spriteMap, configurableFullMirror(), descendingMirror()),
+						v(9, 6): newFullMirror(spriteMap, configurableFullMirror(), descendingMirror()),
+						v(1, 6): newFullMirror(spriteMap, configurableFullMirror(), descendingMirror()),
+						v(4, 9): newArrowField(spriteMap, dirUp),
+					}
+				},
+			},
 		},
 	}
 }
