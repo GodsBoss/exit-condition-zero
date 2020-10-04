@@ -292,6 +292,28 @@ func levelsData() *levels {
 					}
 				},
 			},
+			{
+				Name:  "Timing shenanigans",
+				X:     10,
+				Y:     50,
+				Texts: []levelText{},
+				getFields: func(spriteMap sprite.Map) map[int2d.Vector]field {
+					return map[int2d.Vector]field{
+						v(5, 4): newPulsor(spriteMap, toDirectionsMap(dirLeft, dirRight)),
+						v(5, 6): newPulsor(spriteMap, toDirectionsMap(dirLeft, dirRight)),
+						v(3, 4): newOnOff(spriteMap, asOnOffOption(makeMovable())),
+						v(1, 4): newExitCondition(spriteMap),
+						v(7, 4): newOnOff(spriteMap, asOnOffOption(makeMovable()), onOffStartOpen()),
+						v(9, 4): newExitCondition(spriteMap),
+						v(3, 6): newOnOff(spriteMap, asOnOffOption(makeMovable()), onOffStartOpen()),
+						v(7, 6): newOnOff(spriteMap, asOnOffOption(makeMovable())),
+						v(1, 6): newDelayedPulsor(spriteMap, toDirectionsMap(dirDown)),
+						v(9, 6): newDelayedPulsor(spriteMap, toDirectionsMap(dirDown)),
+						v(1, 9): newExitCondition(spriteMap),
+						v(9, 9): newExitCondition(spriteMap),
+					}
+				},
+			},
 		},
 	}
 }
