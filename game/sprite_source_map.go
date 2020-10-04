@@ -289,7 +289,7 @@ var spriteSources = sprite.SourceMap{
 		H: 20,
 	},
 	"p_button_configure": {
-		X: 340,
+		X: 260,
 		Y: 20,
 		W: 20,
 		H: 20,
