@@ -314,6 +314,25 @@ func levelsData() *levels {
 					}
 				},
 			},
+			{
+				Name:  "Hall of mirrors",
+				X:     30,
+				Y:     50,
+				Texts: []levelText{},
+				getFields: func(spriteMap sprite.Map) map[int2d.Vector]field {
+					return map[int2d.Vector]field{
+						v(5, 5): newPulsor(spriteMap, toDirectionsMap(dirLeft, dirRight, dirUp, dirDown)),
+						v(3, 5): newFullMirror(spriteMap, configurableFullMirror()),
+						v(9, 5): newFullMirror(spriteMap, configurableFullMirror(), descendingMirror()),
+						v(5, 7): newFullMirror(spriteMap, configurableFullMirror()),
+						v(3, 2): newFullMirror(spriteMap, configurableFullMirror(), descendingMirror()),
+						v(9, 2): newFullMirror(spriteMap, configurableFullMirror(), descendingMirror()),
+						v(3, 8): newExitCondition(spriteMap),
+						v(1, 2): newExitCondition(spriteMap),
+						v(7, 2): newBlocker(spriteMap),
+					}
+				},
+			},
 		},
 	}
 }
