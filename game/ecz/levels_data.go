@@ -197,9 +197,10 @@ func levelsData() *levels {
 				},
 			},
 			{
-				Name: "Wrap-around",
-				X:    110,
-				Y:    10,
+				Name:     "Wrap-around",
+				X:        110,
+				Y:        10,
+				Tutorial: true,
 				Texts: []levelText{
 					{
 						X: 100,
