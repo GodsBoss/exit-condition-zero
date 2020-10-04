@@ -72,10 +72,18 @@ type simpleField interface {
 
 type commonFieldOption func(*commonField)
 
+func makeDeletable() func(*commonField) {
+	return setDeletable(true)
+}
+
 func setDeletable(deletable bool) func(*commonField) {
 	return func(field *commonField) {
 		field.deletable = deletable
 	}
+}
+
+func makeMovable() func(*commonField) {
+	return setMovable(true)
 }
 
 func setMovable(movable bool) func(*commonField) {
