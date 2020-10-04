@@ -333,6 +333,28 @@ func levelsData() *levels {
 					}
 				},
 			},
+			{
+				Name:  "How the turn tables",
+				X:     50,
+				Y:     50,
+				Texts: []levelText{},
+				getFields: func(spriteMap sprite.Map) map[int2d.Vector]field {
+					return map[int2d.Vector]field{
+						v(3, 6): newDelayedPulsor(spriteMap, toDirectionsMap(dirUp, dirLeft, dirRight), withInvertedPulsorMode()),
+						v(8, 2): newExitCondition(spriteMap),
+						v(5, 6): newRotator(spriteMap, asRotatorOption(makeMovable())),
+						v(5, 9): newRotator(spriteMap, asRotatorOption(makeMovable()), withCounterClockwiseRotation()),
+						v(8, 9): newRotator(spriteMap, asRotatorOption(makeMovable())),
+						v(9, 6): newRotator(spriteMap, asRotatorOption(makeMovable()), withCounterClockwiseRotation()),
+						v(9, 1): newBlocker(spriteMap),
+						v(3, 4): newRotator(spriteMap, asRotatorOption(makeMovable())),
+						v(3, 2): newRotator(spriteMap, asRotatorOption(makeMovable()), withCounterClockwiseRotation()),
+						v(1, 4): newRotator(spriteMap, asRotatorOption(makeMovable())),
+						v(1, 2): newRotator(spriteMap, asRotatorOption(makeMovable()), withCounterClockwiseRotation()),
+						v(7, 4): newBlocker(spriteMap),
+					}
+				},
+			},
 		},
 	}
 }
