@@ -94,6 +94,13 @@ func (ls *levelSelect) Renderables(scale int) []game.Renderable {
 			5,
 			scale,
 		),
+		text.New(
+			ls.spriteMap,
+			"There is no final  \nend to the game,\njust play some\nof the levels.",
+			201,
+			49,
+			scale,
+		),
 	)
 	if levelIndexToShowNameFor >= 0 {
 		r = append(
