@@ -11,16 +11,43 @@ type fullMirror struct {
 	configurable bool
 }
 
-func newFullMirror(spriteMap sprite.Map, orientation fullMirrorOrientation, deletable, movable, configurable bool) field {
-	return newCommonField(
-		&fullMirror{
-			spriteMap:    spriteMap,
-			orientation:  orientation,
-			configurable: configurable,
-		},
-		setDeletable(deletable),
-		setMovable(movable),
-	)
+func newFullMirror(spriteMap sprite.Map, options ...fullMirrorOption) field {
+	mirror := &fullMirror{
+		spriteMap:   spriteMap,
+		orientation: ascendingFullMirrorOrientation{},
+	}
+
+	cf := newCommonField(mirror)
+	for i := range options {
+		options[i](mirror, cf)
+	}
+	return cf
+}
+
+type fullMirrorOption func(*fullMirror, *commonField)
+
+func asFullMirrorOption(cfOpt commonFieldOption) fullMirrorOption {
+	return func(_ *fullMirror, cf *commonField) {
+		cfOpt(cf)
+	}
+}
+
+func ascendingMirror() fullMirrorOption {
+	return func(mirror *fullMirror, _ *commonField) {
+		mirror.orientation = ascendingFullMirrorOrientation{}
+	}
+}
+
+func descendingMirror() fullMirrorOption {
+	return func(mirror *fullMirror, _ *commonField) {
+		mirror.orientation = descendingFullMirrorOrientation{}
+	}
+}
+
+func configurableFullMirror() fullMirrorOption {
+	return func(mirror *fullMirror, _ *commonField) {
+		mirror.configurable = true
+	}
 }
 
 func (mirror *fullMirror) Reset() {}
@@ -57,8 +84,6 @@ type fullMirrorOrientation interface {
 
 type ascendingFullMirrorOrientation struct{}
 
-var _ fullMirrorOrientation = ascendingFullMirrorOrientation{}
-
 func (orient ascendingFullMirrorOrientation) turn() fullMirrorOrientation {
 	return descendingFullMirrorOrientation{}
 }
@@ -79,8 +104,6 @@ func (orient ascendingFullMirrorOrientation) renderable(spriteMap sprite.Map, x,
 }
 
 type descendingFullMirrorOrientation struct{}
-
-var _ fullMirrorOrientation = descendingFullMirrorOrientation{}
 
 func (orient descendingFullMirrorOrientation) turn() fullMirrorOrientation {
 	return ascendingFullMirrorOrientation{}
