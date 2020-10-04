@@ -3,6 +3,7 @@ package ecz
 import (
 	"github.com/GodsBoss/exit-condition-zero/pkg/game"
 	"github.com/GodsBoss/exit-condition-zero/pkg/rendering/sprite"
+	"github.com/GodsBoss/exit-condition-zero/pkg/rendering/text"
 
 	"github.com/GodsBoss/gggg/pkg/interaction"
 )
@@ -76,5 +77,15 @@ func (ls *levelSelect) Renderables(scale int) []game.Renderable {
 		}
 		r = append(r, ls.spriteMap.Produce(id, lvl.X, lvl.Y, scale, 0))
 	}
+	r = append(
+		r,
+		text.New(
+			ls.spriteMap,
+			"Select a level!\n't' marks tutorial\nlevels. Difficulty\nrises from left\nto right and\nfrom top to bottom.",
+			201,
+			5,
+			scale,
+		),
+	)
 	return r
 }
