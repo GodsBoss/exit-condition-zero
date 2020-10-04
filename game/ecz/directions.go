@@ -75,6 +75,11 @@ func (m directionsMap) Directions() []direction {
 	return dirs
 }
 
+func (m directionsMap) Contains(dir direction) bool {
+	_, ok := m[dir]
+	return ok
+}
+
 func createRenderableForDirections(spriteMap sprite.Map, directions []direction, x, y int, scale int, frame int) game.Renderable {
 	r := make(rendering.Renderables, 0)
 	for i := range directions {

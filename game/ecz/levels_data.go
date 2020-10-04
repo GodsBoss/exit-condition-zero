@@ -238,6 +238,32 @@ func levelsData() *levels {
 					}
 				},
 			},
+			{
+				Name:     "Mirror blocks",
+				X:        170,
+				Y:        10,
+				Tutorial: true,
+				Texts: []levelText{
+					{
+						X: 15,
+						Y: 160,
+						Content: levelTextContent(
+							"Mirror blocks have mirrors to some",
+							"or all of their sides. They reflect",
+							"pulses straight back.",
+						),
+					},
+				},
+				getFields: func(spriteMap sprite.Map) map[int2d.Vector]field {
+					return map[int2d.Vector]field{
+						v(1, 1): newPulsor(spriteMap, toDirectionsMap(dirRight)),
+						v(4, 1): newRotator(spriteMap),
+						v(4, 4): newMirrorBlock(spriteMap, toDirectionsMap(dirUp, dirRight), asMirrorBlockOption(makeDeletable())),
+						v(4, 6): newBlocker(spriteMap),
+						v(8, 1): newExitCondition(spriteMap),
+					}
+				},
+			},
 		},
 	}
 }
