@@ -293,6 +293,38 @@ func levelsData() *levels {
 				},
 			},
 			{
+				Name:     "Directions",
+				X:        30,
+				Y:        30,
+				Tutorial: true,
+				Texts: []levelText{
+					{
+						X: 15,
+						Y: 15,
+						Content: levelTextContent(
+							"Arrows send pulses into a fixed",
+							"direction. Configurable arrows",
+							"may not support all possible",
+							"directions.",
+						),
+					},
+				},
+				getFields: func(spriteMap sprite.Map) map[int2d.Vector]field {
+					return map[int2d.Vector]field{
+						v(4, 6): newPulsor(spriteMap, toDirectionsMap(dirLeft, dirRight, dirDown)),
+						v(2, 6): newArrowField(spriteMap, dirUp, asArrowFieldOption(makeMovable())),
+						v(2, 4): newExitCondition(spriteMap),
+						v(2, 8): newBlocker(spriteMap),
+						v(8, 6): newArrowField(spriteMap, dirDown, asArrowFieldOption(makeMovable())),
+						v(8, 8): newExitCondition(spriteMap),
+						v(8, 4): newBlocker(spriteMap),
+						v(4, 8): newArrowField(spriteMap, dirLeft, withConfigurableDirections(dirLeft, dirUp, dirRight)),
+						v(5, 3): newArrowField(spriteMap, dirLeft, withConfigurableDirections(dirLeft, dirRight)),
+						v(6, 3): newArrowField(spriteMap, dirUp, withConfigurableDirections(dirUp, dirDown)),
+					}
+				},
+			},
+			{
 				Name:  "Timing shenanigans",
 				X:     10,
 				Y:     50,

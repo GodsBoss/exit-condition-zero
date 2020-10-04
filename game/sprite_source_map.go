@@ -269,6 +269,30 @@ var spriteSources = sprite.SourceMap{
 		W: 20,
 		H: 20,
 	},
+	"p_arrow_up": {
+		X: 100,
+		Y: 120,
+		W: 20,
+		H: 20,
+	},
+	"p_arrow_right": {
+		X: 120,
+		Y: 120,
+		W: 20,
+		H: 20,
+	},
+	"p_arrow_down": {
+		X: 140,
+		Y: 120,
+		W: 20,
+		H: 20,
+	},
+	"p_arrow_left": {
+		X: 160,
+		Y: 120,
+		W: 20,
+		H: 20,
+	},
 	"level_over_mover": {
 		X:      300,
 		Y:      40,
