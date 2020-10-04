@@ -29,32 +29,49 @@ type delayedPulsor struct {
 
 func newDelayedPulsor(
 	spriteMap sprite.Map,
-	mode delayPulsorMode,
 	directions map[direction]struct{},
-	initialPowered bool,
-	deletable bool,
-	movable bool,
+	options ...delayedPulsorOption,
 ) field {
-	return newCommonField(
-		&delayedPulsor{
-			spriteMap:      spriteMap,
-			mode:           mode,
-			directions:     directions,
-			initialPowered: initialPowered,
-			poweredBefore:  initialPowered,
-			powered:        initialPowered,
-			powerAnimation: &animation{
-				fps:    8,
-				frames: 4,
-			},
-			dirAnim: &animation{
-				fps:    2,
-				frames: 2,
-			},
+	p := &delayedPulsor{
+		spriteMap:  spriteMap,
+		mode:       delayPulsorModeDelayed{},
+		directions: directions,
+		powerAnimation: &animation{
+			fps:    8,
+			frames: 4,
 		},
-		setDeletable(deletable),
-		setMovable(movable),
-	)
+		dirAnim: &animation{
+			fps:    2,
+			frames: 2,
+		},
+	}
+	cf := newCommonField(p)
+	for i := range options {
+		options[i](p, cf)
+	}
+	return cf
+}
+
+type delayedPulsorOption func(*delayedPulsor, *commonField)
+
+func delayedPulsorStartsPowered() delayedPulsorOption {
+	return func(p *delayedPulsor, _ *commonField) {
+		p.initialPowered = true
+		p.poweredBefore = true
+		p.powered = true
+	}
+}
+
+func withInvertedPulsorMode() delayedPulsorOption {
+	return func(p *delayedPulsor, _ *commonField) {
+		p.mode = delayPulsorModeInverted{}
+	}
+}
+
+func asDelayedPulsorOption(cfOpt commonFieldOption) delayedPulsorOption {
+	return func(_ *delayedPulsor, cf *commonField) {
+		cfOpt(cf)
+	}
 }
 
 func (p *delayedPulsor) Reset() {
