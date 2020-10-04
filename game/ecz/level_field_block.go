@@ -12,14 +12,23 @@ type blocker struct {
 	movable   bool
 }
 
-func newBlocker(spriteMap sprite.Map, deletable, movable bool) field {
-	return newCommonField(
-		&blocker{
-			spriteMap: spriteMap,
-		},
-		setDeletable(deletable),
-		setMovable(movable),
-	)
+func newBlocker(spriteMap sprite.Map, options ...blockerOption) field {
+	b := &blocker{
+		spriteMap: spriteMap,
+	}
+	cf := newCommonField(b)
+	for i := range options {
+		options[i](b, cf)
+	}
+	return cf
+}
+
+type blockerOption func(*blocker, *commonField)
+
+func asBlockerOption(cfOpt commonFieldOption) blockerOption {
+	return func(_ *blocker, cf *commonField) {
+		cfOpt(cf)
+	}
 }
 
 func (b *blocker) Reset() {}
