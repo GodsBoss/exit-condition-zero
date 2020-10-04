@@ -12,16 +12,41 @@ type polarizer struct {
 	configurable bool
 }
 
-func newPolarizer(spriteMap sprite.Map, orientation polarizerOrientation, deletable, movable, configurable bool) field {
-	return newCommonField(
-		&polarizer{
-			spriteMap:    spriteMap,
-			orientation:  orientation,
-			configurable: configurable,
-		},
-		setMovable(movable),
-		setDeletable(deletable),
-	)
+func newPolarizer(spriteMap sprite.Map, options ...polarizerOption) field {
+	pol := &polarizer{
+		spriteMap: spriteMap,
+	}
+	cf := newCommonField(pol)
+	for i := range options {
+		options[i](pol, cf)
+	}
+	return cf
+}
+
+type polarizerOption func(*polarizer, *commonField)
+
+func asPolarizerOption(cfOpt commonFieldOption) polarizerOption {
+	return func(_ *polarizer, cf *commonField) {
+		cfOpt(cf)
+	}
+}
+
+func horizontalPolarizer() polarizerOption {
+	return func(pol *polarizer, _ *commonField) {
+		pol.orientation = horizontalPolarizerOrientation{}
+	}
+}
+
+func verticalPolarizer() polarizerOption {
+	return func(pol *polarizer, _ *commonField) {
+		pol.orientation = verticalPolarizerOrientation{}
+	}
+}
+
+func configurablePolarizer() polarizerOption {
+	return func(pol *polarizer, _ *commonField) {
+		pol.configurable = true
+	}
 }
 
 func (pol *polarizer) Reset() {}
