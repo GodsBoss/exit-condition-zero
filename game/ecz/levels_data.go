@@ -218,57 +218,6 @@ func levelsData() *levels {
 					}
 				},
 			},
-			{
-				X: 280,
-				Y: 200,
-				Texts: []levelText{
-					{
-						X:       100,
-						Y:       12,
-						Content: "Example text",
-					},
-				},
-				getFields: func(spriteMap sprite.Map) map[int2d.Vector]field {
-					return map[int2d.Vector]field{
-						v(5, 5): &emptyField{
-							spriteMap: spriteMap,
-							free:      true,
-						},
-						v(5, 3): newPulsor(spriteMap, toDirectionsMap(dirLeft, dirDown)),
-						v(5, 7): newExitCondition(spriteMap),
-						v(6, 7): newBlocker(spriteMap, asBlockerOption(makeMovable())),
-						v(7, 7): newBlocker(spriteMap, asBlockerOption(makeDeletable())),
-						v(1, 4): newPolarizer(spriteMap, horizontalPolarizer(), asPolarizerOption(makeMovable())),
-						v(1, 5): newPolarizer(spriteMap, verticalPolarizer(), asPolarizerOption(makeMovable())),
-						v(2, 2): newFullMirror(
-							spriteMap,
-							asFullMirrorOption(makeDeletable()),
-							asFullMirrorOption(makeMovable()),
-							configurableFullMirror(),
-						),
-						v(8, 4): newDelayedPulsor(
-							spriteMap,
-							toDirectionsMap(dirUp),
-							delayedPulsorStartsPowered(),
-						),
-						v(10, 4): newDelayedPulsor(
-							spriteMap,
-							toDirectionsMap(dirLeft),
-							withInvertedPulsorMode(),
-						),
-						v(9, 8): newDelayedPulsor(
-							spriteMap,
-							toDirectionsMap(dirUp),
-							withInvertedPulsorMode(),
-						),
-						v(3, 9):  newPulsor(spriteMap, toDirectionsMap(dirUp, dirRight, dirDown, dirLeft)),
-						v(3, 8):  newRotator(spriteMap, withCounterClockwiseRotation(), asRotatorOption(makeMovable()), configurableRotator()),
-						v(4, 9):  newFreeField(spriteMap),
-						v(3, 10): newFreeField(spriteMap),
-						v(2, 9):  newHalfMirror(spriteMap, halfMirrorRotation(1), asHalfMirrorOption(makeMovable()), configurableHalfMirror()),
-					}
-				},
-			},
 		},
 	}
 }
