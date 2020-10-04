@@ -3,6 +3,7 @@ package ecz
 import (
 	"github.com/GodsBoss/exit-condition-zero/pkg/game"
 	"github.com/GodsBoss/exit-condition-zero/pkg/rendering/sprite"
+	"github.com/GodsBoss/exit-condition-zero/pkg/rendering/text"
 
 	"github.com/GodsBoss/gggg/pkg/interaction"
 )
@@ -41,5 +42,6 @@ func (over *gameOver) ReceiveMouseEvent(event interaction.MouseEvent) *game.Tran
 func (over *gameOver) Renderables(scale int) []game.Renderable {
 	return []game.Renderable{
 		over.spriteMap.Produce("bg_game_over", 0, 0, scale, 0),
+		text.New(over.spriteMap, "Congratulations!\nYou managed to break\nthe loop successfully!", 95, 100, scale),
 	}
 }
