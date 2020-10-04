@@ -7,6 +7,8 @@ import (
 	"github.com/GodsBoss/gggg/pkg/interaction"
 )
 
+// gameOver is the state showing that the level was finished successfully.
+// A "Game over" in a failure sense does not exist.
 type gameOver struct {
 	spriteMap sprite.Map
 }
