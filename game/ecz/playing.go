@@ -301,6 +301,10 @@ func (p *playing) toggleRun() {
 }
 
 func (p *playing) startRunning() {
+	p.clearMoveMode()
+	p.clearSelectableFields()
+	p.isDeleteMode = false
+	p.isConfigureMode = false
 	p.running = true
 	p.resetFields()
 	p.initRunningValues()
