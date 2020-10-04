@@ -286,8 +286,8 @@ func levelsData() *levels {
 						v(1, 1): newExitCondition(spriteMap),
 						v(1, 9): newExitCondition(spriteMap),
 						v(1, 5): newPulsor(spriteMap, toDirectionsMap(dirUp, dirDown)),
-						v(1, 3): newOnOff(spriteMap, onOffStartOpen(), asOnOffOption(makeMovable())),
-						v(1, 7): newOnOff(spriteMap, asOnOffOption(makeMovable())),
+						v(1, 3): newOnOff(spriteMap, onOffStartOpen(), asOnOffOption(makeMovable()), configurableOnOff()),
+						v(1, 7): newOnOff(spriteMap, asOnOffOption(makeMovable()), configurableOnOff()),
 						v(0, 4): newBlocker(spriteMap, asBlockerOption(makeMovable())),
 					}
 				},
