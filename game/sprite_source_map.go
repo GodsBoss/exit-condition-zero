@@ -182,14 +182,14 @@ var spriteSources = sprite.SourceMap{
 		H: 20,
 	},
 	"p_inverted_pulsor": {
-		X: 180,
-		Y: 0,
+		X: 0,
+		Y: 120,
 		W: 20,
 		H: 20,
 	},
 	"p_delayed_pulsor": {
-		X: 200,
-		Y: 0,
+		X: 0,
+		Y: 140,
 		W: 20,
 		H: 20,
 	},
