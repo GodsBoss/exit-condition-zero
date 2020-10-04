@@ -83,6 +83,7 @@ func (oo *onOff) IsConfigurable() bool {
 func (oo *onOff) Configure() {
 	oo.initialIsOpen = !oo.initialIsOpen
 	oo.isOpen = oo.initialIsOpen
+	oo.wasOpenBefore = oo.initialIsOpen
 }
 
 func (oo *onOff) Tick(ms int) {}
