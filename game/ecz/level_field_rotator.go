@@ -12,20 +12,39 @@ type rotator struct {
 	anim             *animation
 }
 
-func newRotator(spriteMap sprite.Map, counterClockwise bool, deletable, movable bool, configurable bool) field {
-	return newCommonField(
-		&rotator{
-			spriteMap:        spriteMap,
-			counterClockwise: counterClockwise,
-			configurable:     configurable,
-			anim: &animation{
-				fps:    8,
-				frames: 8,
-			},
+func newRotator(spriteMap sprite.Map, options ...rotatorOption) field {
+	r := &rotator{
+		spriteMap: spriteMap,
+		anim: &animation{
+			fps:    8,
+			frames: 8,
 		},
-		setDeletable(deletable),
-		setMovable(movable),
-	)
+	}
+	cf := newCommonField(r)
+	for i := range options {
+		options[i](r, cf)
+	}
+	return cf
+}
+
+type rotatorOption func(*rotator, *commonField)
+
+func withCounterClockwiseRotation() rotatorOption {
+	return func(r *rotator, _ *commonField) {
+		r.counterClockwise = true
+	}
+}
+
+func asRotatorOption(cfOpt commonFieldOption) rotatorOption {
+	return func(_ *rotator, cf *commonField) {
+		cfOpt(cf)
+	}
+}
+
+func configurableRotator() rotatorOption {
+	return func(r *rotator, _ *commonField) {
+		r.configurable = true
+	}
 }
 
 func (r *rotator) Reset() {}

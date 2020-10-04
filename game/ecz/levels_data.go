@@ -193,7 +193,7 @@ func levelsData() *levels {
 						v(3, 6):  newHalfMirror(spriteMap, 1, false, false, true),
 						v(3, 4):  newExitCondition(spriteMap, false),
 						v(3, 9):  newBlocker(spriteMap, false, false),
-						v(5, 7):  newRotator(spriteMap, false, false, false, true),
+						v(5, 7):  newRotator(spriteMap, configurableRotator()),
 						v(2, 7):  newExitCondition(spriteMap, false),
 						v(10, 7): newBlocker(spriteMap, false, false),
 					}
@@ -268,7 +268,7 @@ func levelsData() *levels {
 							withInvertedPulsorMode(),
 						),
 						v(3, 9):  newPulsor(spriteMap, toDirectionsMap(dirUp, dirRight, dirDown, dirLeft), false, false),
-						v(3, 8):  newRotator(spriteMap, true, false, true, true),
+						v(3, 8):  newRotator(spriteMap, withCounterClockwiseRotation(), asRotatorOption(makeMovable()), configurableRotator()),
 						v(4, 9):  newFreeField(spriteMap),
 						v(3, 10): newFreeField(spriteMap),
 						v(2, 9):  newHalfMirror(spriteMap, 1, false, true, true),
