@@ -187,11 +187,25 @@ var spriteSources = sprite.SourceMap{
 		W: 20,
 		H: 20,
 	},
+	"p_inverted_pulsor_powered": {
+		X:      20,
+		Y:      120,
+		W:      20,
+		H:      20,
+		Frames: 4,
+	},
 	"p_delayed_pulsor": {
 		X: 0,
 		Y: 140,
 		W: 20,
 		H: 20,
+	},
+	"p_delayed_pulsor_powered": {
+		X:      20,
+		Y:      140,
+		W:      20,
+		H:      20,
+		Frames: 4,
 	},
 	"p_rotator_clockwise": {
 		X:      180,

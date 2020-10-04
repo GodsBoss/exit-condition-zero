@@ -20,6 +20,10 @@ type delayedPulsor struct {
 
 	// powered remembers wether the pulsor had received a pulse in the last cycle.
 	powered bool
+
+	poweredBefore bool
+
+	powerAnimation *animation
 }
 
 func newDelayedPulsor(
@@ -36,7 +40,12 @@ func newDelayedPulsor(
 			mode:           mode,
 			directions:     directions,
 			initialPowered: initialPowered,
+			poweredBefore:  initialPowered,
 			powered:        initialPowered,
+			powerAnimation: &animation{
+				fps:    8,
+				frames: 4,
+			},
 		},
 		setDeletable(deletable),
 		setMovable(movable),
@@ -44,11 +53,13 @@ func newDelayedPulsor(
 }
 
 func (p *delayedPulsor) Reset() {
+	p.poweredBefore = p.initialPowered
 	p.powered = p.initialPowered
 }
 
 func (p *delayedPulsor) ExtractOutputPulses() []direction {
 	dirs := p.mode.extractOutputPulses(p.powered, p.directions)
+	p.poweredBefore = p.powered
 	p.powered = false
 	return dirs
 }
@@ -68,7 +79,9 @@ func (p *delayedPulsor) Renderable(x, y int, scale int) game.Renderable {
 	}
 }
 
-func (p *delayedPulsor) Tick(ms int) {}
+func (p *delayedPulsor) Tick(ms int) {
+	p.powerAnimation.tick(ms)
+}
 
 func (p *delayedPulsor) IsConfigurable() bool {
 	return false
@@ -93,6 +106,9 @@ func (mode delayPulsorModeDelayed) extractOutputPulses(powered bool, directions 
 }
 
 func (mode delayPulsorModeDelayed) renderable(p *delayedPulsor, x, y int, scale int) game.Renderable {
+	if p.poweredBefore {
+		return p.spriteMap.Produce("p_delayed_pulsor_powered", x, y, scale, p.powerAnimation.frame())
+	}
 	return p.spriteMap.Produce("p_delayed_pulsor", x, y, scale, 0)
 }
 
@@ -108,5 +124,8 @@ func (mode delayPulsorModeInverted) extractOutputPulses(powered bool, directions
 }
 
 func (mode delayPulsorModeInverted) renderable(p *delayedPulsor, x, y int, scale int) game.Renderable {
+	if p.poweredBefore {
+		return p.spriteMap.Produce("p_inverted_pulsor_powered", x, y, scale, p.powerAnimation.frame())
+	}
 	return p.spriteMap.Produce("p_inverted_pulsor", x, y, scale, 0)
 }
