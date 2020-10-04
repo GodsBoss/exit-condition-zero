@@ -1,5 +1,6 @@
 all: \
 	dist/gfx.png \
+	dist/.htaccess \
 	dist/index.html \
 	dist/main.wasm \
 	dist/wasm_exec.js
@@ -13,6 +14,10 @@ dist/main.wasm:
 	GOOS=js GOARCH=wasm go build -o $@ ./game
 
 dist/index.html: static/index.html
+	@mkdir -p dist
+	cp $< $@
+
+dist/.htaccess: static/.htaccess
 	@mkdir -p dist
 	cp $< $@
 
