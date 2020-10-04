@@ -24,6 +24,7 @@ type delayedPulsor struct {
 	poweredBefore bool
 
 	powerAnimation *animation
+	dirAnim        *animation
 }
 
 func newDelayedPulsor(
@@ -45,6 +46,10 @@ func newDelayedPulsor(
 			powerAnimation: &animation{
 				fps:    8,
 				frames: 4,
+			},
+			dirAnim: &animation{
+				fps:    2,
+				frames: 2,
 			},
 		},
 		setDeletable(deletable),
@@ -75,12 +80,13 @@ func (p *delayedPulsor) Receive([]direction) {
 func (p *delayedPulsor) Renderable(x, y int, scale int) game.Renderable {
 	return rendering.Renderables{
 		p.mode.renderable(p, x, y, scale),
-		createRenderableForDirections(p.spriteMap, p.directions.Directions(), x, y, scale, 0),
+		createRenderableForDirections(p.spriteMap, p.directions.Directions(), x, y, scale, p.dirAnim.frame()),
 	}
 }
 
 func (p *delayedPulsor) Tick(ms int) {
 	p.powerAnimation.tick(ms)
+	p.dirAnim.tick(ms)
 }
 
 func (p *delayedPulsor) IsConfigurable() bool {
