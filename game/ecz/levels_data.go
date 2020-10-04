@@ -116,10 +116,13 @@ func levelsData() *levels {
 				Texts: []levelText{
 					{
 						X: 25,
-						Y: 210,
+						Y: 190,
 						Content: levelTextContent(
 							"Mirrors reflect pulses. Use this",
-							"to your advantage.",
+							"to your advantage. One of them",
+							"must be configured to do this.",
+							"Use the right-most button in the",
+							"top-right corner of the screen.",
 						),
 					},
 				},
