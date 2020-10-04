@@ -277,7 +277,7 @@ var spriteSources = sprite.SourceMap{
 		H: 20,
 	},
 	"p_button_delete": {
-		X: 300,
+		X: 220,
 		Y: 20,
 		W: 20,
 		H: 20,
