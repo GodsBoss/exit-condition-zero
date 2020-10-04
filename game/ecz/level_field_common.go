@@ -1,6 +1,8 @@
 package ecz
 
-import "github.com/GodsBoss/exit-condition-zero/pkg/game"
+import (
+	"github.com/GodsBoss/exit-condition-zero/pkg/game"
+)
 
 type commonField struct {
 	field simpleField
