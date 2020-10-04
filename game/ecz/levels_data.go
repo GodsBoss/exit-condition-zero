@@ -64,17 +64,9 @@ func levelsData() *levels {
 				getFields: func(spriteMap sprite.Map) map[int2d.Vector]field {
 					return map[int2d.Vector]field{
 						v(1, 9): newPulsor(spriteMap, toDirectionsMap(dirUp, dirRight), false, false),
-						v(1, 7): &polarizer{
-							spriteMap:   spriteMap,
-							orientation: verticalPolarizerOrientation{},
-							movable:     true,
-						},
+						v(1, 7): newPolarizer(spriteMap, verticalPolarizerOrientation{}, false, true, false),
 						v(1, 5): newExitCondition(spriteMap),
-						v(3, 9): &polarizer{
-							spriteMap:   spriteMap,
-							orientation: horizontalPolarizerOrientation{},
-							movable:     true,
-						},
+						v(3, 9): newPolarizer(spriteMap, horizontalPolarizerOrientation{}, false, true, false),
 						v(5, 9): newExitCondition(spriteMap),
 					}
 				},
@@ -240,17 +232,8 @@ func levelsData() *levels {
 						v(5, 7): newExitCondition(spriteMap),
 						v(6, 7): newBlocker(spriteMap, asBlockerOption(makeMovable())),
 						v(7, 7): newBlocker(spriteMap, asBlockerOption(makeDeletable())),
-						v(1, 4): &polarizer{
-							spriteMap:   spriteMap,
-							orientation: horizontalPolarizerOrientation{},
-							movable:     true,
-						},
-						v(1, 5): &polarizer{
-							spriteMap:    spriteMap,
-							orientation:  verticalPolarizerOrientation{},
-							movable:      true,
-							configurable: true,
-						},
+						v(1, 4): newPolarizer(spriteMap, horizontalPolarizerOrientation{}, false, true, false),
+						v(1, 5): newPolarizer(spriteMap, verticalPolarizerOrientation{}, false, true, true),
 						v(2, 2): newFullMirror(
 							spriteMap,
 							asFullMirrorOption(makeDeletable()),
