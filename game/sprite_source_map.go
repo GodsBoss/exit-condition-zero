@@ -47,6 +47,12 @@ var spriteSources = sprite.SourceMap{
 		W: 20,
 		H: 20,
 	},
+	"level_select_tutorial_marker": {
+		X: 340,
+		Y: 60,
+		W: 20,
+		H: 20,
+	},
 	"output_up": {
 		X:      140,
 		Y:      40,

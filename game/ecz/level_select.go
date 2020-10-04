@@ -81,6 +81,9 @@ func (ls *levelSelect) Renderables(scale int) []game.Renderable {
 			levelIndexToShowNameFor = i
 		}
 		r = append(r, ls.spriteMap.Produce(id, lvl.X, lvl.Y, scale, 0))
+		if lvl.Tutorial {
+			r = append(r, ls.spriteMap.Produce("level_select_tutorial_marker", lvl.X, lvl.Y, scale, 0))
+		}
 	}
 	r = append(
 		r,
