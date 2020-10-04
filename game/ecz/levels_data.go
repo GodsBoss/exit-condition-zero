@@ -218,6 +218,34 @@ func levelsData() *levels {
 					}
 				},
 			},
+			{
+				Name:     "Turn, turn, turn around!",
+				X:        130,
+				Y:        10,
+				Tutorial: true,
+				Texts: []levelText{
+					{
+						X: 15,
+						Y: 15,
+						Content: levelTextContent(
+							"Rotators turn pulses",
+							"around. They come in two",
+							"flavors: clockwise and",
+							"counter-clockwise.",
+						),
+					},
+				},
+				getFields: func(spriteMap sprite.Map) map[int2d.Vector]field {
+					return map[int2d.Vector]field{
+						v(3, 10): newPulsor(spriteMap, toDirectionsMap(dirUp)),
+						v(3, 5):  newRotator(spriteMap, withCounterClockwiseRotation(), configurableRotator()),
+						v(8, 5):  newRotator(spriteMap, configurableRotator()),
+						v(1, 5):  newExitCondition(spriteMap),
+						v(8, 9):  newExitCondition(spriteMap),
+						v(8, 1):  newBlocker(spriteMap),
+					}
+				},
+			},
 		},
 	}
 }
