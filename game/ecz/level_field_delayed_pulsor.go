@@ -63,7 +63,7 @@ func (p *delayedPulsor) Receive([]direction) {
 
 func (p *delayedPulsor) Renderable(x, y int, scale int) game.Renderable {
 	return rendering.Renderables{
-		p.mode.renderable(p.spriteMap, x, y, scale),
+		p.mode.renderable(p, x, y, scale),
 		createRenderableForDirections(p.spriteMap, p.directions.Directions(), x, y, scale, 0),
 	}
 }
@@ -78,7 +78,7 @@ func (p *delayedPulsor) Configure() {}
 
 type delayPulsorMode interface {
 	extractOutputPulses(powered bool, directions directionsMap) []direction
-	renderable(spriteMap sprite.Map, x, y int, scale int) game.Renderable
+	renderable(p *delayedPulsor, x, y int, scale int) game.Renderable
 }
 
 type delayPulsorModeDelayed struct{}
@@ -92,8 +92,8 @@ func (mode delayPulsorModeDelayed) extractOutputPulses(powered bool, directions 
 	return directions.Directions()
 }
 
-func (mode delayPulsorModeDelayed) renderable(spriteMap sprite.Map, x, y int, scale int) game.Renderable {
-	return spriteMap.Produce("p_delayed_pulsor", x, y, scale, 0)
+func (mode delayPulsorModeDelayed) renderable(p *delayedPulsor, x, y int, scale int) game.Renderable {
+	return p.spriteMap.Produce("p_delayed_pulsor", x, y, scale, 0)
 }
 
 type delayPulsorModeInverted struct{}
@@ -107,6 +107,6 @@ func (mode delayPulsorModeInverted) extractOutputPulses(powered bool, directions
 	return directions.Directions()
 }
 
-func (mode delayPulsorModeInverted) renderable(spriteMap sprite.Map, x, y int, scale int) game.Renderable {
-	return spriteMap.Produce("p_inverted_pulsor", x, y, scale, 0)
+func (mode delayPulsorModeInverted) renderable(p *delayedPulsor, x, y int, scale int) game.Renderable {
+	return p.spriteMap.Produce("p_inverted_pulsor", x, y, scale, 0)
 }
