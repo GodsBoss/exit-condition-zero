@@ -90,8 +90,8 @@ var spriteSources = sprite.SourceMap{
 		Frames: 8,
 	},
 	"playing_button_reset": {
-		X: 320,
-		Y: 0,
+		X: 180,
+		Y: 100,
 		W: 20,
 		H: 20,
 	},
