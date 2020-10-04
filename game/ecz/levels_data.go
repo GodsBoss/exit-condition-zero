@@ -12,8 +12,9 @@ func levelsData() *levels {
 	return &levels{
 		levels: []*level{
 			{
-				X: 10,
-				Y: 10,
+				Name: "Introduction",
+				X:    10,
+				Y:    10,
 				Texts: []levelText{
 					{
 						X: 5,
@@ -45,8 +46,9 @@ func levelsData() *levels {
 				},
 			},
 			{
-				X: 30,
-				Y: 10,
+				Name: "Swapping",
+				X:    30,
+				Y:    10,
 				Texts: []levelText{
 					{
 						X: 5,
@@ -72,8 +74,9 @@ func levelsData() *levels {
 				},
 			},
 			{
-				X: 50,
-				Y: 10,
+				Name: "Removal",
+				X:    50,
+				Y:    10,
 				Texts: []levelText{
 					{
 						X: 5,
@@ -107,8 +110,9 @@ func levelsData() *levels {
 				},
 			},
 			{
-				X: 70,
-				Y: 10,
+				Name: "Mirrors",
+				X:    70,
+				Y:    10,
 				Texts: []levelText{
 					{
 						X: 25,
@@ -137,8 +141,9 @@ func levelsData() *levels {
 				},
 			},
 			{
-				X: 90,
-				Y: 10,
+				Name: "Half-mirrors",
+				X:    90,
+				Y:    10,
 				Texts: []levelText{
 					{
 						X: 15,
@@ -192,8 +197,9 @@ func levelsData() *levels {
 				},
 			},
 			{
-				X: 110,
-				Y: 10,
+				Name: "Wrap-around",
+				X:    110,
+				Y:    10,
 				Texts: []levelText{
 					{
 						X: 100,
