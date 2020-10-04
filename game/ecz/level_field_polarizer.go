@@ -9,19 +9,19 @@ type polarizer struct {
 	spriteMap sprite.Map
 
 	orientation  polarizerOrientation
-	deletable    bool
-	movable      bool
 	configurable bool
 }
 
 func newPolarizer(spriteMap sprite.Map, orientation polarizerOrientation, deletable, movable, configurable bool) field {
-	return &polarizer{
-		spriteMap:    spriteMap,
-		orientation:  orientation,
-		deletable:    deletable,
-		movable:      movable,
-		configurable: configurable,
-	}
+	return newCommonField(
+		&polarizer{
+			spriteMap:    spriteMap,
+			orientation:  orientation,
+			configurable: configurable,
+		},
+		setMovable(movable),
+		setDeletable(deletable),
+	)
 }
 
 func (pol *polarizer) Reset() {}
@@ -35,14 +35,6 @@ func (pol *polarizer) ImmediateHit(dir direction) (bool, []direction) {
 }
 
 func (pol *polarizer) Receive([]direction) {}
-
-func (pol *polarizer) IsDeletable() bool {
-	return pol.deletable
-}
-
-func (pol *polarizer) IsMovable() bool {
-	return pol.movable
-}
 
 func (pol *polarizer) IsConfigurable() bool {
 	return pol.configurable
