@@ -22,37 +22,15 @@ var (
 )
 
 func turnDirectionClockwise(dir direction) direction {
-	return (map[direction]direction{
-		dirUp:    dirRight,
-		dirRight: dirDown,
-		dirDown:  dirLeft,
-		dirLeft:  dirUp,
-	})[dir]
+	return direction(int2d.RotateClockwise(dir.Vector()))
 }
 
 func turnDirectionCounterClockwise(dir direction) direction {
-	return (map[direction]direction{
-		dirUp:    dirLeft,
-		dirRight: dirUp,
-		dirDown:  dirRight,
-		dirLeft:  dirDown,
-	})[dir]
+	return direction(int2d.RotateCounterclockwise(dir.Vector()))
 }
 
 func oppositeDirection(dir direction) direction {
-	return (map[direction]direction{
-		dirUp:    dirDown,
-		dirRight: dirLeft,
-		dirDown:  dirUp,
-		dirLeft:  dirRight,
-	})[dir]
-}
-
-var directionVectors = map[direction]int2d.Vector{
-	dirUp:    int2d.Up(),
-	dirRight: int2d.Right(),
-	dirDown:  int2d.Down(),
-	dirLeft:  int2d.Left(),
+	return direction(int2d.Multiply(dir.Vector(), -1))
 }
 
 func toDirectionsMap(directions ...direction) directionsMap {

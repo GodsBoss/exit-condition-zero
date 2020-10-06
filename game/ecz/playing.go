@@ -366,7 +366,7 @@ func (p *playing) beamStep() {
 
 		for i := range p.pulses {
 			puls := p.pulses[i]
-			nextPos := realGridPosition(int2d.Add(puls.pos, directionVectors[puls.dir]))
+			nextPos := realGridPosition(int2d.Add(puls.pos, puls.dir.Vector()))
 
 			hit, nextDirs := p.fields[nextPos].ImmediateHit(puls.dir)
 
@@ -463,7 +463,7 @@ func (p *playing) Renderables(scale int) []game.Renderable {
 	for bi := range p.beams {
 		pos := bi.v
 		if !bi.firstHalf {
-			pos = realGridPosition(int2d.Add(pos, directionVectors[bi.d]))
+			pos = realGridPosition(int2d.Add(pos, bi.d.Vector()))
 		}
 		r = append(
 			r,
