@@ -62,14 +62,31 @@ func (cf *commonField) Tick(ms int) {
 }
 
 type simpleField interface {
-	Reset()
-	ExtractOutputPulses() []direction
+	resettableField
+	pulsingField
+	receivingField
+	configurableField
+
 	ImmediateHit(direction) (bool, []direction)
-	Receive([]direction)
 	Renderable(x, y int, scale int) game.Renderable
 	IsConfigurable() bool
-	Configure()
 	Tick(ms int)
+}
+
+type resettableField interface {
+	Reset()
+}
+
+type pulsingField interface {
+	ExtractOutputPulses() []direction
+}
+
+type receivingField interface {
+	Receive([]direction)
+}
+
+type configurableField interface {
+	Configure()
 }
 
 type commonFieldOption func(*commonField)
