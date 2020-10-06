@@ -51,13 +51,6 @@ var directionVectors = map[direction]int2d.Vector{
 	dirLeft:  int2d.Left(),
 }
 
-var directionSpriteIDs = map[direction]string{
-	dirUp:    "output_up",
-	dirRight: "output_right",
-	dirDown:  "output_down",
-	dirLeft:  "output_left",
-}
-
 func toDirectionsMap(directions ...direction) directionsMap {
 	m := make(directionsMap)
 	for i := range directions {
@@ -82,6 +75,12 @@ func (m directionsMap) Contains(dir direction) bool {
 }
 
 func createRenderableForDirections(spriteMap sprite.Map, directions []direction, x, y int, scale int, frame int) game.Renderable {
+	var directionSpriteIDs = map[direction]string{
+		dirUp:    "output_up",
+		dirRight: "output_right",
+		dirDown:  "output_down",
+		dirLeft:  "output_left",
+	}
 	r := make(rendering.Renderables, 0)
 	for i := range directions {
 		if id, ok := directionSpriteIDs[directions[i]]; ok {
