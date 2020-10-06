@@ -50,10 +50,6 @@ func configurableFullMirror() fullMirrorOption {
 	}
 }
 
-func (mirror *fullMirror) ExtractOutputPulses() []direction {
-	return make([]direction, 0)
-}
-
 func (mirror *fullMirror) ImmediateHit(dir direction) (bool, []direction) {
 	return mirror.orientation.ImmediateHit(dir)
 }

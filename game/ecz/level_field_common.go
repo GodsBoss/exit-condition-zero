@@ -7,7 +7,8 @@ import (
 type commonField struct {
 	field simpleField
 
-	resetFunc func()
+	resetFunc   func()
+	pulsingFunc func() []direction
 
 	deletable bool
 	movable   bool
@@ -21,6 +22,7 @@ func newCommonField(field simpleField, options ...commonFieldOption) *commonFiel
 		options[i](f)
 	}
 	f.resetFunc = createResetFunc(field)
+	f.pulsingFunc = createPulsingFunc(field)
 	return f
 }
 
@@ -29,7 +31,7 @@ func (cf *commonField) Reset() {
 }
 
 func (cf *commonField) ExtractOutputPulses() []direction {
-	return cf.field.ExtractOutputPulses()
+	return cf.pulsingFunc()
 }
 
 func (cf *commonField) ImmediateHit(dir direction) (bool, []direction) {
@@ -65,7 +67,6 @@ func (cf *commonField) Tick(ms int) {
 }
 
 type simpleField interface {
-	pulsingField
 	receivingField
 	configurableField
 
@@ -90,6 +91,17 @@ func createResetFunc(field simpleField) func() {
 
 type pulsingField interface {
 	ExtractOutputPulses() []direction
+}
+
+func createPulsingFunc(field simpleField) func() []direction {
+	if pf, ok := field.(pulsingField); ok {
+		return func() []direction {
+			return pf.ExtractOutputPulses()
+		}
+	}
+	return func() []direction {
+		return make([]direction, 0)
+	}
 }
 
 type receivingField interface {

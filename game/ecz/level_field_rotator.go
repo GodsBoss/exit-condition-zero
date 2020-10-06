@@ -47,10 +47,6 @@ func configurableRotator() rotatorOption {
 	}
 }
 
-func (r *rotator) ExtractOutputPulses() []direction {
-	return make([]direction, 0)
-}
-
 func (r *rotator) ImmediateHit(dir direction) (bool, []direction) {
 	return false, []direction{
 		(map[bool]func(direction) direction{

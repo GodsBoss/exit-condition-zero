@@ -37,10 +37,6 @@ func withConfigurableDirections(dirs ...direction) arrowFieldOption {
 	}
 }
 
-func (af *arrowField) ExtractOutputPulses() []direction {
-	return make([]direction, 0)
-}
-
 func (af *arrowField) ImmediateHit(direction) (bool, []direction) {
 	return false, []direction{af.dir}
 }

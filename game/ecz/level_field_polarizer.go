@@ -49,10 +49,6 @@ func configurablePolarizer() polarizerOption {
 	}
 }
 
-func (pol *polarizer) ExtractOutputPulses() []direction {
-	return make([]direction, 0)
-}
-
 func (pol *polarizer) ImmediateHit(dir direction) (bool, []direction) {
 	return pol.orientation.ImmediateHit(dir)
 }

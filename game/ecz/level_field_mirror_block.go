@@ -31,10 +31,6 @@ func asMirrorBlockOption(cfOpt commonFieldOption) mirrorBlockOption {
 	}
 }
 
-func (bl *mirrorBlock) ExtractOutputPulses() []direction {
-	return make([]direction, 0)
-}
-
 func (bl *mirrorBlock) ImmediateHit(dir direction) (bool, []direction) {
 	if bl.mirrors.Contains(oppositeDirection(dir)) {
 		return false, []direction{oppositeDirection(dir)}

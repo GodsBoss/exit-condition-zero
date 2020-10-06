@@ -44,10 +44,6 @@ func configurableHalfMirror() halfMirrorOption {
 	}
 }
 
-func (mirror *halfMirror) ExtractOutputPulses() []direction {
-	return make([]direction, 0)
-}
-
 func (mirror *halfMirror) ImmediateHit(dir direction) (bool, []direction) {
 	for i := 0; i < mirror.rotatedBy; i++ {
 		dir = turnDirectionCounterClockwise(dir)
