@@ -85,5 +85,3 @@ func (oo *onOff) Configure() {
 	oo.isOpen = oo.initialIsOpen
 	oo.wasOpenBefore = oo.initialIsOpen
 }
-
-func (oo *onOff) Tick(ms int) {}

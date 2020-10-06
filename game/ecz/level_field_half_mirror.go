@@ -71,8 +71,6 @@ func (mirror *halfMirror) Renderable(x, y int, scale int) game.Renderable {
 	return mirror.spriteMap.Produce(spriteID, x, y, scale, 0)
 }
 
-func (mirror *halfMirror) Tick(ms int) {}
-
 func (mirror *halfMirror) IsConfigurable() bool {
 	return mirror.configurable
 }

@@ -66,8 +66,6 @@ func (mirror *fullMirror) Renderable(x, y int, scale int) game.Renderable {
 	return mirror.orientation.renderable(mirror.spriteMap, x, y, scale)
 }
 
-func (mirror *fullMirror) Tick(ms int) {}
-
 type fullMirrorOrientation interface {
 	renderable(spriteMap sprite.Map, x, y int, scale int) game.Renderable
 	turn() fullMirrorOrientation

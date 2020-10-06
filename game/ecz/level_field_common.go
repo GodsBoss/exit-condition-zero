@@ -10,6 +10,7 @@ type commonField struct {
 	resetFunc   func()
 	pulsingFunc func() []direction
 	receiveFunc func([]direction)
+	tickFunc    func(int)
 
 	deletable bool
 	movable   bool
@@ -25,6 +26,7 @@ func newCommonField(field simpleField, options ...commonFieldOption) *commonFiel
 	f.resetFunc = createResetFunc(field)
 	f.pulsingFunc = createPulsingFunc(field)
 	f.receiveFunc = createReceiveFunc(field)
+	f.tickFunc = createTickFunc(field)
 	return f
 }
 
@@ -65,7 +67,7 @@ func (cf *commonField) Renderable(x, y int, scale int) game.Renderable {
 }
 
 func (cf *commonField) Tick(ms int) {
-	cf.field.Tick(ms)
+	cf.tickFunc(ms)
 }
 
 type simpleField interface {
@@ -74,7 +76,6 @@ type simpleField interface {
 	ImmediateHit(direction) (bool, []direction)
 	Renderable(x, y int, scale int) game.Renderable
 	IsConfigurable() bool
-	Tick(ms int)
 }
 
 type resettableField interface {
@@ -116,6 +117,19 @@ func createReceiveFunc(field simpleField) func([]direction) {
 		}
 	}
 	return func(_ []direction) {}
+}
+
+type tickableField interface {
+	Tick(ms int)
+}
+
+func createTickFunc(field simpleField) func(int) {
+	if tf, ok := field.(tickableField); ok {
+		return func(ms int) {
+			tf.Tick(ms)
+		}
+	}
+	return func(_ int) {}
 }
 
 type configurableField interface {

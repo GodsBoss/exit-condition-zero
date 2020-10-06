@@ -72,5 +72,3 @@ func (af *arrowField) Configure() {
 		}
 	}
 }
-
-func (af *arrowField) Tick(_ int) {}

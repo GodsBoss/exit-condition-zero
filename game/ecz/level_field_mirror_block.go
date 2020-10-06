@@ -59,5 +59,3 @@ func (bl *mirrorBlock) IsConfigurable() bool {
 }
 
 func (bl *mirrorBlock) Configure() {}
-
-func (bl *mirrorBlock) Tick(ms int) {}
