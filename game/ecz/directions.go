@@ -4,7 +4,8 @@ import (
 	"github.com/GodsBoss/exit-condition-zero/pkg/game"
 	"github.com/GodsBoss/exit-condition-zero/pkg/rendering"
 	"github.com/GodsBoss/exit-condition-zero/pkg/rendering/sprite"
-	"github.com/GodsBoss/exit-condition-zero/pkg/vector/int2d"
+
+	"github.com/GodsBoss/gggg/pkg/vector/int2d"
 )
 
 type direction string

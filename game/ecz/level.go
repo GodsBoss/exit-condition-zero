@@ -3,7 +3,8 @@ package ecz
 import (
 	"github.com/GodsBoss/exit-condition-zero/pkg/rect"
 	"github.com/GodsBoss/exit-condition-zero/pkg/rendering/sprite"
-	"github.com/GodsBoss/exit-condition-zero/pkg/vector/int2d"
+
+	"github.com/GodsBoss/gggg/pkg/vector/int2d"
 )
 
 type levels struct {

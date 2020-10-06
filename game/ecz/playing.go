@@ -7,9 +7,9 @@ import (
 	"github.com/GodsBoss/exit-condition-zero/pkg/rect"
 	"github.com/GodsBoss/exit-condition-zero/pkg/rendering/sprite"
 	"github.com/GodsBoss/exit-condition-zero/pkg/rendering/text"
-	"github.com/GodsBoss/exit-condition-zero/pkg/vector/int2d"
 
 	"github.com/GodsBoss/gggg/pkg/interaction"
+	"github.com/GodsBoss/gggg/pkg/vector/int2d"
 )
 
 type playing struct {

@@ -2,5 +2,7 @@ github.com/GodsBoss/gggg v0.0.0-20200823160645-e6c891717c36 h1:DnLjNQNcu8T8DmMhZ
 github.com/GodsBoss/gggg v0.0.0-20200823160645-e6c891717c36/go.mod h1:9YmMPPPX1LuivQSxSFEN1C0dNpS5vxdB5Jk9czIhRQo=
 github.com/GodsBoss/gggg v1.0.0 h1:2yKqP+lMMcyohfJZ5/YzUra0RhpCrLif8+mauiB3Ycg=
 github.com/GodsBoss/gggg v1.0.0/go.mod h1:9YmMPPPX1LuivQSxSFEN1C0dNpS5vxdB5Jk9czIhRQo=
+github.com/GodsBoss/gggg v1.1.0 h1:CTFI/lSSNEHJzKFddDy6re1KUHPuxMWLykPGtTbrax0=
+github.com/GodsBoss/gggg v1.1.0/go.mod h1:9YmMPPPX1LuivQSxSFEN1C0dNpS5vxdB5Jk9czIhRQo=
 github.com/GodsBoss/ld46 v0.0.0-20200501174337-9989d13f1398 h1:FqWXCSz96Vo5HJSTDiNxsvLqUVBgmPgIMeqHsUOOKRo=
 github.com/GodsBoss/ld46 v0.0.0-20200501174337-9989d13f1398/go.mod h1:bPvptmq4suVhRSYGKKrP/DWsCCTXg4RBLq0gIcspmcI=
