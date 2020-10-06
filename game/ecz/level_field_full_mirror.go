@@ -50,8 +50,6 @@ func configurableFullMirror() fullMirrorOption {
 	}
 }
 
-func (mirror *fullMirror) Reset() {}
-
 func (mirror *fullMirror) ExtractOutputPulses() []direction {
 	return make([]direction, 0)
 }

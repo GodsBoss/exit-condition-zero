@@ -49,8 +49,6 @@ func configurablePolarizer() polarizerOption {
 	}
 }
 
-func (pol *polarizer) Reset() {}
-
 func (pol *polarizer) ExtractOutputPulses() []direction {
 	return make([]direction, 0)
 }

@@ -37,8 +37,6 @@ func withConfigurableDirections(dirs ...direction) arrowFieldOption {
 	}
 }
 
-func (af *arrowField) Reset() {}
-
 func (af *arrowField) ExtractOutputPulses() []direction {
 	return make([]direction, 0)
 }

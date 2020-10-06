@@ -44,8 +44,6 @@ func configurableHalfMirror() halfMirrorOption {
 	}
 }
 
-func (mirror *halfMirror) Reset() {}
-
 func (mirror *halfMirror) ExtractOutputPulses() []direction {
 	return make([]direction, 0)
 }

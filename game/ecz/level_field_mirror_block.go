@@ -31,8 +31,6 @@ func asMirrorBlockOption(cfOpt commonFieldOption) mirrorBlockOption {
 	}
 }
 
-func (bl *mirrorBlock) Reset() {}
-
 func (bl *mirrorBlock) ExtractOutputPulses() []direction {
 	return make([]direction, 0)
 }

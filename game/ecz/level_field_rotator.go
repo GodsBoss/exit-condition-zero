@@ -47,8 +47,6 @@ func configurableRotator() rotatorOption {
 	}
 }
 
-func (r *rotator) Reset() {}
-
 func (r *rotator) ExtractOutputPulses() []direction {
 	return make([]direction, 0)
 }

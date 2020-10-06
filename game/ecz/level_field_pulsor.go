@@ -43,8 +43,6 @@ func asPulsorOption(cfOpt commonFieldOption) pulsorOption {
 	}
 }
 
-func (p *pulsor) Reset() {}
-
 func (p *pulsor) ExtractOutputPulses() []direction {
 	return p.directions.Directions()
 }

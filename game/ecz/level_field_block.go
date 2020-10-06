@@ -31,8 +31,6 @@ func asBlockerOption(cfOpt commonFieldOption) blockerOption {
 	}
 }
 
-func (b *blocker) Reset() {}
-
 func (b *blocker) ExtractOutputPulses() []direction {
 	return make([]direction, 0)
 }
