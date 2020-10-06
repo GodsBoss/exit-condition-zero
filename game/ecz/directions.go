@@ -10,6 +10,10 @@ import (
 
 type direction int2d.Vector
 
+func (dir direction) Vector() int2d.Vector {
+	return int2d.Vector(dir)
+}
+
 var (
 	dirUp    = direction(int2d.Up())
 	dirRight = direction(int2d.Right())
