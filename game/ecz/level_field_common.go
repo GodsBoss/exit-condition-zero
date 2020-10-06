@@ -9,6 +9,7 @@ type commonField struct {
 
 	resetFunc   func()
 	pulsingFunc func() []direction
+	receiveFunc func([]direction)
 
 	deletable bool
 	movable   bool
@@ -23,6 +24,7 @@ func newCommonField(field simpleField, options ...commonFieldOption) *commonFiel
 	}
 	f.resetFunc = createResetFunc(field)
 	f.pulsingFunc = createPulsingFunc(field)
+	f.receiveFunc = createReceiveFunc(field)
 	return f
 }
 
@@ -39,7 +41,7 @@ func (cf *commonField) ImmediateHit(dir direction) (bool, []direction) {
 }
 
 func (cf *commonField) Receive(dirs []direction) {
-	cf.field.Receive(dirs)
+	cf.receiveFunc(dirs)
 }
 
 func (cf *commonField) IsDeletable() bool {
@@ -67,7 +69,6 @@ func (cf *commonField) Tick(ms int) {
 }
 
 type simpleField interface {
-	receivingField
 	configurableField
 
 	ImmediateHit(direction) (bool, []direction)
@@ -106,6 +107,15 @@ func createPulsingFunc(field simpleField) func() []direction {
 
 type receivingField interface {
 	Receive([]direction)
+}
+
+func createReceiveFunc(field simpleField) func([]direction) {
+	if rf, ok := field.(receivingField); ok {
+		return func(dirs []direction) {
+			rf.Receive(dirs)
+		}
+	}
+	return func(_ []direction) {}
 }
 
 type configurableField interface {

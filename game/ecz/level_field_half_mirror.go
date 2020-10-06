@@ -61,8 +61,6 @@ func (mirror *halfMirror) ImmediateHit(dir direction) (bool, []direction) {
 	return false, []direction{dir}
 }
 
-func (mirror *halfMirror) Receive(_ []direction) {}
-
 func (mirror *halfMirror) Renderable(x, y int, scale int) game.Renderable {
 	spriteID := (map[int]string{
 		0: "p_half_mirror_left_top",

@@ -38,8 +38,6 @@ func (bl *mirrorBlock) ImmediateHit(dir direction) (bool, []direction) {
 	return false, make([]direction, 0)
 }
 
-func (bl *mirrorBlock) Receive(_ []direction) {}
-
 func (bl *mirrorBlock) Renderable(x, y int, scale int) game.Renderable {
 	r := rendering.Renderables{
 		bl.spriteMap.Produce("p_block_mirror_block", x, y, scale, 0),

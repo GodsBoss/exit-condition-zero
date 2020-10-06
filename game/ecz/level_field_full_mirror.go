@@ -54,8 +54,6 @@ func (mirror *fullMirror) ImmediateHit(dir direction) (bool, []direction) {
 	return mirror.orientation.ImmediateHit(dir)
 }
 
-func (mirror *fullMirror) Receive([]direction) {}
-
 func (mirror *fullMirror) IsConfigurable() bool {
 	return mirror.configurable
 }

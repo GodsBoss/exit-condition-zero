@@ -56,8 +56,6 @@ func (r *rotator) ImmediateHit(dir direction) (bool, []direction) {
 	}
 }
 
-func (r *rotator) Receive([]direction) {}
-
 func (r *rotator) Renderable(x, y int, scale int) game.Renderable {
 	spriteID := (map[bool]string{
 		true:  "p_rotator_counter_clockwise",

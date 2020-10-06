@@ -53,8 +53,6 @@ func (pol *polarizer) ImmediateHit(dir direction) (bool, []direction) {
 	return pol.orientation.ImmediateHit(dir)
 }
 
-func (pol *polarizer) Receive([]direction) {}
-
 func (pol *polarizer) IsConfigurable() bool {
 	return pol.configurable
 }

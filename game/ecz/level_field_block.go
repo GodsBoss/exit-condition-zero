@@ -35,8 +35,6 @@ func (b *blocker) ImmediateHit(direction) (bool, []direction) {
 	return true, make([]direction, 0)
 }
 
-func (b *blocker) Receive([]direction) {}
-
 func (b *blocker) IsConfigurable() bool {
 	return false
 }

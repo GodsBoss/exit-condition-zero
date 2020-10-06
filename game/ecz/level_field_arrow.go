@@ -41,8 +41,6 @@ func (af *arrowField) ImmediateHit(direction) (bool, []direction) {
 	return false, []direction{af.dir}
 }
 
-func (af *arrowField) Receive([]direction) {}
-
 func (af *arrowField) Renderable(x, y int, scale int) game.Renderable {
 	return af.spriteMap.Produce(
 		(map[direction]string{
