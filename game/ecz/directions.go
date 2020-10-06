@@ -8,13 +8,13 @@ import (
 	"github.com/GodsBoss/gggg/pkg/vector/int2d"
 )
 
-type direction string
+type direction int2d.Vector
 
-const (
-	dirUp    direction = "up"
-	dirRight direction = "right"
-	dirDown  direction = "down"
-	dirLeft  direction = "left"
+var (
+	dirUp    = direction(int2d.Up())
+	dirRight = direction(int2d.Right())
+	dirDown  = direction(int2d.Down())
+	dirLeft  = direction(int2d.Left())
 )
 
 func turnDirectionClockwise(dir direction) direction {
