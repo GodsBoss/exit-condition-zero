@@ -64,11 +64,10 @@ func (p *playing) Init() {
 	p.resetFields()
 	p.initRunningValues()
 	p.fields = make(map[int2d.Vector]field)
-	for x := 0; x < 11; x++ {
-		for y := 0; y < 11; y++ {
-			p.fields[int2d.FromXY(x, y)] = &emptyField{
-				spriteMap: p.spriteMap,
-			}
+	positions := p.grid.allPositions()
+	for i := range positions {
+		p.fields[positions[i]] = &emptyField{
+			spriteMap: p.spriteMap,
 		}
 	}
 
