@@ -15,6 +15,7 @@ import (
 type playing struct {
 	spriteMap sprite.Map
 	levels    *levels
+	grid      grid
 
 	gridCursor           *int2d.Vector
 	isDeleteMode         bool
@@ -40,6 +41,10 @@ func newPlaying(spriteMap sprite.Map, levels *levels) game.State {
 	return &playing{
 		spriteMap: spriteMap,
 		levels:    levels,
+		grid: grid{
+			width:  11,
+			height: 11,
+		},
 	}
 }
 
@@ -366,7 +371,7 @@ func (p *playing) beamStep() {
 
 		for i := range p.pulses {
 			puls := p.pulses[i]
-			nextPos := realGridPosition(int2d.Add(puls.pos, puls.dir.Vector()))
+			nextPos := p.grid.realGridPosition(int2d.Add(puls.pos, puls.dir.Vector()))
 
 			hit, nextDirs := p.fields[nextPos].ImmediateHit(puls.dir)
 
@@ -463,7 +468,7 @@ func (p *playing) Renderables(scale int) []game.Renderable {
 	for bi := range p.beams {
 		pos := bi.v
 		if !bi.firstHalf {
-			pos = realGridPosition(int2d.Add(pos, bi.d.Vector()))
+			pos = p.grid.realGridPosition(int2d.Add(pos, bi.d.Vector()))
 		}
 		r = append(
 			r,
@@ -586,24 +591,6 @@ func newBeam() *beam {
 	return &beam{
 		animation: rand.Float64() * 4,
 	}
-}
-
-func realGridPosition(v int2d.Vector) int2d.Vector {
-	x := v.X()
-	y := v.Y()
-	if x < 0 {
-		x += 11
-	}
-	if y < 0 {
-		y += 11
-	}
-	if x >= 11 {
-		x -= 11
-	}
-	if y >= 11 {
-		y -= 11
-	}
-	return int2d.FromXY(x, y)
 }
 
 func pointerPositionToGrid(v int2d.Vector) int2d.Vector {
