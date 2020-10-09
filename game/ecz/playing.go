@@ -27,6 +27,7 @@ type playing struct {
 	running             bool
 	msUntilNextBeamStep int
 	beams               map[beamIndex]*beam
+	beamList            []beamIndex
 	pulses              []*pulse
 	acceptedPulses      map[int2d.Vector]map[direction]struct{}
 	firstHalf           bool
@@ -91,6 +92,7 @@ func (p *playing) Tick(ms int) *game.Transition {
 			if p.beams[bi].animation >= 4.0 {
 				p.beams[bi].animation -= 4.0
 			}
+			p.beams[bi].age += float64(ms) / 1000
 		}
 		p.msUntilNextBeamStep -= ms
 		if p.msUntilNextBeamStep <= 0 {
@@ -319,6 +321,7 @@ func (p *playing) initRunningValues() {
 	p.firstHalf = true
 	p.msUntilNextBeamStep = msPerBeamStep
 	p.beams = make(map[beamIndex]*beam)
+	p.beamList = make([]beamIndex, 0)
 	p.pulses = make([]*pulse, 0)
 	p.acceptedPulses = make(map[int2d.Vector]map[direction]struct{})
 }
@@ -360,7 +363,9 @@ func (p *playing) beamStep() {
 
 	// Create beams.
 	for i := range p.pulses {
-		p.beams[beamIndex{v: p.pulses[i].pos, d: p.pulses[i].dir, firstHalf: p.firstHalf}] = newBeam()
+		bi := beamIndex{v: p.pulses[i].pos, d: p.pulses[i].dir, firstHalf: p.firstHalf}
+		p.beams[bi] = newBeam()
+		p.beamList = append(p.beamList, bi)
 	}
 
 	// The second part of beam creation is the interesting one. Fields may be hit
@@ -464,15 +469,23 @@ func (p *playing) Renderables(scale int) []game.Renderable {
 		)
 	}
 
-	for bi := range p.beams {
+	for i := range p.beamList {
+		bi := p.beamList[i]
 		pos := bi.v
 		if !bi.firstHalf {
 			pos = p.grid.realGridPosition(int2d.Add(pos, bi.d.Vector()))
 		}
+		beamSpriteID := beamSpriteIDs[bi.firstHalf][bi.d]
+		if p.beams[bi].Decay() == 1 {
+			beamSpriteID += "_decay_1"
+		}
+		if p.beams[bi].Decay() == 2 {
+			beamSpriteID += "_decay_2"
+		}
 		r = append(
 			r,
 			p.spriteMap.Produce(
-				beamSpriteIDs[bi.firstHalf][bi.d],
+				beamSpriteID,
 				pos.X()*fieldsWidth+fieldsOffsetX-1,
 				pos.Y()*fieldsHeight+fieldsOffsetY-1,
 				scale,
@@ -583,6 +596,7 @@ type beamIndex struct {
 }
 
 type beam struct {
+	age       float64
 	animation float64
 }
 
@@ -590,6 +604,16 @@ func newBeam() *beam {
 	return &beam{
 		animation: rand.Float64() * 4,
 	}
+}
+
+func (b *beam) Decay() int {
+	if b.age >= 0.4 {
+		return 2
+	}
+	if b.age >= 0.2 {
+		return 1
+	}
+	return 0
 }
 
 func pointerPositionToGrid(v int2d.Vector) int2d.Vector {
