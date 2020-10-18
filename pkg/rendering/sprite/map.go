@@ -6,7 +6,6 @@ import (
 	"errors"
 
 	"github.com/GodsBoss/exit-condition-zero/pkg/game"
-	"github.com/GodsBoss/exit-condition-zero/pkg/rendering"
 	"github.com/GodsBoss/gggg/pkg/dom"
 )
 
@@ -29,7 +28,7 @@ type spriteMap struct {
 func (m *spriteMap) Produce(id string, x, y int, scale int, frame int) game.Renderable {
 	src, err := m.sourceMap.Get(id)
 	if err != nil {
-		return rendering.Null{}
+		return game.NullRenderable{}
 	}
 	return sprite{
 		source: m.source,
