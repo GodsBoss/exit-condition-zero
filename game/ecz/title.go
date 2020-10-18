@@ -11,7 +11,7 @@ type title struct {
 	spriteMap sprite.Map
 }
 
-func newTitle(spriteMap sprite.Map) game.State {
+func newTitle(spriteMap sprite.Map) *title {
 	return &title{
 		spriteMap: spriteMap,
 	}

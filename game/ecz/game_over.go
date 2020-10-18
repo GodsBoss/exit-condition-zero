@@ -19,7 +19,7 @@ type gameOver struct {
 	movers    []*gameOverMover
 }
 
-func newGameOver(spriteMap sprite.Map) game.State {
+func newGameOver(spriteMap sprite.Map) *gameOver {
 	return &gameOver{
 		spriteMap: spriteMap,
 	}

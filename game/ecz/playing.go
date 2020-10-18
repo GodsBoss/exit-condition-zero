@@ -38,7 +38,7 @@ type playing struct {
 	startStopButtonAnimation *sporadicAnimation
 }
 
-func newPlaying(spriteMap sprite.Map, levels *levels) game.State {
+func newPlaying(spriteMap sprite.Map, levels *levels) *playing {
 	return &playing{
 		spriteMap: spriteMap,
 		levels:    levels,
