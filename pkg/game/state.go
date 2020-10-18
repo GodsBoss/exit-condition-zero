@@ -9,8 +9,7 @@ type State interface {
 	Ticker
 	KeyEventReceiver
 	MouseEventReceiver
-
-	Renderables(scale int) []Renderable
+	Renderer
 }
 
 type Transition struct {
@@ -32,4 +31,8 @@ type KeyEventReceiver interface {
 
 type MouseEventReceiver interface {
 	ReceiveMouseEvent(event interaction.MouseEvent) *Transition
+}
+
+type Renderer interface {
+	Renderables(scale int) []Renderable
 }
