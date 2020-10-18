@@ -12,7 +12,10 @@ type State interface {
 	Renderer
 }
 
+// Transition can be returned by some of a State's methods. It carries the
+// information of which state the game should transition to.
 type Transition struct {
+	// NextState is the key of the next state the game should switch to.
 	NextState string
 }
 
