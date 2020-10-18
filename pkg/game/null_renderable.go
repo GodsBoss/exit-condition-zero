@@ -10,4 +10,4 @@ import (
 type NullRenderable struct{}
 
 // Render does nothing.
-func (n NullRenderable) Render(output *dom.Context2D) {}
+func (n NullRenderable) Render(_ *dom.Context2D) {}
