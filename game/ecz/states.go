@@ -5,6 +5,7 @@ import (
 	"github.com/GodsBoss/exit-condition-zero/pkg/rendering/sprite"
 )
 
+// States returns Exit Condition Zero's states.
 func States(spriteMap sprite.Map) map[string]game.State {
 	lvls := levelsData()
 
