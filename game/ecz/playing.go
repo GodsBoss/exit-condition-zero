@@ -106,10 +106,6 @@ func (p *playing) Tick(ms int) *game.Transition {
 	return nil
 }
 
-func (p *playing) ReceiveKeyEvent(event interaction.KeyEvent) *game.Transition {
-	return nil
-}
-
 func (p *playing) ReceiveMouseEvent(event interaction.MouseEvent) *game.Transition {
 	if event.Type == interaction.MouseUp && event.PrimaryButton() {
 

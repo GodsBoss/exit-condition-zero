@@ -26,14 +26,6 @@ func (ls *levelSelect) Init() {
 	ls.levels.unhoverLevels()
 }
 
-func (ls *levelSelect) Tick(ms int) *game.Transition {
-	return nil
-}
-
-func (ls *levelSelect) ReceiveKeyEvent(event interaction.KeyEvent) *game.Transition {
-	return nil
-}
-
 func (ls *levelSelect) ReceiveMouseEvent(event interaction.MouseEvent) *game.Transition {
 	if event.Type == interaction.MouseMove {
 		ls.levels.unhoverLevels()
