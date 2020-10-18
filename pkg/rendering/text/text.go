@@ -3,7 +3,7 @@ package text
 import (
 	"strings"
 
-	"github.com/GodsBoss/exit-condition-zero/pkg/rendering"
+	"github.com/GodsBoss/exit-condition-zero/pkg/game"
 	"github.com/GodsBoss/exit-condition-zero/pkg/rendering/sprite"
 	"github.com/GodsBoss/gggg/pkg/dom"
 )
@@ -34,7 +34,7 @@ func New(
 
 func (txt *Text) Render(output *dom.Context2D) {
 	lines := strings.Split(txt.contents, "\n")
-	chars := make(rendering.Renderables, 0)
+	chars := make(game.Renderables, 0)
 	width := 0
 	height := len(lines)
 
@@ -56,7 +56,7 @@ func (txt *Text) Render(output *dom.Context2D) {
 		}
 	}
 
-	backgroundTiles := make(rendering.Renderables, 0)
+	backgroundTiles := make(game.Renderables, 0)
 	for row := 0; row < height; row++ {
 		for col := 0; col < width; col++ {
 			backgroundTiles = append(

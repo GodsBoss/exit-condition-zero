@@ -2,7 +2,6 @@ package ecz
 
 import (
 	"github.com/GodsBoss/exit-condition-zero/pkg/game"
-	"github.com/GodsBoss/exit-condition-zero/pkg/rendering"
 	"github.com/GodsBoss/exit-condition-zero/pkg/rendering/sprite"
 
 	"github.com/GodsBoss/gggg/pkg/vector/int2d"
@@ -63,7 +62,7 @@ func createRenderableForDirections(spriteMap sprite.Map, directions []direction,
 		dirDown:  "output_down",
 		dirLeft:  "output_left",
 	}
-	r := make(rendering.Renderables, 0)
+	r := make(game.Renderables, 0)
 	for i := range directions {
 		if id, ok := directionSpriteIDs[directions[i]]; ok {
 			r = append(r, spriteMap.Produce(id, x, y, scale, frame))

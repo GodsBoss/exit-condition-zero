@@ -2,7 +2,6 @@ package ecz
 
 import (
 	"github.com/GodsBoss/exit-condition-zero/pkg/game"
-	"github.com/GodsBoss/exit-condition-zero/pkg/rendering"
 	"github.com/GodsBoss/exit-condition-zero/pkg/rendering/sprite"
 )
 
@@ -60,7 +59,7 @@ func (p *pulsor) IsConfigurable() bool {
 func (p *pulsor) Configure() {}
 
 func (p *pulsor) Renderable(x, y int, scale int) game.Renderable {
-	return rendering.Renderables{
+	return game.Renderables{
 		p.spriteMap.Produce("p_pulsor", x, y, scale, p.anim.frame()),
 		createRenderableForDirections(p.spriteMap, p.directions.Directions(), x, y, scale, p.dirAnim.frame()),
 	}

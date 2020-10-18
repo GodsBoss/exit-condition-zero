@@ -2,7 +2,6 @@ package ecz
 
 import (
 	"github.com/GodsBoss/exit-condition-zero/pkg/game"
-	"github.com/GodsBoss/exit-condition-zero/pkg/rendering"
 	"github.com/GodsBoss/exit-condition-zero/pkg/rendering/sprite"
 )
 
@@ -39,7 +38,7 @@ func (bl *mirrorBlock) ImmediateHit(dir direction) (bool, []direction) {
 }
 
 func (bl *mirrorBlock) Renderable(x, y int, scale int) game.Renderable {
-	r := rendering.Renderables{
+	r := game.Renderables{
 		bl.spriteMap.Produce("p_block_mirror_block", x, y, scale, 0),
 	}
 	for dir := range bl.mirrors {

@@ -1,12 +1,10 @@
-package rendering
+package game
 
 import (
-	"github.com/GodsBoss/exit-condition-zero/pkg/game"
-
 	"github.com/GodsBoss/gggg/pkg/dom"
 )
 
-type Renderables []game.Renderable
+type Renderables []Renderable
 
 func (r Renderables) Render(output *dom.Context2D) {
 	for i := range r {
