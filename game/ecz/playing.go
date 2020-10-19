@@ -67,13 +67,7 @@ func (p *playing) Init() {
 	p.gameOver = false
 	p.resetFields()
 	p.initRunningValues()
-	p.board.fields = make(map[int2d.Vector]field)
-	positions := p.grid.allPositions()
-	for i := range positions {
-		p.board.fields[positions[i]] = &emptyField{
-			spriteMap: p.spriteMap,
-		}
-	}
+	p.board.init(p.spriteMap, p.grid.allPositions())
 
 	lvlFields := p.levels.levels[p.levels.selectedLevel].getFields(p.spriteMap)
 	for v := range lvlFields {
