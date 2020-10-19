@@ -277,12 +277,7 @@ func (p *playing) clearSelectableFields() {
 }
 
 func (p *playing) findSelectableFields(criteria func(field) bool) {
-	p.clearSelectableFields()
-	for v := range p.board.fields {
-		if criteria(p.board.fields[v]) {
-			p.selectableFields = append(p.selectableFields, v)
-		}
-	}
+	p.selectableFields = p.board.findFields(criteria)
 }
 
 func (p *playing) toggleRun() {

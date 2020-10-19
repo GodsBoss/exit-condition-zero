@@ -30,3 +30,13 @@ func (b *board) setFields(fields map[int2d.Vector]field) {
 		b.fields[v] = fields[v]
 	}
 }
+
+func (b *board) findFields(criteria func(field) bool) []int2d.Vector {
+	result := make([]int2d.Vector, 0)
+	for v := range b.fields {
+		if criteria(b.fields[v]) {
+			result = append(result, v)
+		}
+	}
+	return result
+}
