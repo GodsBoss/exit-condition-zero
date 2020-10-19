@@ -65,7 +65,7 @@ func (p *playing) Init() {
 	}
 	p.running = false
 	p.gameOver = false
-	p.resetFields()
+	p.resetBoard()
 	p.initRunningValues()
 	p.board.init(p.spriteMap, p.grid.allPositions())
 	p.board.setFields(p.levels.levels[p.levels.selectedLevel].getFields(p.spriteMap))
@@ -294,7 +294,7 @@ func (p *playing) startRunning() {
 	p.isDeleteMode = false
 	p.isConfigureMode = false
 	p.running = true
-	p.resetFields()
+	p.resetBoard()
 	p.initRunningValues()
 	p.extractPulses()
 }
@@ -422,7 +422,7 @@ func (p *playing) hasWon() bool {
 
 func (p *playing) stopRunning() {
 	p.running = false
-	p.resetFields()
+	p.resetBoard()
 	p.initRunningValues()
 }
 
@@ -541,10 +541,8 @@ func (p *playing) Renderables(scale int) []game.Renderable {
 	return r
 }
 
-func (p *playing) resetFields() {
-	for v := range p.board.fields {
-		p.board.fields[v].Reset()
-	}
+func (p *playing) resetBoard() {
+	p.board.Reset()
 }
 
 var beamSpriteIDs = map[bool]map[direction]string{

@@ -16,6 +16,12 @@ func (b *board) Tick(ms int) {
 	}
 }
 
+func (b *board) Reset() {
+	for v := range b.fields {
+		b.fields[v].Reset()
+	}
+}
+
 func (b *board) init(spriteMap sprite.Map, allPositions []int2d.Vector) {
 	b.fields = make(map[int2d.Vector]field)
 	for i := range allPositions {
