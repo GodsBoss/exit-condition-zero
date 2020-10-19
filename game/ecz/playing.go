@@ -407,14 +407,15 @@ func (p *playing) pulsesExhausted() {
 }
 
 func (p *playing) hasWon() bool {
-	for v := range p.board.fields {
-		if victoryCondition, ok := p.board.fields[v].(fieldWithVictoryCondition); ok {
-			if !victoryCondition.AllowsVictory() {
-				return false
+	victoryDenyingFields := p.board.findFields(
+		func(f field) bool {
+			if victoryCondition, ok := f.(fieldWithVictoryCondition); ok {
+				return !victoryCondition.AllowsVictory()
 			}
-		}
-	}
-	return true
+			return false
+		},
+	)
+	return len(victoryDenyingFields) == 0
 }
 
 func (p *playing) stopRunning() {
