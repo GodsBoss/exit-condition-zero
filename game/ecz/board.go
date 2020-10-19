@@ -40,3 +40,9 @@ func (b *board) findFields(criteria func(field) bool) []int2d.Vector {
 	}
 	return result
 }
+
+func (b *board) forEach(fn func(int2d.Vector, field)) {
+	for v := range b.fields {
+		fn(v, b.fields[v])
+	}
+}

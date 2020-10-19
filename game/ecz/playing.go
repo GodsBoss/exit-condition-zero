@@ -441,16 +441,18 @@ func (p *playing) Renderables(scale int) []game.Renderable {
 		r = append(r, p.spriteMap.Produce("playing_button_run", 245, 215, scale, p.startStopButtonAnimation.frame()))
 	}
 
-	for v := range p.board.fields {
-		r = append(
-			r,
-			p.board.fields[v].Renderable(
-				fieldsOffsetX+v.X()*fieldsWidth,
-				fieldsOffsetY+v.Y()*fieldsHeight,
-				scale,
-			),
-		)
-	}
+	p.board.forEach(
+		func(v int2d.Vector, f field) {
+			r = append(
+				r,
+				f.Renderable(
+					fieldsOffsetX+v.X()*fieldsWidth,
+					fieldsOffsetY+v.Y()*fieldsHeight,
+					scale,
+				),
+			)
+		},
+	)
 
 	for i := range p.beamList {
 		bi := p.beamList[i]
