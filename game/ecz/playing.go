@@ -16,6 +16,7 @@ type playing struct {
 	spriteMap sprite.Map
 	levels    *levels
 	grid      grid
+	board     *board
 
 	gridCursor           *int2d.Vector
 	isDeleteMode         bool
@@ -32,7 +33,6 @@ type playing struct {
 	acceptedPulses      map[int2d.Vector]map[direction]struct{}
 	firstHalf           bool
 	gameOver            bool
-	fields              map[int2d.Vector]field
 
 	cursorAnimation          *animation
 	startStopButtonAnimation *sporadicAnimation
@@ -45,6 +45,9 @@ func newPlaying(spriteMap sprite.Map, levels *levels) *playing {
 		grid: grid{
 			width:  11,
 			height: 11,
+		},
+		board: &board{
+			fields: make(map[int2d.Vector]field),
 		},
 	}
 }
@@ -64,17 +67,17 @@ func (p *playing) Init() {
 	p.gameOver = false
 	p.resetFields()
 	p.initRunningValues()
-	p.fields = make(map[int2d.Vector]field)
+	p.board.fields = make(map[int2d.Vector]field)
 	positions := p.grid.allPositions()
 	for i := range positions {
-		p.fields[positions[i]] = &emptyField{
+		p.board.fields[positions[i]] = &emptyField{
 			spriteMap: p.spriteMap,
 		}
 	}
 
 	lvlFields := p.levels.levels[p.levels.selectedLevel].getFields(p.spriteMap)
 	for v := range lvlFields {
-		p.fields[v] = lvlFields[v]
+		p.board.fields[v] = lvlFields[v]
 	}
 }
 
@@ -100,8 +103,8 @@ func (p *playing) Tick(ms int) *game.Transition {
 			p.beamStep()
 		}
 	}
-	for i := range p.fields {
-		p.fields[i].Tick(ms)
+	for i := range p.board.fields {
+		p.board.fields[i].Tick(ms)
 	}
 	return nil
 }
@@ -187,8 +190,8 @@ func (p *playing) toggleDeleteMode() {
 
 func (p *playing) attemptToDelete() {
 	v := *p.gridCursor
-	if p.fields[v].IsDeletable() {
-		p.fields[v] = &emptyField{
+	if p.board.fields[v].IsDeletable() {
+		p.board.fields[v] = &emptyField{
 			spriteMap: p.spriteMap,
 			free:      true,
 		}
@@ -221,7 +224,7 @@ func (p *playing) attemptToMove() {
 
 	// Select field.
 	if p.fieldSelectedForMove == nil {
-		if p.fields[v].IsMovable() {
+		if p.board.fields[v].IsMovable() {
 			p.fieldSelectedForMove = &v
 			p.findSelectableFields(isValidMoveDestination)
 			return
@@ -236,14 +239,14 @@ func (p *playing) attemptToMove() {
 		return
 	}
 
-	destField := p.fields[v]
+	destField := p.board.fields[v]
 
 	if isValidMoveDestination(destField) {
-		p.fields[v] = p.fields[*p.fieldSelectedForMove]
+		p.board.fields[v] = p.board.fields[*p.fieldSelectedForMove]
 		if isFieldFree(destField) || destField.IsMovable() {
-			p.fields[*p.fieldSelectedForMove] = destField
+			p.board.fields[*p.fieldSelectedForMove] = destField
 		} else {
-			p.fields[*p.fieldSelectedForMove] = &emptyField{
+			p.board.fields[*p.fieldSelectedForMove] = &emptyField{
 				spriteMap: p.spriteMap,
 				free:      true,
 			}
@@ -276,8 +279,8 @@ func (p *playing) toggleConfigureMode() {
 func (p *playing) attemptToConfigure() {
 	v := *p.gridCursor
 
-	if p.fields[v].IsConfigurable() {
-		p.fields[v].Configure()
+	if p.board.fields[v].IsConfigurable() {
+		p.board.fields[v].Configure()
 	}
 }
 
@@ -287,8 +290,8 @@ func (p *playing) clearSelectableFields() {
 
 func (p *playing) findSelectableFields(criteria func(field) bool) {
 	p.clearSelectableFields()
-	for v := range p.fields {
-		if criteria(p.fields[v]) {
+	for v := range p.board.fields {
+		if criteria(p.board.fields[v]) {
 			p.selectableFields = append(p.selectableFields, v)
 		}
 	}
@@ -323,8 +326,8 @@ func (p *playing) initRunningValues() {
 }
 
 func (p *playing) extractPulses() {
-	for v := range p.fields {
-		dirs := p.fields[v].ExtractOutputPulses()
+	for v := range p.board.fields {
+		dirs := p.board.fields[v].ExtractOutputPulses()
 		for i := range dirs {
 			p.pulses = append(
 				p.pulses,
@@ -373,7 +376,7 @@ func (p *playing) beamStep() {
 			puls := p.pulses[i]
 			nextPos := p.grid.realGridPosition(int2d.Add(puls.pos, puls.dir.Vector()))
 
-			hit, nextDirs := p.fields[nextPos].ImmediateHit(puls.dir)
+			hit, nextDirs := p.board.fields[nextPos].ImmediateHit(puls.dir)
 
 			// Mark this field as having accepted a pulse.
 			if hit {
@@ -407,7 +410,7 @@ func (p *playing) pulsesExhausted() {
 		for dir := range p.acceptedPulses[v] {
 			dirs = append(dirs, dir)
 		}
-		p.fields[v].Receive(dirs)
+		p.board.fields[v].Receive(dirs)
 	}
 
 	if p.hasWon() {
@@ -421,8 +424,8 @@ func (p *playing) pulsesExhausted() {
 }
 
 func (p *playing) hasWon() bool {
-	for v := range p.fields {
-		if victoryCondition, ok := p.fields[v].(fieldWithVictoryCondition); ok {
+	for v := range p.board.fields {
+		if victoryCondition, ok := p.board.fields[v].(fieldWithVictoryCondition); ok {
 			if !victoryCondition.AllowsVictory() {
 				return false
 			}
@@ -454,10 +457,10 @@ func (p *playing) Renderables(scale int) []game.Renderable {
 		r = append(r, p.spriteMap.Produce("playing_button_run", 245, 215, scale, p.startStopButtonAnimation.frame()))
 	}
 
-	for v := range p.fields {
+	for v := range p.board.fields {
 		r = append(
 			r,
-			p.fields[v].Renderable(
+			p.board.fields[v].Renderable(
 				fieldsOffsetX+v.X()*fieldsWidth,
 				fieldsOffsetY+v.Y()*fieldsHeight,
 				scale,
@@ -551,8 +554,8 @@ func (p *playing) Renderables(scale int) []game.Renderable {
 }
 
 func (p *playing) resetFields() {
-	for v := range p.fields {
-		p.fields[v].Reset()
+	for v := range p.board.fields {
+		p.board.fields[v].Reset()
 	}
 }
 
