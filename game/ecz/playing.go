@@ -68,11 +68,7 @@ func (p *playing) Init() {
 	p.resetFields()
 	p.initRunningValues()
 	p.board.init(p.spriteMap, p.grid.allPositions())
-
-	lvlFields := p.levels.levels[p.levels.selectedLevel].getFields(p.spriteMap)
-	for v := range lvlFields {
-		p.board.fields[v] = lvlFields[v]
-	}
+	p.board.setFields(p.levels.levels[p.levels.selectedLevel].getFields(p.spriteMap))
 }
 
 func (p *playing) Tick(ms int) *game.Transition {

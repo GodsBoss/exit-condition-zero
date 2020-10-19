@@ -24,3 +24,9 @@ func (b *board) init(spriteMap sprite.Map, allPositions []int2d.Vector) {
 		}
 	}
 }
+
+func (b *board) setFields(fields map[int2d.Vector]field) {
+	for v := range fields {
+		b.fields[v] = fields[v]
+	}
+}
