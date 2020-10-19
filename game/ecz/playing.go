@@ -309,18 +309,20 @@ func (p *playing) initRunningValues() {
 }
 
 func (p *playing) extractPulses() {
-	for v := range p.board.fields {
-		dirs := p.board.fields[v].ExtractOutputPulses()
-		for i := range dirs {
-			p.pulses = append(
-				p.pulses,
-				&pulse{
-					pos: v,
-					dir: dirs[i],
-				},
-			)
-		}
-	}
+	p.board.forEach(
+		func(v int2d.Vector, f field) {
+			dirs := f.ExtractOutputPulses()
+			for i := range dirs {
+				p.pulses = append(
+					p.pulses,
+					&pulse{
+						pos: v,
+						dir: dirs[i],
+					},
+				)
+			}
+		},
+	)
 }
 
 func (p *playing) beamStep() {
