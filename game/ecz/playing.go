@@ -1,8 +1,6 @@
 package ecz
 
 import (
-	"math/rand"
-
 	"github.com/GodsBoss/exit-condition-zero/pkg/game"
 	"github.com/GodsBoss/exit-condition-zero/pkg/rect"
 	"github.com/GodsBoss/exit-condition-zero/pkg/rendering/sprite"
@@ -567,38 +565,9 @@ const fieldsHeight = 20
 
 const msPerBeamStep = 50
 
-const beamAnimationSpeed = 0.1
-
 type pulse struct {
 	pos int2d.Vector
 	dir direction
-}
-
-type beamIndex struct {
-	v         int2d.Vector
-	d         direction
-	firstHalf bool
-}
-
-type beam struct {
-	age       float64
-	animation float64
-}
-
-func newBeam() *beam {
-	return &beam{
-		animation: rand.Float64() * 4,
-	}
-}
-
-func (b *beam) Decay() int {
-	if b.age >= 0.4 {
-		return 2
-	}
-	if b.age >= 0.2 {
-		return 1
-	}
-	return 0
 }
 
 func pointerPositionToGrid(v int2d.Vector) int2d.Vector {
