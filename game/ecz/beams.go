@@ -80,6 +80,23 @@ func (b *beams) hasBeam(index beamIndex) bool {
 	return ok
 }
 
+func (b *beams) orderedBeams() []beamAndIndex {
+	result := make([]beamAndIndex, len(b.asSlice))
+	for i := range b.asSlice {
+		index := b.asSlice[i]
+		result[i] = beamAndIndex{
+			index: index,
+			beam:  b.asMap[index],
+		}
+	}
+	return result
+}
+
+type beamAndIndex struct {
+	index beamIndex
+	beam  *beam
+}
+
 var beamSpriteIDs = map[bool]map[direction]string{
 	true: {
 		dirUp:    "p_beam_up_1",

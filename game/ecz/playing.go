@@ -447,8 +447,9 @@ func (p *playing) Renderables(scale int) []game.Renderable {
 		},
 	)
 
-	for i := range p.beams.asSlice {
-		bi := p.beams.asSlice[i]
+	orderedBeams := p.beams.orderedBeams()
+	for i := range orderedBeams {
+		bi := orderedBeams[i].index
 		pos := bi.v
 		if !bi.firstHalf {
 			pos = p.grid.realGridPosition(int2d.Add(pos, bi.d.Vector()))
@@ -461,7 +462,7 @@ func (p *playing) Renderables(scale int) []game.Renderable {
 				pos.X()*fieldsWidth+fieldsOffsetX-1,
 				pos.Y()*fieldsHeight+fieldsOffsetY-1,
 				scale,
-				int(p.beams.asMap[bi].animation),
+				int(orderedBeams[i].beam.animation),
 			),
 		)
 	}
