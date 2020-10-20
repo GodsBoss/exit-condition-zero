@@ -75,6 +75,11 @@ func (b *beams) getSpriteID(index beamIndex) string {
 	return beamSpriteID
 }
 
+func (b *beams) hasBeam(index beamIndex) bool {
+	_, ok := b.asMap[index]
+	return ok
+}
+
 var beamSpriteIDs = map[bool]map[direction]string{
 	true: {
 		dirUp:    "p_beam_up_1",

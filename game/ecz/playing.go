@@ -331,7 +331,7 @@ func (p *playing) beamStep() {
 		leftOverPulses := make([]*pulse, 0)
 		for i := range p.pulses {
 			pulse := p.pulses[i]
-			if _, ok := p.beams.asMap[beamIndex{v: pulse.pos, d: pulse.dir, firstHalf: true}]; !ok {
+			if !p.beams.hasBeam(beamIndex{v: pulse.pos, d: pulse.dir, firstHalf: true}) {
 				leftOverPulses = append(leftOverPulses, pulse)
 			}
 		}
