@@ -64,6 +64,17 @@ func (b *beams) Tick(ms int) {
 	}
 }
 
+func (b *beams) getSpriteID(index beamIndex) string {
+	beamSpriteID := beamSpriteIDs[index.firstHalf][index.d]
+	if b.asMap[index].Decay() == 1 {
+		beamSpriteID += "_decay_1"
+	}
+	if b.asMap[index].Decay() == 2 {
+		beamSpriteID += "_decay_2"
+	}
+	return beamSpriteID
+}
+
 var beamSpriteIDs = map[bool]map[direction]string{
 	true: {
 		dirUp:    "p_beam_up_1",

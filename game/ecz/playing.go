@@ -453,13 +453,7 @@ func (p *playing) Renderables(scale int) []game.Renderable {
 		if !bi.firstHalf {
 			pos = p.grid.realGridPosition(int2d.Add(pos, bi.d.Vector()))
 		}
-		beamSpriteID := beamSpriteIDs[bi.firstHalf][bi.d]
-		if p.beams.asMap[bi].Decay() == 1 {
-			beamSpriteID += "_decay_1"
-		}
-		if p.beams.asMap[bi].Decay() == 2 {
-			beamSpriteID += "_decay_2"
-		}
+		beamSpriteID := p.beams.getSpriteID(bi)
 		r = append(
 			r,
 			p.spriteMap.Produce(
