@@ -536,21 +536,6 @@ func (p *playing) resetBoard() {
 	p.board.Reset()
 }
 
-var beamSpriteIDs = map[bool]map[direction]string{
-	true: {
-		dirUp:    "p_beam_up_1",
-		dirRight: "p_beam_right_1",
-		dirDown:  "p_beam_down_1",
-		dirLeft:  "p_beam_left_1",
-	},
-	false: {
-		dirUp:    "p_beam_up_2",
-		dirRight: "p_beam_right_2",
-		dirDown:  "p_beam_down_2",
-		dirLeft:  "p_beam_left_2",
-	},
-}
-
 const fieldsOffsetX = 10
 const fieldsOffsetY = 10
 const fieldsWidth = 20
