@@ -340,9 +340,7 @@ func (p *playing) beamStep() {
 
 	// Create beams.
 	for i := range p.pulses {
-		bi := beamIndex{v: p.pulses[i].pos, d: p.pulses[i].dir, firstHalf: p.firstHalf}
-		p.beams.asMap[bi] = newBeam()
-		p.beams.asSlice = append(p.beams.asSlice, bi)
+		p.beams.add(beamIndex{v: p.pulses[i].pos, d: p.pulses[i].dir, firstHalf: p.firstHalf}, newBeam())
 	}
 
 	// The second part of beam creation is the interesting one. Fields may be hit

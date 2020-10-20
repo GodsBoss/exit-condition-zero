@@ -53,6 +53,11 @@ func (b *beams) clear() {
 	b.asSlice = make([]beamIndex, 0)
 }
 
+func (b *beams) add(index beamIndex, addedBeam *beam) {
+	b.asMap[index] = addedBeam
+	b.asSlice = append(b.asSlice, index)
+}
+
 func (b *beams) Tick(ms int) {
 	for bi := range b.asMap {
 		b.asMap[bi].Tick(ms)
