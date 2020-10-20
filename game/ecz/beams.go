@@ -39,3 +39,8 @@ type beams struct {
 	asMap   map[beamIndex]*beam
 	asSlice []beamIndex
 }
+
+func (b *beams) clear() {
+	b.asMap = make(map[beamIndex]*beam)
+	b.asSlice = make([]beamIndex, 0)
+}

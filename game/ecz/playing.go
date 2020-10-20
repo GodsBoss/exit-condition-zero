@@ -302,8 +302,7 @@ func (p *playing) startRunning() {
 func (p *playing) initRunningValues() {
 	p.firstHalf = true
 	p.msUntilNextBeamStep = msPerBeamStep
-	p.beams.asMap = make(map[beamIndex]*beam)
-	p.beams.asSlice = make([]beamIndex, 0)
+	p.beams.clear()
 	p.pulses = make([]*pulse, 0)
 	p.acceptedPulses = make(map[int2d.Vector]map[direction]struct{})
 }
