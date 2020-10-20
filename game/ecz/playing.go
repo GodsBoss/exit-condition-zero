@@ -25,7 +25,7 @@ type playing struct {
 
 	running             bool
 	msUntilNextBeamStep int
-	beams               map[beamIndex]*beam
+	beamsMap            map[beamIndex]*beam
 	beamList            []beamIndex
 	pulses              []*pulse
 	acceptedPulses      map[int2d.Vector]map[direction]struct{}
@@ -78,12 +78,12 @@ func (p *playing) Tick(ms int) *game.Transition {
 	p.cursorAnimation.tick(ms)
 	p.startStopButtonAnimation.tick(ms)
 	if p.running {
-		for bi := range p.beams {
-			p.beams[bi].animation += beamAnimationSpeed
-			if p.beams[bi].animation >= 4.0 {
-				p.beams[bi].animation -= 4.0
+		for bi := range p.beamsMap {
+			p.beamsMap[bi].animation += beamAnimationSpeed
+			if p.beamsMap[bi].animation >= 4.0 {
+				p.beamsMap[bi].animation -= 4.0
 			}
-			p.beams[bi].age += float64(ms) / 1000
+			p.beamsMap[bi].age += float64(ms) / 1000
 		}
 		p.msUntilNextBeamStep -= ms
 		if p.msUntilNextBeamStep <= 0 {
@@ -300,7 +300,7 @@ func (p *playing) startRunning() {
 func (p *playing) initRunningValues() {
 	p.firstHalf = true
 	p.msUntilNextBeamStep = msPerBeamStep
-	p.beams = make(map[beamIndex]*beam)
+	p.beamsMap = make(map[beamIndex]*beam)
 	p.beamList = make([]beamIndex, 0)
 	p.pulses = make([]*pulse, 0)
 	p.acceptedPulses = make(map[int2d.Vector]map[direction]struct{})
@@ -336,7 +336,7 @@ func (p *playing) beamStep() {
 		leftOverPulses := make([]*pulse, 0)
 		for i := range p.pulses {
 			pulse := p.pulses[i]
-			if _, ok := p.beams[beamIndex{v: pulse.pos, d: pulse.dir, firstHalf: true}]; !ok {
+			if _, ok := p.beamsMap[beamIndex{v: pulse.pos, d: pulse.dir, firstHalf: true}]; !ok {
 				leftOverPulses = append(leftOverPulses, pulse)
 			}
 		}
@@ -346,7 +346,7 @@ func (p *playing) beamStep() {
 	// Create beams.
 	for i := range p.pulses {
 		bi := beamIndex{v: p.pulses[i].pos, d: p.pulses[i].dir, firstHalf: p.firstHalf}
-		p.beams[bi] = newBeam()
+		p.beamsMap[bi] = newBeam()
 		p.beamList = append(p.beamList, bi)
 	}
 
@@ -461,10 +461,10 @@ func (p *playing) Renderables(scale int) []game.Renderable {
 			pos = p.grid.realGridPosition(int2d.Add(pos, bi.d.Vector()))
 		}
 		beamSpriteID := beamSpriteIDs[bi.firstHalf][bi.d]
-		if p.beams[bi].Decay() == 1 {
+		if p.beamsMap[bi].Decay() == 1 {
 			beamSpriteID += "_decay_1"
 		}
-		if p.beams[bi].Decay() == 2 {
+		if p.beamsMap[bi].Decay() == 2 {
 			beamSpriteID += "_decay_2"
 		}
 		r = append(
@@ -474,7 +474,7 @@ func (p *playing) Renderables(scale int) []game.Renderable {
 				pos.X()*fieldsWidth+fieldsOffsetX-1,
 				pos.Y()*fieldsHeight+fieldsOffsetY-1,
 				scale,
-				int(p.beams[bi].animation),
+				int(p.beamsMap[bi].animation),
 			),
 		)
 	}
