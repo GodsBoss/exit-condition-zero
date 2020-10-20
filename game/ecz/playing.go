@@ -81,11 +81,7 @@ func (p *playing) Tick(ms int) *game.Transition {
 	p.startStopButtonAnimation.tick(ms)
 	if p.running {
 		for bi := range p.beams.asMap {
-			p.beams.asMap[bi].animation += beamAnimationSpeed
-			if p.beams.asMap[bi].animation >= 4.0 {
-				p.beams.asMap[bi].animation -= 4.0
-			}
-			p.beams.asMap[bi].age += float64(ms) / 1000
+			p.beams.asMap[bi].Tick(ms)
 		}
 		p.msUntilNextBeamStep -= ms
 		if p.msUntilNextBeamStep <= 0 {

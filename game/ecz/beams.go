@@ -25,6 +25,14 @@ func newBeam() *beam {
 	}
 }
 
+func (b *beam) Tick(ms int) {
+	b.animation += beamAnimationSpeed
+	if b.animation >= 4.0 {
+		b.animation -= 4.0
+	}
+	b.age += float64(ms) / 1000
+}
+
 func (b *beam) Decay() int {
 	if b.age >= 0.4 {
 		return 2
