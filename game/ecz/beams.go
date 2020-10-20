@@ -34,3 +34,8 @@ func (b *beam) Decay() int {
 	}
 	return 0
 }
+
+type beams struct {
+	asMap   map[beamIndex]*beam
+	asSlice []beamIndex
+}
