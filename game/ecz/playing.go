@@ -538,11 +538,6 @@ const fieldsHeight = 20
 
 const msPerBeamStep = 50
 
-type pulse struct {
-	pos int2d.Vector
-	dir direction
-}
-
 func pointerPositionToGrid(v int2d.Vector) int2d.Vector {
 	x := v.X() - fieldsOffsetX
 	y := v.Y() - fieldsOffsetY
