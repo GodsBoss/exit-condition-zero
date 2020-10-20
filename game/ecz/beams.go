@@ -52,3 +52,9 @@ func (b *beams) clear() {
 	b.asMap = make(map[beamIndex]*beam)
 	b.asSlice = make([]beamIndex, 0)
 }
+
+func (b *beams) Tick(ms int) {
+	for bi := range b.asMap {
+		b.asMap[bi].Tick(ms)
+	}
+}

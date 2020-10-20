@@ -80,9 +80,7 @@ func (p *playing) Tick(ms int) *game.Transition {
 	p.cursorAnimation.tick(ms)
 	p.startStopButtonAnimation.tick(ms)
 	if p.running {
-		for bi := range p.beams.asMap {
-			p.beams.asMap[bi].Tick(ms)
-		}
+		p.beams.Tick(ms)
 		p.msUntilNextBeamStep -= ms
 		if p.msUntilNextBeamStep <= 0 {
 			p.msUntilNextBeamStep = msPerBeamStep
