@@ -39,8 +39,12 @@ serve: all
 clean:
 	rm -rf dist
 
+test:
+	go test ./pkg/...
+
 .PHONY: \
 	all \
 	clean \
 	dist/main.wasm \
-	serve
+	serve \
+	test
